@@ -1,3 +1,5 @@
+// There is an array with every element repeated twice except one. Find that element
+
 import java.util.Scanner;
 public class sixth {
     public static void main(String[] args) {

@@ -1,3 +1,5 @@
+//Write a program to find the number of occurrences of the duplicate words in a string and print them ?
+
 import java.util.Arrays;
 import java.util.Scanner;
 

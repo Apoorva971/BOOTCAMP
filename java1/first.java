@@ -1,3 +1,5 @@
+// Write a program to replace a substring inside a string with other string ?
+
 import java.util.Scanner;
 
 public class first {

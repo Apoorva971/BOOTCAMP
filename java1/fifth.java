@@ -1,3 +1,6 @@
+// Find common elements between two arrays.
+
+
 import java.util.Scanner;
 public class fifth {
     public static void main(String[] args) {

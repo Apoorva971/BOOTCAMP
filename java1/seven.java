@@ -1,3 +1,5 @@
+// Write a program to print your Firstname,LastName & age using static block,static method & static variable respectively
+
 import java.util.Scanner;
 
 public class seven {

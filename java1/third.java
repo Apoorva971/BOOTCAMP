@@ -1,3 +1,5 @@
+//Write a program to find the number of occurrences of a character in a string without using loop?
+
 import java.util.Scanner;
 
 public class third {

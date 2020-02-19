@@ -1,3 +1,5 @@
+//Calculate the number & Percentage Of Lowercase Letters,Uppercase Letters, Digits And Other Special Characters In A String
+
 import java.util.Scanner;
 
 public class fourth {
