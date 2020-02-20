@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8c54d59f-d0ac-4bb6-9227-227f4130a532" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2/Q11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2/Q11.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2/Q2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2/Q2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java2/Q6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java2/Q6.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +33,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Application.sixth">
+  <component name="RunManager" selected="Application.listexample">
     <configuration name="Driver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="java2.Driver" />
       <module name="untitled" />
@@ -44,15 +47,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="four" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="java2.four" />
+    <configuration name="listexample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="listexample" />
       <module name="untitled" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="java2.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -98,11 +95,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.listexample" />
         <item itemvalue="Application.sixth" />
         <item itemvalue="Application.one" />
         <item itemvalue="Application.Driver" />
         <item itemvalue="Application.singleton" />
-        <item itemvalue="Application.four" />
       </list>
     </recent_temporary>
   </component>
@@ -120,22 +117,22 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1233" height="162" key="GridCell.Tab.0.bottom" timestamp="1582109499369">
+    <state width="1253" height="175" key="GridCell.Tab.0.bottom" timestamp="1582177234089">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1233" height="162" key="GridCell.Tab.0.bottom/67.27.1299.741@67.27.1299.741" timestamp="1582109499369" />
-    <state width="1233" height="162" key="GridCell.Tab.0.center" timestamp="1582109499368">
+    <state width="1253" height="175" key="GridCell.Tab.0.bottom/67.27.1299.741@67.27.1299.741" timestamp="1582177234089" />
+    <state width="1253" height="175" key="GridCell.Tab.0.center" timestamp="1582177234087">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1233" height="162" key="GridCell.Tab.0.center/67.27.1299.741@67.27.1299.741" timestamp="1582109499368" />
-    <state width="1233" height="162" key="GridCell.Tab.0.left" timestamp="1582109499367">
+    <state width="1253" height="175" key="GridCell.Tab.0.center/67.27.1299.741@67.27.1299.741" timestamp="1582177234087" />
+    <state width="1253" height="175" key="GridCell.Tab.0.left" timestamp="1582177234084">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1233" height="162" key="GridCell.Tab.0.left/67.27.1299.741@67.27.1299.741" timestamp="1582109499367" />
-    <state width="1233" height="162" key="GridCell.Tab.0.right" timestamp="1582109499368">
+    <state width="1253" height="175" key="GridCell.Tab.0.left/67.27.1299.741@67.27.1299.741" timestamp="1582177234084" />
+    <state width="1253" height="175" key="GridCell.Tab.0.right" timestamp="1582177234088">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1233" height="162" key="GridCell.Tab.0.right/67.27.1299.741@67.27.1299.741" timestamp="1582109499368" />
+    <state width="1253" height="175" key="GridCell.Tab.0.right/67.27.1299.741@67.27.1299.741" timestamp="1582177234088" />
     <state x="372" y="225" key="com.intellij.ide.util.TipDialog" timestamp="1582107300232">
       <screen x="67" y="27" width="1299" height="741" />
     </state>

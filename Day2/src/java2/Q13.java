@@ -1,5 +1,5 @@
+/* custom exception that do not have any stack trace*/
 package java2;
-
 public class Q13 {
         public static void main(String[] args) {
             try {
