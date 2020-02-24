@@ -1,9 +1,10 @@
+//Design a Data Structure SpecialStack that supports all the stack operations
+// like push(), pop(), isEmpty(), isFull() and an additional operation
+// getMin() which should return minimum element from the SpecialStack.
 package main.java.com.learning.day4;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class Q8 {
     static int top=-1;
     static int size=5;

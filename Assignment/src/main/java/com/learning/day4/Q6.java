@@ -1,5 +1,7 @@
+//Write a program to sort the Student objects based on Score ,
+// if the score are same then sort on First Name .
+// Class Student{ String Name; Double Score; Double Age
 package main.java.com.learning.day4;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

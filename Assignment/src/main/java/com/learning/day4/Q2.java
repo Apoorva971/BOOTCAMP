@@ -1,3 +1,4 @@
+//Write a method that takes a string and returns the number of unique characters in the string.
 package main.java.com.learning.day4;
 import java.util.HashMap;
 import java.util.Map;

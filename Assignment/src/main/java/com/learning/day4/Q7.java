@@ -1,5 +1,6 @@
+//Print the elements of an array in the
+// decreasing frequency if 2 numbers have same frequency then print the one which came first.
 package main.java.com.learning.day4;
-
 import java.util.*;
 import java.util.Map.Entry;
 public class Q7 {

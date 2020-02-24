@@ -1,5 +1,6 @@
+//Write a program to sort Employee objects based on highest salary using Comparator.
+// Employee class{ Double Age; Double Salary; String Name
 package main.java.com.learning.day4;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

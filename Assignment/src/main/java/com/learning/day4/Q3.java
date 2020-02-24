@@ -1,3 +1,5 @@
+//Write a method that takes a string and
+//print the number of occurrence of each character characters in the string.
 package main.java.com.learning.day4;
 import java.util.HashMap;
 import java.util.Map;
