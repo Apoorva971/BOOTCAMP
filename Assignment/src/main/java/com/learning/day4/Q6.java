@@ -6,12 +6,12 @@ import java.util.Comparator;
 public class Q6 {
     public static void main(String[] args) {
         ArrayList<Employee> ar=new ArrayList<Employee>();
-        ar.add(new Employee("ankit",20.0, 70.0));
-        ar.add(new Employee("sagar",25.0, 61.0));
-        ar.add(new Employee("manna",9.0, 88.0));
+        ar.add(new Employee("apoorva",20.0, 70.0));
+        ar.add(new Employee("kittu",25.0, 61.0));
+        ar.add(new Employee("mansi",9.0, 88.0));
         ar.add(new Employee("amisha",23.0, 75.0));
         ar.add(new Employee("ishika",22.0, 64.0));
-        ar.add(new Employee("mohit",21.0, 75.0));
+        ar.add(new Employee("shubbhanshi",21.0, 75.0));
         ar.add(new Employee("neha", 23.0, 89.0));
         Collections.sort(ar, new CompareBySalary());
         for(int i=0;i<ar.size();i++){
