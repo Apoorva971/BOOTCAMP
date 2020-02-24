@@ -7,12 +7,12 @@ import java.util.Comparator;
 public class Q5 {
     public static void main(String[] args) {
         ArrayList<Employee> ar=new ArrayList<Employee>();
-        ar.add(new Employee("ankit",20.0,20000.0));
-        ar.add(new Employee("sagar",21.0,25000.0));
-        ar.add(new Employee("manna",18.0,15000.0));
-        ar.add(new Employee("mohit",25.0,12000.0));
+        ar.add(new Employee("apoorva",20.0,20000.0));
+        ar.add(new Employee("kittu",21.0,25000.0));
+        ar.add(new Employee("ayushi",18.0,15000.0));
+        ar.add(new Employee("manik",25.0,12000.0));
         ar.add(new Employee("ishika",24.0,30000.0));
-        ar.add(new Employee("amisha",19.0,40000.0));
+        ar.add(new Employee("shubhanshi",19.0,40000.0));
         Collections.sort(ar, new CompareBySalary());
         for(int i=0;i<ar.size();i++){
             System.out.println(ar.get(i));
