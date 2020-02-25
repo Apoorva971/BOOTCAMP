@@ -3,6 +3,7 @@
 package main.java.com.learning.day5;
 
 class Employee {
+
     String name;
     Integer age;
     String city;

@@ -4,8 +4,10 @@
     <list default="true" id="427c43a3-9334-41fd-b957-176d36bcc2f2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q1_ImplementLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q1_ImplementLambda.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q3_UseStatic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q3_UseStatic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q2_GetintReturnint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q2_GetintReturnint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q4_Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q4_Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q5_UseDiffFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q5_UseDiffFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q7_Override.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q7_Override.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +36,9 @@
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Application.Q4_Employee">
-    <configuration name="Q12_FirstEven" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.java.com.learning.day5.Q12_FirstEven" />
+  <component name="RunManager" selected="Application.Q1_ImplementLambda">
+    <configuration name="Q1_ImplementLambda" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.com.learning.day5.Q1_ImplementLambda" />
       <module name="Assignment" />
       <extension name="coverage">
         <pattern>
@@ -74,8 +76,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Q6_DefaultStatic" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.java.com.learning.day5.Q6_DefaultStatic" />
+    <configuration name="Q7_Override" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.com.learning.day5.Q7_Override" />
       <module name="Assignment" />
       <extension name="coverage">
         <pattern>
@@ -102,11 +104,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Q1_ImplementLambda" />
+        <item itemvalue="Application.Q7_Override" />
         <item itemvalue="Application.Q4_Employee" />
-        <item itemvalue="Application.Q8_MutipleInheritance" />
         <item itemvalue="Application.Q5_UseDiffFunction" />
-        <item itemvalue="Application.Q6_DefaultStatic" />
-        <item itemvalue="Application.Q12_FirstEven" />
+        <item itemvalue="Application.Q8_MutipleInheritance" />
       </list>
     </recent_temporary>
   </component>
@@ -128,22 +130,22 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="557" y="288" width="308" height="216" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/67.27.1299.741@67.27.1299.741" timestamp="1582626312016" />
-    <state width="1253" height="173" key="GridCell.Tab.0.bottom" timestamp="1582634966615">
+    <state width="1253" height="173" key="GridCell.Tab.0.bottom" timestamp="1582635598239">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="173" key="GridCell.Tab.0.bottom/67.27.1299.741@67.27.1299.741" timestamp="1582634966615" />
-    <state width="1253" height="173" key="GridCell.Tab.0.center" timestamp="1582634966612">
+    <state width="1253" height="173" key="GridCell.Tab.0.bottom/67.27.1299.741@67.27.1299.741" timestamp="1582635598239" />
+    <state width="1253" height="173" key="GridCell.Tab.0.center" timestamp="1582635598236">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="173" key="GridCell.Tab.0.center/67.27.1299.741@67.27.1299.741" timestamp="1582634966612" />
-    <state width="1253" height="173" key="GridCell.Tab.0.left" timestamp="1582634966610">
+    <state width="1253" height="173" key="GridCell.Tab.0.center/67.27.1299.741@67.27.1299.741" timestamp="1582635598236" />
+    <state width="1253" height="173" key="GridCell.Tab.0.left" timestamp="1582635598234">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="173" key="GridCell.Tab.0.left/67.27.1299.741@67.27.1299.741" timestamp="1582634966610" />
-    <state width="1253" height="173" key="GridCell.Tab.0.right" timestamp="1582634966613">
+    <state width="1253" height="173" key="GridCell.Tab.0.left/67.27.1299.741@67.27.1299.741" timestamp="1582635598234" />
+    <state width="1253" height="173" key="GridCell.Tab.0.right" timestamp="1582635598238">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="173" key="GridCell.Tab.0.right/67.27.1299.741@67.27.1299.741" timestamp="1582634966613" />
+    <state width="1253" height="173" key="GridCell.Tab.0.right/67.27.1299.741@67.27.1299.741" timestamp="1582635598238" />
     <state x="373" y="27" width="518" height="656" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1582561927035">
       <screen x="67" y="27" width="1299" height="741" />
     </state>

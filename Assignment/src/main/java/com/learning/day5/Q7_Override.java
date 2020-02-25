@@ -13,6 +13,7 @@ public class Q7_Override implements OverridenInterface {
 
     }
 }
+
 interface OverridenInterface {
     default void ToBeOverridden() {
         System.out.println("Function to be Overridden");

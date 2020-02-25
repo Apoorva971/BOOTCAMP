@@ -10,51 +10,55 @@
        Parameter (String) Return (String)
 */
 package main.java.com.learning.day5;
+
 public class Q1_ImplementLambda {
     public static void main(String[] args) {
-        GreaterNumber greaterNumber=(a,b)->
+        GreaterNumber greaterNumber = (a, b) ->
         {
-            if(a>b){
+            if (a > b) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         };
-        System.out.println(greaterNumber.checkgreater(5,6));
-        IncreasedValue increasedValue=(a)->
+        System.out.println(greaterNumber.checkgreater(5, 6));
+        IncreasedValue increasedValue = (a) ->
         {
-           a=a+1;
-           return(a);
+            a = a + 1;
+            return (a);
         };
         System.out.println(increasedValue.increase(5));
-        ConcatenateString concatenateString=(str1,str2)->
+        ConcatenateString concatenateString = (str1, str2) ->
         {
-            String str= str1+str2;
-            return(str);
+            String str = str1 + str2;
+            return (str);
         };
-        System.out.println(concatenateString.concatenate("apoorva","garg"));
-       StringToUppercase stringToUppercase=(str)->{
-        return(str.toUpperCase());
-       };
+        System.out.println(concatenateString.concatenate("apoorva", "garg"));
+        StringToUppercase stringToUppercase = (str) -> {
+            return (str.toUpperCase());
+        };
         System.out.println(stringToUppercase.uppercase("apoorva"));
     }
 
 }
+
 @FunctionalInterface
-interface GreaterNumber{
-    boolean checkgreater(int a,int b);
+interface GreaterNumber {
+    boolean checkgreater(int a, int b);
 }
+
 @FunctionalInterface
-interface IncreasedValue{
+interface IncreasedValue {
     int increase(int a);
 
 }
+
 @FunctionalInterface
-interface ConcatenateString{
-    String concatenate(String str1,String str2);
+interface ConcatenateString {
+    String concatenate(String str1, String str2);
 }
+
 @FunctionalInterface
-interface StringToUppercase{
+interface StringToUppercase {
     String uppercase(String str);
 }
