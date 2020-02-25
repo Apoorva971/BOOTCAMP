@@ -3,4 +3,5 @@
 // apply multiplication method for the functional interface created.
 package main.java.com.learning.day5;
 public class Q3_UseStatic {
+
 }
