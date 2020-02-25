@@ -48,6 +48,7 @@ interface GreaterNumber{
 @FunctionalInterface
 interface IncreasedValue{
     int increase(int a);
+
 }
 @FunctionalInterface
 interface ConcatenateString{
