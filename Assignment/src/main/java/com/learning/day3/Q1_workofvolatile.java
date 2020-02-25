@@ -1,15 +1,15 @@
 package main.java.com.learning.day3;
 
 public class Q1_workofvolatile {
-    private volatile int count=0;
+    private volatile int count = 0;
+
     public static void main(String[] args) {
         Q1_workofvolatile q1_workofvolatile = new Q1_workofvolatile();
         q1_workofvolatile.threadworking();
 
     }
-    public void threadworking()
 
-    {
+    public void threadworking() {
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -26,8 +26,8 @@ public class Q1_workofvolatile {
                 }
             }
         });
-    t1.start();
-    t2.start();
+        t1.start();
+        t2.start();
         try {
             t1.join();
             t2.join();

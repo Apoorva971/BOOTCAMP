@@ -1,6 +1,7 @@
 package main.java.com.learning.day3;
 
 import java.util.Scanner;
+
 public class Q5_waitnotify {
     public void funone() throws InterruptedException {
         synchronized (this) {
@@ -9,6 +10,7 @@ public class Q5_waitnotify {
             System.out.println("after notification");
         }
     }
+
     public void funtwo() throws InterruptedException {
         Scanner sc = new Scanner(System.in);
         Thread.sleep(1000);
@@ -20,6 +22,7 @@ public class Q5_waitnotify {
             Thread.sleep(2000);
         }
     }
+
     public static void main(String[] args) throws InterruptedException {
         Q5_waitnotify q5_waitnotify = new Q5_waitnotify();
         Thread t1 = new Thread(new Runnable() {

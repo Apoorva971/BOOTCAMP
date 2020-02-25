@@ -1,8 +1,8 @@
 package main.java.com.learning.day3;
-class synblockmmethod{
+
+class synblockmmethod {
     ////Synchronized Method
-    synchronized public void getLine()
-    {
+    synchronized public void getLine() {
         for (int i = 0; i < 3; i++) {
             System.out.println(i);
             try {
@@ -30,28 +30,25 @@ class synblockmmethod{
     }*/
 }
 
-class Th extends Thread
-{
+class Th extends Thread {
 
     synblockmmethod line;
 
-    Th(synblockmmethod line)
-    {
+    Th(synblockmmethod line) {
         this.line = line;
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         line.getLine();
     }
 }
-public class Q3_synblock
-{
+
+public class Q3_synblock {
     public static void main(String[] args) {
         synblockmmethod obj = new synblockmmethod();
-        Th th1=new Th(obj);
-        Th th2=new Th(obj);
+        Th th1 = new Th(obj);
+        Th th2 = new Th(obj);
         th1.start();
         th2.start();
     }

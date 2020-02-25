@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="427c43a3-9334-41fd-b957-176d36bcc2f2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q10_Deadlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q1_workofvolatile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q1_workofvolatile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q2_createthread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q2_createthread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q3_synblock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q3_synblock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q4_threadpool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q4_threadpool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q5_waitnotify.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q5_waitnotify.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q6_sleepjoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q6_sleepjoin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q7_FutureResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q7_FutureResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q8_semaphr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q8_semaphr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q9_countdownlatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day3/Q9_countdownlatch.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

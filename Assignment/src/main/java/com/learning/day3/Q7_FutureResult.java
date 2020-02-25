@@ -23,39 +23,39 @@ public class Q7_FutureResult {
         System.out.println("factorial of 10 is : " + factorialof10);
 
         System.out.println("Calling get method of Future to get result of factorial 15");
-        long factorialof15 = (long)result15.get();
+        long factorialof15 = (long) result15.get();
         System.out.println("factorial of 15 is : " + factorialof15);
 
         System.out.println("Calling get method of Future to get result of factorial 20");
-        long factorialof20 = (long)result20.get();
+        long factorialof20 = (long) result20.get();
         System.out.println("factorial of 20 is : " + factorialof20);
 
     }
 
 }
 
-    class FactorialCalculator implements Callable<Long> {
-        private int number;
+class FactorialCalculator implements Callable<Long> {
+    private int number;
 
-        public FactorialCalculator(int number){
-            this.number = number;
-        }
-
-        @Override
-        public Long call() throws InterruptedException {
-            return factorial(number);
-        }
-
-        private long factorial(int n) throws InterruptedException {
-            long result = 1;
-            while (n != 0) {
-                result = n * result;
-                n = n - 1;
-                Thread.sleep(100);
-            }
-
-            return result;
-        }
-
+    public FactorialCalculator(int number) {
+        this.number = number;
     }
+
+    @Override
+    public Long call() throws InterruptedException {
+        return factorial(number);
+    }
+
+    private long factorial(int n) throws InterruptedException {
+        long result = 1;
+        while (n != 0) {
+            result = n * result;
+            n = n - 1;
+            Thread.sleep(100);
+        }
+
+        return result;
+    }
+
+}
 

@@ -1,5 +1,7 @@
 package main.java.com.learning.day3;
+
 import java.util.concurrent.Semaphore;
+
 public class Q8_semaphr {
     static Semaphore semaphore = new Semaphore(4);
 

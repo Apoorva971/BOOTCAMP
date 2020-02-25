@@ -1,9 +1,9 @@
 package main.java.com.learning.day3;
+
 //creating thread using thread class
-class firsttype extends Thread{
-    public void run()
-    {
-        for(int i=0;i<10;i++){
+class firsttype extends Thread {
+    public void run() {
+        for (int i = 0; i < 10; i++) {
             System.out.println("TTN");
         }
         try {
@@ -13,20 +13,22 @@ class firsttype extends Thread{
         }
     }
 }
+
 //creating thread using runable interface
-class secondtype implements Runnable
-{ @Override
+class secondtype implements Runnable {
+    @Override
     public void run() {
-    for(int i=0;i<10;i++){
-        System.out.println("apoorva");
-    }
-    try {
-        Thread.sleep(200);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
+        for (int i = 0; i < 10; i++) {
+            System.out.println("apoorva");
+        }
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
+
 public class Q2_createthread {
     public static void main(String[] args) {
         firsttype f1 = new firsttype();

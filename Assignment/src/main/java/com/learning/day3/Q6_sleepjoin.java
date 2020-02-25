@@ -2,10 +2,9 @@ package main.java.com.learning.day3;
 
 import javax.swing.*;
 
-class first extends Thread{
-    public void run()
-    {
-        for(int i=0;i<10;i++){
+class first extends Thread {
+    public void run() {
+        for (int i = 0; i < 10; i++) {
             System.out.println("TTN");
         }
         try {
@@ -16,10 +15,10 @@ class first extends Thread{
     }
 
 }
-class second extends Thread{
-    public void run()
-    {
-        for(int i=0;i<10;i++){
+
+class second extends Thread {
+    public void run() {
+        for (int i = 0; i < 10; i++) {
             System.out.println("work");
         }
         try {
@@ -29,6 +28,7 @@ class second extends Thread{
         }
     }
 }
+
 public class Q6_sleepjoin {
     public static void main(String[] args) throws InterruptedException {
 
