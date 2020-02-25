@@ -1,19 +1,21 @@
 //Print the elements of an array in the
 // decreasing frequency if 2 numbers have same frequency then print the one which came first.
 package main.java.com.learning.day4;
+
 import java.util.*;
 import java.util.Map.Entry;
+
 public class Q7 {
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.println("enter size:");
-        int n=sc.nextInt();
-        int arr[]=new int[n];
-        for(int i=0;i<n;i++){
-            arr[i]=sc.nextInt();
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
         }
-        TreeMap<Integer, Integer> tm=new TreeMap<Integer, Integer>();
-        for(int a: arr) {
+        TreeMap<Integer, Integer> tm = new TreeMap<Integer, Integer>();
+        for (int a : arr) {
             if (tm.containsKey(a)) {
                 tm.put(a, tm.get(a) + 1);
             } else
@@ -27,14 +29,14 @@ public class Q7 {
         sortMapByValue(tm);
     }
 
-    static void sortMapByValue(TreeMap<Integer, Integer >m){
-        List<Entry<Integer, Integer >> ll=new LinkedList<Entry<Integer, Integer >>(m.entrySet());
-        Collections.sort(ll, new Comparator<Entry<Integer, Integer >>() {
+    static void sortMapByValue(TreeMap<Integer, Integer> m) {
+        List<Entry<Integer, Integer>> ll = new LinkedList<Entry<Integer, Integer>>(m.entrySet());
+        Collections.sort(ll, new Comparator<Entry<Integer, Integer>>() {
             @Override
-            public int compare(Entry<Integer, Integer > o1, Entry<Integer, Integer > o2) {
-                if(o1.getValue()>o2.getValue())
+            public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {
+                if (o1.getValue() > o2.getValue())
                     return -1;
-                else if(o1.getValue()<o2.getValue())
+                else if (o1.getValue() < o2.getValue())
                     return 1;
                 else
                     return 0;

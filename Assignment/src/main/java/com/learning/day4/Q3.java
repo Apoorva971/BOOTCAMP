@@ -1,20 +1,20 @@
 //Write a method that takes a string and
 //print the number of occurrence of each character characters in the string.
 package main.java.com.learning.day4;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
 public class Q3 {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("enter the string");
         String s = sc.nextLine();
         char c[] = s.toCharArray();
-        Map<Character,Integer> map = new HashMap<>();
-        for (int i=0;i<c.length;i++)
-        {
-            if(Character.isWhitespace(c[i])==false) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < c.length; i++) {
+            if (Character.isWhitespace(c[i]) == false) {
                 if (map.containsKey(c[i])) {
                     map.put(c[i], map.get(c[i]) + 1);
                 } else {
@@ -22,9 +22,8 @@ public class Q3 {
                 }
             }
         }
-        for(Map.Entry m:map.entrySet())
-        {
-            System.out.println(m.getKey()+" : "+m.getValue());
+        for (Map.Entry m : map.entrySet()) {
+            System.out.println(m.getKey() + " : " + m.getValue());
         }
     }
 }
