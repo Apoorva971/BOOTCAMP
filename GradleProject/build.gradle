@@ -1,0 +1,31 @@
+buildscript{
+    dependencies {
+        classpath files("show-date/build/libs/show-date-1.0-SNAPSHOT.jar")
+    }
+}
+plugins {
+    id 'java'
+}
+apply plugin: 'show-date-plugin'
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+jar {
+    manifest {
+        attributes(
+                'Main-class': 'info.garagesalesapp.domain.SaleEvent'
+        )
+    }
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.google.code.gson:gson:2.8.0'
+}
+wrapper{
+    version= '6.4.1'
+}

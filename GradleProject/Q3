@@ -1,0 +1,10 @@
+
+Compile − The dependencies required to compile the production source of the project.
+
+Runtime − The dependencies required by the production classes at runtime.
+By default, also includes the compile time dependencies.
+
+Test Compile − The dependencies required to compile the test source of the project.
+By default, it includes compiled production classes and the compile time dependencies.
+
+Test Runtime − The dependencies required to run the tests. By default, it includes runtime and test compile dependencies.
