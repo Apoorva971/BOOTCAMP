@@ -14,7 +14,7 @@ public class Q7 {
         for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
-        TreeMap<Integer, Integer> tm = new TreeMap<Integer, Integer>();
+        LinkedHashMap<Integer, Integer> tm = new LinkedHashMap<Integer, Integer>();
         for (int a : arr) {
             if (tm.containsKey(a)) {
                 tm.put(a, tm.get(a) + 1);
@@ -29,7 +29,7 @@ public class Q7 {
         sortMapByValue(tm);
     }
 
-    static void sortMapByValue(TreeMap<Integer, Integer> m) {
+    static void sortMapByValue(LinkedHashMap<Integer, Integer> m) {
         List<Entry<Integer, Integer>> ll = new LinkedList<Entry<Integer, Integer>>(m.entrySet());
         Collections.sort(ll, new Comparator<Entry<Integer, Integer>>() {
             @Override

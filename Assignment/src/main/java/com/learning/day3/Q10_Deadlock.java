@@ -25,7 +25,7 @@ public class Q10_Deadlock {
     Thread t2 = new Thread() {
         public void run() {
             while (true) {
-                synchronized (lock1) {
+                synchronized (lock) {
 
                     System.out.println("acquired lock1");
 
@@ -35,7 +35,7 @@ public class Q10_Deadlock {
                         e.printStackTrace();
                     }
                     System.out.println("waiting for lock");
-                    synchronized (lock) {
+                    synchronized (lock1) {
                         System.out.println("hey");
                     }
                 }
