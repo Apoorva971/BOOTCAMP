@@ -1,6 +1,7 @@
-//Using (instance) Method reference create and apply add and subtract method
-// and using (Static) Method reference create and
-// apply multiplication method for the functional interface created.
+/* * Using (instance) Method reference create and apply add and subtract method
+ * and using (Static) Method reference create and
+ * apply multiplication method for the functional interface created.
+ */
 package main.java.com.learning.day5;
 
 @FunctionalInterface
@@ -27,9 +28,9 @@ class UseStatic {
 
 public class Q3_UseStatic {
     public static void main(String[] args) {
-        GenericInterface genericInterface = UseStatic::sum;
-        GenericInterface genericInterface1 = UseStatic::sub;
-        GenericInterface genericInterface2 = new UseStatic()::mult;
+        GenericInterface genericInterface = UseStatic::sum;//method reference
+        GenericInterface genericInterface1 = UseStatic::sub;//method reference
+        GenericInterface genericInterface2 = new UseStatic()::mult;//method reference
         genericInterface.manupulation(10, 20);
         genericInterface1.manupulation(10, 40);
         genericInterface2.manupulation(5, 4);

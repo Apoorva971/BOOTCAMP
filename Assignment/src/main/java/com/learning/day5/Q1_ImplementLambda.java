@@ -42,22 +42,28 @@ public class Q1_ImplementLambda {
 
 }
 
+//find whether a is greater or b
 @FunctionalInterface
 interface GreaterNumber {
     boolean checkgreater(int a, int b);
 }
 
+//will returned the updated value of a
 @FunctionalInterface
 interface IncreasedValue {
     int increase(int a);
 
 }
 
+//will concatenate both strings
 @FunctionalInterface
 interface ConcatenateString {
     String concatenate(String str1, String str2);
+    //str1 is first string
+    //str2 is second string
 }
 
+//will convert string to uppercase
 @FunctionalInterface
 interface StringToUppercase {
     String uppercase(String str);
