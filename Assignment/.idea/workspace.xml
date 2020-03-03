@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="427c43a3-9334-41fd-b957-176d36bcc2f2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q1_ImplementLambda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q1_ImplementLambda.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q3_UseStatic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q3_UseStatic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q11_Average.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q11_Average.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q4_Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q4_Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q5_UseDiffFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q5_UseDiffFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q6_DefaultStatic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q6_DefaultStatic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q7_Override.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q7_Override.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q9_CollectEven.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/day5/Q9_CollectEven.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

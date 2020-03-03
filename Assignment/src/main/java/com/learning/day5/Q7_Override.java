@@ -9,7 +9,7 @@ public class Q7_Override implements OverridenInterface {
 
     public static void main(String[] args) {
         Q7_Override q7_override = new Q7_Override();
-        q7_override.ToBeOverridden();
+        q7_override.ToBeOverridden();//Overriding the default method
 
     }
 }

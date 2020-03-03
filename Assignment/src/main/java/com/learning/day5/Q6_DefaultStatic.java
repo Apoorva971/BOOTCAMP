@@ -7,7 +7,7 @@ public class Q6_DefaultStatic implements StaticInterface {
         Q6_DefaultStatic q6_defaultStatic = new Q6_DefaultStatic();
         //accessing default function of interface
         q6_defaultStatic.show1();
-        //accessing satais funtion of interface
+        //accessing static funtion of interface
         StaticInterface.show();
     }
 }

@@ -1,8 +1,9 @@
-//Implement following functional interfaces from java.util.function using lambdas:
-//      (1) Consumer
-//    (2) Supplier
-//  (3) Predicate
-//(4) Function
+/*Implement following functional interfaces from java.util.function using lambdas:
+ *(1) Consumer
+ *(2) Supplier
+ *(3) Predicate
+ *(4) Function
+ */
 package main.java.com.learning.day5;
 
 import java.util.Objects;
@@ -22,7 +23,7 @@ public class Q5_UseDiffFunction {
         };
 
         consumer.accept("apoorva");
-//SUPPLIER
+        //SUPPLIER
         Supplier supplier = () ->
         {
             return "anything";
