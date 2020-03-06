@@ -1,3 +1,5 @@
+////////////////////////////////////QUESTION-1/////////////////////////////////////////////////
+//Create a simple REST ful service in Spring Boot which returns the Response "Welcome to spring boot".
 /*
 //localhost:8080/Welcome-spring-Boot
 OUTPUT
@@ -12,13 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Q1_SimpleRestController {
     //By Getmapping we have maped the function with the browser
-    @GetMapping(path = "/Welcome-spring-Boot")
+    @GetMapping("")
     public String WelcomeSpring() {
         return ("Welcome to spring boot");
-    }
-    //Mapping via bean
-    @GetMapping(path="/Welcome-Spring-bean")
-    public Q1_SimpleRest q1_simpleRest(){
-        return new Q1_SimpleRest("Welcome to spring boot");
     }
 }
