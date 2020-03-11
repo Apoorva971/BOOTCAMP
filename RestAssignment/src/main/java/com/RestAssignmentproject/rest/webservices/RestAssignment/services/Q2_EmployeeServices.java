@@ -1,5 +1,6 @@
-package com.RestAssignmentproject.rest.webservices.RestAssignment;
+package com.RestAssignmentproject.rest.webservices.RestAssignment.services;
 
+import com.RestAssignmentproject.rest.webservices.RestAssignment.Q2_Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
