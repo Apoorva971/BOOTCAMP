@@ -5,7 +5,7 @@
 OUTPUT
 Welcome to spring boot
  */
-package com.RestAssignmentproject.rest.webservices.RestAssignment;
+package com.RestAssignmentproject.rest.webservices.RestAssignment.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
