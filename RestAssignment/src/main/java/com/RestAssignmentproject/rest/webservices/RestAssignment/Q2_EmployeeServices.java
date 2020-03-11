@@ -3,7 +3,6 @@ package com.RestAssignmentproject.rest.webservices.RestAssignment;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,11 +16,20 @@ public class Q2_EmployeeServices {
         employees.add(new Q2_Employee(2, "kittu", 25));
         employees.add(new Q2_Employee(3, "yash", 22));
     }
-/////////////////This method is used to show all the Employee Details///////////////////
+
+    /***
+     * This method is used to show all the Employee Details
+     * @return An object of class Employee
+     */
     public List<Q2_Employee> FindAll() {
         return employees;
     }
 
+    /***
+     * This function is used to check whether id is null if not then increase it by 1
+     * @param employee employee is an
+     * @return An ojject of class Employee
+     */
     public Q2_Employee save(Q2_Employee employee) {
         if (employee.getId() == null) {
             employee.setId(++count);
@@ -29,11 +37,16 @@ public class Q2_EmployeeServices {
         employees.add(employee);
         return employee;
     }
-/////////////////This method is used to show a particular Employee Details whose id we have passed///////////
     /*
     For Example
     localhost:8080/Employee/1
     it will give the deails of first employee
+     */
+
+    /***
+     *
+     * @param id id which is used to find employee
+     * @return an object of Employee class
      */
     public Q2_Employee findone(Integer id) {
         for (Q2_Employee employee : employees) {
@@ -43,11 +56,17 @@ public class Q2_EmployeeServices {
         }
         return null;
     }
-    /////////////////This method is used to delete a particular Employee Details whose id we have passed///////////
+    ////////////////////////////
     /*
     For Example
     localhost:8080/Employee/1
     it will give the delete the details of first employee from the list
+     */
+
+    /***
+     * This method is used to delete a particular Employee Details whose id we have passed
+     * @param id id of the employee we want to delete
+     * @return if id is present then detele that else return null
      */
 
     public Q2_Employee deleteById(int id) {
@@ -61,18 +80,25 @@ public class Q2_EmployeeServices {
         }
         return null;
     }
-    /////////////////This method is used to update a particular Employee Details whose id we have passed///////////
     /*
     For Example
     localhost:8080/Employee/1
     it will give the update the details of first employee from the list
      */
-    public void putEmp(Integer id,Q2_Employee employee){
+
+    /***
+     * This method is used to update a particular Employee Details whose id we have passed
+     * @param id id which we want to add
+     * @param employee details of a new employee will be added
+     * @return
+     */
+    public void putEmp(Integer id, Q2_Employee employee){
         Iterator<Q2_Employee> iterator=employees.iterator();
         while(iterator.hasNext()){
-            if(iterator.next().getId()==id){
-                iterator.next().setName(employee.getName());
-                iterator.next().setAge(employee.getAge());
+            Q2_Employee employee1=iterator.next();
+            if(employee1.getId()==id){
+                employee1.setName(employee.getName());
+                employee1.setAge(employee.getAge());
             }
         }
     }

@@ -15,7 +15,7 @@ public class Q2_EmployeeController {
     public Q2_EmployeeServices services;
 
 
-     //////////////////////////UESTION-3//////////////////////////////
+     //////////////////////////QUESTION-3//////////////////////////////
     // Implement GET http request for Employee to get list of employees.
     @GetMapping("/Employees")
     public List<Q2_Employee> retrieveAlluser() {
@@ -36,7 +36,7 @@ public class Q2_EmployeeController {
         Q2_Employee savedEmployee = services.save(employee);
     }
 
-     //////////////////////////QUSETION-6/////////////////////////////////////
+     //////////////////////////QUESTION-6/////////////////////////////////////
     //Implement 404 NOT_FOUND Exception
     @GetMapping("/Employee/{id}")
     public Q2_Employee retrieveuserwithException(@PathVariable int id) {
