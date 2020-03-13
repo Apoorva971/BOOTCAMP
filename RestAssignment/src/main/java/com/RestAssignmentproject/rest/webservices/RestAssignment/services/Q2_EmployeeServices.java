@@ -22,14 +22,35 @@ public class Q2_EmployeeServices {
      * This method is used to show all the Employee Details
      * @return An object of class Employee
      */
+
     public List<Q2_Employee> FindAll() {
         return employees;
     }
+     /*
+    OUTPUT
+    [
+    {
+        "id": 1,
+        "name": "apoorva",
+        "age": 20
+    },
+    {
+        "id": 2,
+        "name": "kittu",
+        "age": 25
+    },
+    {
+        "id": 3,
+        "name": "yash",
+        "age": 22
+    }
+]
+     */
 
     /***
      * This function is used to check whether id is null if not then increase it by 1
      * @param employee employee is an
-     * @return An ojject of class Employee
+     * @return An object of class Employee
      */
     public Q2_Employee save(Q2_Employee employee) {
         if (employee.getId() == null) {
@@ -39,9 +60,14 @@ public class Q2_EmployeeServices {
         return employee;
     }
     /*
+    OUTPUT
     For Example
     localhost:8080/Employee/1
-    it will give the deails of first employee
+{
+    "id": 1,
+    "name": "apoorva",
+    "age": 20
+}
      */
 
     /***
@@ -57,11 +83,15 @@ public class Q2_EmployeeServices {
         }
         return null;
     }
-    ////////////////////////////
     /*
+    OUTPUT
     For Example
     localhost:8080/Employee/1
-    it will give the delete the details of first employee from the list
+    {
+    "id": 1,
+    "name": "apoorva",
+    "age": 20
+}
      */
 
     /***
@@ -84,7 +114,7 @@ public class Q2_EmployeeServices {
     /*
     For Example
     localhost:8080/Employee/1
-    it will give the update the details of first employee from the list
+    it will give the delete the details of first employee from the list
      */
 
     /***
@@ -101,6 +131,9 @@ public class Q2_EmployeeServices {
                 employee1.setName(employee.getName());
                 employee1.setAge(employee.getAge());
             }
+            /*
+            This method will update the details of employee
+             */
         }
     }
 }

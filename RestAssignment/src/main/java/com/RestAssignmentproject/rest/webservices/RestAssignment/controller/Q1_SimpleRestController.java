@@ -19,3 +19,8 @@ public class Q1_SimpleRestController {
         return ("Welcome to spring boot");
     }
 }
+/*
+OUTPUT
+localhost:8080
+Welcome to spring boot
+ */
