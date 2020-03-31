@@ -25,6 +25,26 @@ public class Q2_EmployeeController {
         return services.FindAll();
 
     }
+    /*
+    ///////////////////////OUTPUT/////////////////////////
+    [
+    {
+        "id": 1,
+        "name": "apoorva",
+        "age": 20
+    },
+    {
+        "id": 2,
+        "name": "kittu",
+        "age": 25
+    },
+    {
+        "id": 3,
+        "name": "yash",
+        "age": 22
+    }
+]
+     */
      //////////////////////////QUSETION-4///////////////////////////////////
     //  Implement GET http request using path variable top get one employee
     @GetMapping("/Employees/{id}")
@@ -38,6 +58,15 @@ public class Q2_EmployeeController {
     public void createmployee(@RequestBody Q2_Employee employee) {
         Q2_Employee savedEmployee = services.save(employee);
     }
+    /*
+ //////////////////////////////////////////OUTPUT///////////////////////////
+ localhost:8080/Employees/1
+    {
+    "id": 1,
+    "name": "apoorva",
+    "age": 20
+}
+     */
 
      //////////////////////////QUESTION-6/////////////////////////////////////
     //Implement 404 NOT_FOUND Exception
@@ -50,6 +79,17 @@ public class Q2_EmployeeController {
         }
         return employee;
     }
+    /*
+    //////////////////////////OUTPUT//////////////////////////
+  localhost:8080/Employee/4
+    {
+    "timestamp": "2020-03-31T10:25:31.499+0000",
+    "status": 404,
+    "error": "Not Found",
+    "message": "id4",
+    "path": "/Employee/4"
+}
+     */
 
     ///////////////////////////QUSETION-7/////////////////////////////////////
     //Implement DELETE http request for Employee to delete employee
@@ -57,7 +97,21 @@ public class Q2_EmployeeController {
     public void deletemployee(@PathVariable int id) {
         Q2_Employee employee = services.deleteById(id);
     }
-
+/*
+/////////////////////////OUTPUT/////////////////////
+[
+    {
+        "id": 2,
+        "name": "kittu",
+        "age": 25
+    },
+    {                                //when employee 1 is deleted
+        "id": 3,
+        "name": "yash",
+        "age": 22
+    }
+]
+ */
 
     //////////////////////////QUESTION-8//////////////////////////////////
     // Implement PUT http request for Employee to update employee
