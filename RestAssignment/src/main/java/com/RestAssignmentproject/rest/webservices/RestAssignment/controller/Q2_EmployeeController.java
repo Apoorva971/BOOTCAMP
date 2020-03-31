@@ -25,12 +25,42 @@ public class Q2_EmployeeController {
         return services.FindAll();
 
     }
+    /*
+    //////////////////////////OUTPUT/////////////////
+    localhost:8080/Employees
+    [
+    {
+        "id": 1,
+        "name": "apoorva",
+        "age": 20
+    },
+    {
+        "id": 2,
+        "name": "kittu",
+        "age": 25
+    },
+    {
+        "id": 3,
+        "name": "yash",
+        "age": 22
+    }
+]
+     */
      //////////////////////////QUSETION-4///////////////////////////////////
     //  Implement GET http request using path variable top get one employee
     @GetMapping("/Employees/{id}")
     public Q2_Employee retrieveuser(@PathVariable int id) {
         return services.findone(id);
     }
+        /*
+    //////////////////////////OUTPUT/////////////////
+    localhost:8080/Employees/1
+   {
+    "id": 1,
+    "name": "apoorva",
+    "age": 20
+}   */
+    ///
 
     /////////////////////////QUESTION-5/////////////////////////////////////
     // Implement POST http request for Employee to create a new employee.
@@ -50,7 +80,17 @@ public class Q2_EmployeeController {
         }
         return employee;
     }
-
+/*
+ //////////////////////////OUTPUT/////////////////
+    localhost:8080/Employees/4
+  {
+    "timestamp": "2020-03-31T10:34:27.634+0000",
+    "status": 404,
+    "error": "Not Found",
+    "message": "id4",
+    "path": "/Employee/4"
+}
+ */
     ///////////////////////////QUSETION-7/////////////////////////////////////
     //Implement DELETE http request for Employee to delete employee
     @DeleteMapping("/Employees/{id}")
@@ -65,6 +105,23 @@ public class Q2_EmployeeController {
     public void putEmployee(@PathVariable Integer id,@Valid @RequestBody  Q2_Employee employee){
         services.putEmp(id,employee);
     }
+    /*
+ //////////////////////////OUTPUT/////////////////
+    localhost:8080/Employee/1
+ [
+    {
+        "id": 2,
+        "name": "kittu",
+        "age": 25
+    },
+    {
+        "id": 3,
+        "name": "yash",
+        "age": 22
+    }
+]
+ */
+
 
     ////////////////////////////QUESTION-9//////////////////////////////////
     //Apply validation while create a new employee using POST http Request.
