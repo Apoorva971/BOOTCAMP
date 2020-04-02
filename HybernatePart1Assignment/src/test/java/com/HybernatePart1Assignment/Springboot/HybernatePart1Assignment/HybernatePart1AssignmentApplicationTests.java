@@ -28,7 +28,7 @@ class HybernatePart1AssignmentApplicationTests {
         Employee employee = new Employee();
         employee.setId(1);
         employee.setName("Apoorva garg");
-        employee.setAge(22);
+        employee.setAge(28);
         employee.setLocation("greater noida");
         Employee employee1 = new Employee();
         employee1.setId(2);
@@ -38,7 +38,7 @@ class HybernatePart1AssignmentApplicationTests {
         Employee employee2 = new Employee();
         employee2.setId(3);
         employee2.setName("Jaswant Singh Shahi");
-        employee2.setAge(24);
+        employee2.setAge(32);
         employee2.setLocation("Lucknow");
         employeeRepository.save(employee);
         employeeRepository.save(employee1);
@@ -105,24 +105,42 @@ class HybernatePart1AssignmentApplicationTests {
         System.out.println("total number of records are>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + employeeRepository.count());
     }
 
+    /*
+    /////////////////////////////////////////OUTPUT////////////////////////////////////////
+    total number of records are>>>>>>>>>>>>>>>>>>>>>>>>>>>>3
+
+     */
     @Test
     public void testpagingAndSorting() {
         Pageable pageable = PageRequest.of(0, 2, Sort.Direction.DESC, "age");
         employeeRepository.findAll(pageable).forEach(p -> System.out.println(p.getName()));
 
     }
-
+   /*
+   //////////////////////////////////////////OUTPUT///////////////////////////////////////////
+   Jaswant Singh Shahi
+   Apoorva garg
+    */
     @Test
     public void testFind() {
         List<Employee> employees = employeeRepository.findByName("Shubhanshi Tyagi");
         employees.forEach(employee -> System.out.println(employee.getAge()));
     }
+    /*
+       //////////////////////////////////////////OUTPUT///////////////////////////////////////////
+       21
+
+     */
 
     @Test
     public void testFindEmp() {
         List<Employee> employees = employeeRepository.findByNameLike("A%");
         employees.forEach(employee -> System.out.println(employee.getAge()));
     }
+    /*
+    /////////////////////////////////////////OUTPUT////////////////////////////////////////
+    22
+     */
 
     @Test
     public void testFindBetween() {
@@ -130,3 +148,18 @@ class HybernatePart1AssignmentApplicationTests {
         employees.forEach(employee -> System.out.println(employee.getName()));
     }
 }
+/*
+///////////////////////////////////////OUTPUT//////////////////////////////////////////////////
+When the input is
+    +----+---------------------+------+---------------+
+| id | name                | age  | location      |
++----+---------------------+------+---------------+
+|  1 | Apoorva garg        |   28 | greater noida |
+|  2 | Shubhanshi Tyagi    |   21 | Delhi         |
+|  3 | Jaswant Singh Shahi |   32 | Lucknow       |
++----+---------------------+------+---------------+
+Then the output is
+Apoorva garg
+Jaswant Singh Shahi
+ */
+
