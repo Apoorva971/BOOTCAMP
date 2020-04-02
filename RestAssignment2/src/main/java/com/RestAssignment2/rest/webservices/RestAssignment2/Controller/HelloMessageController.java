@@ -32,7 +32,11 @@ public class HelloMessageController {
         String param[] = {usersModel.getName()};
         return messageSource.getMessage("good.morning.message", param, locale);
     }
-
+/*
+///////////////////////////////OUTPUT///////////////////
+localhost:8080/i18nDemos/2
+Good Morning
+ */
 
     @ApiOperation(value = "Internationalize to a particular user.")
     @GetMapping("/i18nDemo/{id}")
@@ -41,13 +45,24 @@ public class HelloMessageController {
         String param[] = {user.getName()};
         return messageSource.getMessage("user.name", param, locale);
     }
+/*
+///////////////////////////////OUTPUT///////////////////
+localhost:8080/i18nDemo/2
+hello Jaswant Singh
+localhost:8080/i18nDemo/1
+hello Apoorva Garg
+ */
 
     @ApiOperation(value = "To print a welcome message.")
     @GetMapping("/hello")
     public String print() {
         return "Hey how are you!!!!";
     }
-
+/*
+///////////////////////////////OUTPUT//////////////////////
+localhost:8080/hello
+Hey how are you!!!!
+ */
 
     @ApiOperation(value = "to get all users.")
     @GetMapping("/alluser")
@@ -65,12 +80,67 @@ public class HelloMessageController {
         mapping.setFilters(filters);
         return mapping;
     }
-
+/*
+/////////////////////////////OUTPUT/////////////////
+localhost:8080/filtering
+[
+    {
+        "id": 1,
+        "name": "Apoorva Garg"
+    },
+    {
+        "id": 2,
+        "name": "Jaswant Singh"
+    },
+    {
+        "id": 3,
+        "name": "Shubhanshi Tyagi"
+    },
+    {
+        "id": 4,
+        "name": "Daljit Kalsi"
+    },
+    {
+        "id": 5,
+        "name": "Yash Bhatia"
+    }
+]
+ */
     @ApiOperation(value = "To add a user.")
     @PostMapping("/users")
     public void addUser(@RequestBody User user) {
         User user1 = userServices.addUser(user);
     }
+    /*
+    /////////////////////////////OUTPUT/////////////////
+localhost:8080/users
+[
+    {
+        "id": 1,
+        "name": "Apoorva Garg"
+    },
+    {
+        "id": 2,
+        "name": "Jaswant Singh"
+    },
+    {
+        "id": 3,
+        "name": "Shubhanshi Tyagi"
+    },
+    {
+        "id": 4,
+        "name": "Daljit Kalsi"
+    },
+    {
+        "id": 5,
+        "name": "Yash Bhatia"
+    },
+    {
+        "id": 6,
+        "name": "Himanshu Singhal"
+    }
+]
+     */
 
     @ApiOperation(value = "To delete a user, and also link to all employees")
     @GetMapping("/users/delete/{id}")
