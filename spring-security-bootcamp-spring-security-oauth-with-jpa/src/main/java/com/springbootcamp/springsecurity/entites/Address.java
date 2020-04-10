@@ -1,9 +1,6 @@
 package com.springbootcamp.springsecurity.entites;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Address {
@@ -15,6 +12,9 @@ public class Address {
     private Integer Zip_code;
     private String Label;
 
+    @ManyToOne
+    private User user;
+    
     public Address(Integer address_id, String city, String address_Line, Integer zip_code, String label) {
         Address_id = address_id;
         City = city;

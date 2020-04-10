@@ -24,7 +24,8 @@ public class User  {
     @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"))
     private List<Role> roles;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ID")
     private List<Address> addressList;
 
 
