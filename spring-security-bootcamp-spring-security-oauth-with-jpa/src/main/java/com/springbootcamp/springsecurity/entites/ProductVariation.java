@@ -1,4 +1,5 @@
 package com.springbootcamp.springsecurity.entites;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,20 +9,11 @@ import javax.persistence.Id;
 public class ProductVariation extends Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
     private Integer Quantity_Available;
     private double Price;
 
     public ProductVariation(Long product_Id, Long seller_User_Id, String name, String category_Id) {
         super(product_Id, seller_User_Id, name, category_Id);
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
     }
 
     public Integer getQuantity_Available() {
