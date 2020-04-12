@@ -1,11 +1,11 @@
 package com.ecommerceApp.ecommerceApp.Repositories;
 
 
+import com.ecommerceApp.ecommerceApp.entities.Users;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.security.core.userdetails.User;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<Users, Long> {
 
-    User findByEmail(String email);
+    Users findByEmail(String email);
 
 }

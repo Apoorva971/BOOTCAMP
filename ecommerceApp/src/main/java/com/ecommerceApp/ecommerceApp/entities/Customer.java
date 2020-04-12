@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "USER_ID")
-public class Customer extends User {
+public class Customer extends Users {
 
     private String contact;
 

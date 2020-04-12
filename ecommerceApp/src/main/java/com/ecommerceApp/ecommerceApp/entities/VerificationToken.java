@@ -13,14 +13,14 @@ public class VerificationToken{
 
     private String token;
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = Users.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
-    private User user;
+    private Users user;
     private Date expiryDate;
     public VerificationToken(){
     }
 
-    public VerificationToken(String token, User user, Date expiryDate) {
+    public VerificationToken(String token, Users user, Date expiryDate) {
         this.token = token;
         this.user = user;
         this.expiryDate = expiryDate;
@@ -46,11 +46,11 @@ public class VerificationToken{
         this.token = token;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

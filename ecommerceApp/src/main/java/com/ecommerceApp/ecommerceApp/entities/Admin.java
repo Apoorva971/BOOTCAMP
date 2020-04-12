@@ -4,13 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "USER_ID")
-public class Admin extends User {
+@PrimaryKeyJoinColumn(name = "USERS_ID")
+public class Admin extends Users {
     public Admin() {
 
     }
 
-    public Admin(Long id, String firstName, String middleName, String lastName) {
-        super(id, firstName, middleName, lastName);
+    public Admin(String email, String firstName, String middleName, String lastName) {
+        super(email, firstName, middleName, lastName);
     }
 }
+

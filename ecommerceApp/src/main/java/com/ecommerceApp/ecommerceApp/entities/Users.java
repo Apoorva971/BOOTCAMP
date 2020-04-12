@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,22 +25,38 @@ public class User {
     private Integer loginStatus = 0;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+    @JoinTable(name = "users_role",
+            joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Address> addresses;
-    public User() {
+    public Users() {
 
     }
 
-    public User(String email, String firstName, String middleName, String lastName) {
+    public Users(String email, String firstName, String middleName, String lastName) {
         this.email = email;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public Long getId() {
@@ -144,7 +160,7 @@ public class User {
                 addresses = new HashSet<Address>();
 
             System.out.println("address added");
-            address.setUser(this);
+            address.setUsers(this);
             addresses.add(address);
         }
     }
@@ -171,5 +187,9 @@ public class User {
 
     public Integer getLoginStatus() {
         return loginStatus;
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 }

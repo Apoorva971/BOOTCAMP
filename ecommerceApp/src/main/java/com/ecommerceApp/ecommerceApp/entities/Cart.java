@@ -9,7 +9,7 @@ public class Cart {
 
     @OneToOne
     @JoinColumn(name = "CUSTOMER_USER_ID")
-    private User user;
+    private Users users;
     @Column(name = "QUANTITY")
     private Integer quantity;
     @Column(name = "IS_WISHLIST_ITEM")
@@ -27,12 +27,12 @@ public class Cart {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Users user) {
+        this.users = users;
     }
 
     public Integer getQuantity() {

@@ -15,7 +15,7 @@ public class Role implements GrantedAuthority {
     private String authority;
     private boolean isDeleted = false;
     @ManyToMany(mappedBy = "role")
-    private Set<User> users;
+    private Set<Users> users;
 
     public Boolean isDeleted() {
         return isDeleted();
@@ -40,11 +40,11 @@ public class Role implements GrantedAuthority {
         return null;
     }
 
-    public Set<User> getUsers() {
+    public Set<Users> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(Set<Users> users) {
         this.users = users;
     }
 
@@ -56,11 +56,11 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public void addUser(User user) {
+    public void addUser(Users users1) {
         if (users == null)
             users = new HashSet<>();
 
-        users.add(user);
+        users.add(users1);
     }
 
     @Override

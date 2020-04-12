@@ -14,7 +14,7 @@ public class Address  {
 
     @ManyToOne
     @JoinColumn(name = "customer_user_id")
-    private User user;
+    private Users users;
 
 
     public Address() {
@@ -77,12 +77,12 @@ public class Address  {
         this.label = label;
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
     @Override
@@ -93,8 +93,9 @@ public class Address  {
                 ", zipCode='" + zipCode + '\'' +
                 ", country='" + country + '\'' +
                 ", label='" + label + '\'' +
-                ", user=" + user +
+                ", user=" + users +
                 '}';
     }
+
 }
 

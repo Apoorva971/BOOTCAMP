@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "USER_ID")
-public class Seller extends User{
+public class Seller extends Users{
 
     private String GST;
     private String companyName;

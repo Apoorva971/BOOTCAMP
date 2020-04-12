@@ -34,7 +34,7 @@ public class Bootstrap implements ApplicationRunner {
             roleRepository.save(seller);
             roleRepository.save(customer);
 
-            Admin admin1 = new Admin(1l, "Apoorva", "", "Garg");
+            Admin admin1 = new Admin("apoorvagarg0@gmail.com", "Apoorva", "", "Garg");
             admin1.setPassword(passwordEncoder.encode("pass"));
 
             admin1.addRole(admin);

@@ -2,9 +2,9 @@ package com.ecommerceApp.ecommerceApp.security;
 
 import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
 import com.ecommerceApp.ecommerceApp.entities.Role;
+import com.ecommerceApp.ecommerceApp.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ public class UserDao {
     UserRepository userRepository;
 
     public AppUser loadUserByUsername(String username) {
-        User user = userRepository.findByEmail(username);
+        Users user = userRepository.findByEmail(username);
         List<GrantAuthorityImpl> grantAuthorityList = new ArrayList<>();
-        List<Role> roles = user.getRoles();
+        List<Role> roles = (List<Role>) user.getRoles();
 
         roles.forEach(role ->
                 {
