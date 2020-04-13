@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserDao {
@@ -18,7 +19,7 @@ public class UserDao {
     public AppUser loadUserByUsername(String username) {
         Users user = userRepository.findByEmail(username);
         List<GrantAuthorityImpl> grantAuthorityList = new ArrayList<>();
-        List<Role> roles = (List<Role>) user.getRoles();
+        Set<Role> roles = user.getRoles();
 
         roles.forEach(role ->
                 {
