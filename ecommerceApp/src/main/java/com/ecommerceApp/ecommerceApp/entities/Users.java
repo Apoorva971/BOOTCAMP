@@ -1,6 +1,7 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ public class Users {
     private String middleName;
     private String lastName;
     @Column(unique = true)
+    @Email
     private String email;
     private String password;
 
