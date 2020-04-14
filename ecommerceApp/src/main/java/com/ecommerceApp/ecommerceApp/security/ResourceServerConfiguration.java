@@ -67,4 +67,5 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .csrf().disable();
-    }    }
+    }
+}

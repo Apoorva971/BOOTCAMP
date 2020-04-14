@@ -23,7 +23,8 @@ public class Seller extends Users{
         this.addRole(new Role(2l, "ROLE_SELLER"));
     }
 
-    public Seller(String email, String firstName, String middleName, String lastName, String GST, String companyName, String companyContact) {
+    public Seller(String email, String firstName, String middleName, String lastName,
+                  String GST, String companyName, String companyContact) {
         super(email, firstName, middleName, lastName);
         this.GST = GST.toUpperCase();
         this.companyName = companyName;

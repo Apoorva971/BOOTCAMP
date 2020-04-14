@@ -2,28 +2,17 @@ package com.ecommerceApp.ecommerceApp.dtos;
 
 public class UserRegistrationDto {
 
-    //@NotNull
-    //@NotEmpty
+
     private String firstName;
 
     private String middleName;
 
-    //@NotNull
-    //@NotEmpty
     private String lastName;
 
-    // @NotNull
-    //@NotEmpty
-    //@ValidEmail
     private String email;
 
-    // @NotNull
-    //@NotEmpty
-    //@ValidPassword
     private String password;
 
-    //@NotNull
-    //@NotEmpty
     private String confirmPassword;
 
 
