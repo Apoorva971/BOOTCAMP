@@ -6,15 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "USER_ID")
 public class Customer extends Users {
 
     private String contact;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<ProductReview> reviews;
-
-
 
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)

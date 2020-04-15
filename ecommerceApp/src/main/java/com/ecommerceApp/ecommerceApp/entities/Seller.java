@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "USER_ID")
 public class Seller extends Users{
 
     private String GST;
