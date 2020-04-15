@@ -7,6 +7,7 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

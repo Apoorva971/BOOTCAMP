@@ -3,7 +3,6 @@ package com.ecommerceApp.ecommerceApp.entities;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
 @Entity
 public class Orders {
     @Id
@@ -33,8 +32,9 @@ public class Orders {
 
     @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)
     private List<OrderProduct> orderProductsList;
-    @ManyToOne
-    @JoinColumn(name = "CUSTOMER_USER_ID",nullable = false)
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_user_id")
     private Customer customer;
 
     public Long getId() {

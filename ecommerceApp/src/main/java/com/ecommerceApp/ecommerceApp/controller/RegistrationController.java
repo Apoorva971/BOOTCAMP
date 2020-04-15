@@ -29,7 +29,8 @@ public class RegistrationController {
     SellerRepository sellerRepository;
 
     @PostMapping("/register/customer")
-    public String registerCustomer(@Valid @RequestBody CustomerRegistrationDto customerRegistrationDto, WebRequest request) {
+    public String registerCustomer(@Valid @RequestBody CustomerRegistrationDto customerRegistrationDto,
+                                   WebRequest request) {
 
         Customer customer = customerRepository.findByEmail(customerRegistrationDto.getEmail());
 
@@ -46,7 +47,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/register/seller")
-    public String registerSeller(@Valid @RequestBody SellerRegistrationDto sellerRegistrationDto, WebRequest webRequest) {
+    public String registerSeller(@Valid @RequestBody SellerRegistrationDto sellerRegistrationDto,
+                                 WebRequest webRequest) {
 
         Seller seller = sellerRepository.findByEmail(sellerRegistrationDto.getEmail());
 
@@ -57,7 +59,6 @@ public class RegistrationController {
             Seller newSeller = sellerService.toSeller(sellerRegistrationDto);
             Seller savedSeller = sellerRepository.save(newSeller);
             System.out.println("seller registered successfully.");
-
             return "success";
         }
     }

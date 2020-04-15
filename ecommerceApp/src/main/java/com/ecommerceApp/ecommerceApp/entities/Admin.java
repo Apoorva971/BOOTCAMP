@@ -14,4 +14,3 @@ public class Admin extends Users {
         super(email, firstName, middleName, lastName);
     }
 }
-

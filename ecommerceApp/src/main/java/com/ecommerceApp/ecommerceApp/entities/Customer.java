@@ -1,11 +1,9 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "USER_ID")
@@ -16,6 +14,11 @@ public class Customer extends Users {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<ProductReview> reviews;
 
+
+
+
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    private Set<Orders> orders;
 
     public Customer() {
         this.addRole(new Role(3l, "ROLE_CUSTOMER"));
