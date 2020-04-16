@@ -1,7 +1,13 @@
 package com.ecommerceApp.ecommerceApp.dtos;
 
+import com.sun.istack.NotNull;
+
+import javax.validation.constraints.Pattern;
+
 public class CustomerRegistrationDto extends UserRegistrationDto {
 
+    @Pattern(regexp = "^[789]\\d{9}$", message = "Please enter a valid number!")
+    @NotNull
     private String contact;
 
 

@@ -1,6 +1,6 @@
 package com.ecommerceApp.ecommerceApp.dtos;
 
-public class AdminSellerDto {
+public class SellerDto {
     private Long id;
     private String firstName;
     private String middleName;

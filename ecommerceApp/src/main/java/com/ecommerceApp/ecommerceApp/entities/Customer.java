@@ -1,6 +1,7 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +9,8 @@ import java.util.Set;
 @Entity
 public class Customer extends Users {
 
+
+    @Pattern(regexp = "(\\+91|0)[0-9]{10}")
     private String contact;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)

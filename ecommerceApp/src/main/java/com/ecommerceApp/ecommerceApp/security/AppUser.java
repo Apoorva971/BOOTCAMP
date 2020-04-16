@@ -1,5 +1,7 @@
 package com.ecommerceApp.ecommerceApp.security;
 
+import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +10,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class AppUser implements UserDetails {
+    @Autowired
+    AppUserDetailsService appUserDetailsService;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    UserDao userDao;
 
     private String username;
     private String password;

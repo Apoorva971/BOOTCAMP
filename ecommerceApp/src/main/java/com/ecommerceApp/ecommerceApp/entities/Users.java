@@ -2,6 +2,7 @@ package com.ecommerceApp.ecommerceApp.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +16,9 @@ public class Users {
     private String firstName;
     private String middleName;
     private String lastName;
-    @Column(unique = true)
+
+    @Column(nullable=false,unique = true)
+    @NotBlank(message = "Enter the UserName")
     @Email
     private String email;
     private String password;
@@ -24,6 +27,10 @@ public class Users {
     private Boolean isActive = false;
     private Boolean isExpired = false;
     private Boolean isLocked = false;
+    private boolean isEnabled;
+    private boolean isAccountNonExpired;
+    private boolean isAccountNonLocked;
+    private boolean isCredentialsNonExpired;
 
     private Integer loginStatus = 0;
 
@@ -98,7 +105,7 @@ public class Users {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setemail(String email) {
         this.email = email;
     }
 
@@ -140,6 +147,38 @@ public class Users {
 
     public void setLocked(Boolean locked) {
         isLocked = locked;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public boolean isAccountNonExpired() {
+        return isAccountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        isAccountNonExpired = accountNonExpired;
+    }
+
+    public boolean isAccountNonLocked() {
+        return isAccountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        isAccountNonLocked = accountNonLocked;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return isCredentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        isCredentialsNonExpired = credentialsNonExpired;
     }
 
     @Override

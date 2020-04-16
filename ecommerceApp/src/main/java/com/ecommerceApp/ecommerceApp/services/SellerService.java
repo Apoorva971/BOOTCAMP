@@ -1,7 +1,7 @@
 package com.ecommerceApp.ecommerceApp.services;
 
 import com.ecommerceApp.ecommerceApp.Repositories.SellerRepository;
-import com.ecommerceApp.ecommerceApp.dtos.AdminSellerDto;
+import com.ecommerceApp.ecommerceApp.dtos.SellerDto;
 import com.ecommerceApp.ecommerceApp.dtos.SellerRegistrationDto;
 import com.ecommerceApp.ecommerceApp.entities.Seller;
 import org.modelmapper.ModelMapper;
@@ -21,30 +21,81 @@ public class SellerService {
 
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    MailService mailService;
 
     public Seller toSeller(SellerRegistrationDto sellerRegistrationDto) {
         Seller seller = modelMapper.map(sellerRegistrationDto, Seller.class);
         return seller;
     }
-    public AdminSellerDto toadminSellerDto(Seller seller){
-        AdminSellerDto adminSellerDto=modelMapper.map(seller,AdminSellerDto.class);
-        return adminSellerDto;
+    public SellerDto toadminSellerDto(Seller seller){
+        SellerDto sellerDto =modelMapper.map(seller, SellerDto.class);
+        return sellerDto;
     }
-    public List<AdminSellerDto> getAllSeller(String offset, String size, String field){
+    public List<SellerDto> getAllSeller(String offset, String size, String field){
 
         Integer pageNo=Integer.parseInt(offset);
         Integer pageSize=Integer.parseInt(size);
-        Pageable pageable= PageRequest.of(pageNo,pageSize, Sort.by(field).ascending());
+        Pageable pageable=PageRequest.of(pageNo,pageSize,Sort.by(field).ascending());
         List<Seller> sellers=sellerRepository.findAll(pageable);
-        List<AdminSellerDto> adminSellerDtos=new ArrayList<>();
-        sellers.forEach((seller -> adminSellerDtos.add(toadminSellerDto(seller))));
-        return adminSellerDtos;
+        List<SellerDto> sellerDtos =new ArrayList<>();
+        sellers.forEach((seller -> sellerDtos.add(toadminSellerDto(seller))));
+        return sellerDtos;
 
     }
-    public AdminSellerDto getSellerByEmail(String email){
+    public SellerDto getSellerByEmail(String email){
         Seller seller=sellerRepository.findByEmail(email);
-        AdminSellerDto adminSellerDto=toadminSellerDto(seller);
-        return adminSellerDto;
+        SellerDto sellerDto =toadminSellerDto(seller);
+        return sellerDto;
     }
+    public boolean isEmailUnique(String email){
+        Seller seller = sellerRepository.findByEmail(email);
+        if(seller != null)
+            return false;
+
+        return true;
+    }
+    public boolean isGSTUnique(String GST){
+        Seller seller = sellerRepository.findByGST(GST);
+        if(seller != null)
+            return false;
+
+        return true;
+    }
+    public boolean isCompanyNameUnique(String name){
+        Seller seller = sellerRepository.findByCompanyName(name);
+        if(seller != null)
+            return false;
+
+        return true;
+    }
+    public String checkIfUnique(SellerRegistrationDto sellerRegistrationDto){
+        if(!isEmailUnique(sellerRegistrationDto.getEmail())){
+            return "Email already exits";
+        }
+        else if(!isGSTUnique(sellerRegistrationDto.getGST())){
+            return "GST already exists";
+        }
+        else if(!isCompanyNameUnique(sellerRegistrationDto.getCompanyName())){
+            return "Comapny name already exits ";
+        }
+        else{
+            return "unique";
+        }
+    }
+    public void acknowledgementEmail(String email){
+        String subject="Registration confirmation";
+        String text="Your account is awaited for confirmation";
+        mailService.sendEmail(email,subject,text);
+    }
+    public SellerDto getSellerByEmaiId(String email){
+        Seller seller=sellerRepository.findByEmail(email);
+        if(email==null){
+            return null;
+        }
+        SellerDto sellerDto =toadminSellerDto(seller);
+        return sellerDto;
+    }
+
 
 }

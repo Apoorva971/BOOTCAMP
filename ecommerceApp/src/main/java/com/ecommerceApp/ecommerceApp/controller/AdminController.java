@@ -1,12 +1,11 @@
 package com.ecommerceApp.ecommerceApp.controller;
 
-import com.ecommerceApp.ecommerceApp.dtos.AdminCustomerDto;
-import com.ecommerceApp.ecommerceApp.dtos.AdminSellerDto;
+import com.ecommerceApp.ecommerceApp.dtos.CustomerDto;
+import com.ecommerceApp.ecommerceApp.dtos.SellerDto;
 import com.ecommerceApp.ecommerceApp.services.CustomerService;
 import com.ecommerceApp.ecommerceApp.services.SellerService;
 import com.ecommerceApp.ecommerceApp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
@@ -24,10 +23,10 @@ public class AdminController {
 
 
     @GetMapping("/customers")
-    public List<AdminCustomerDto> getAllCustomers(@RequestParam(defaultValue = "0") String offset,
-                                                  @RequestParam(defaultValue = "10") String size,
-                                                  @RequestParam(defaultValue = "id") String sortByField,
-                                                  @RequestParam(required = false) String email) {
+    public List<CustomerDto> getAllCustomers(@RequestParam(defaultValue = "0") String offset,
+                                             @RequestParam(defaultValue = "10") String size,
+                                             @RequestParam(defaultValue = "id") String sortByField,
+                                             @RequestParam(required = false) String email) {
         if (email != null)
             return Arrays.asList(customerService.getCustomerByEmail(email));
 
@@ -35,23 +34,23 @@ public class AdminController {
     }
 
     @GetMapping("/sellers")
-    public List<AdminSellerDto> getAllSellers(@RequestParam(defaultValue = "0") String offset,
-                                              @RequestParam(defaultValue = "10") String size,
-                                              @RequestParam(defaultValue = "id") String sortByField,
-                                              @RequestParam(required = false) String email) {
+    public List<SellerDto> getAllSellers(@RequestParam(defaultValue = "0") String offset,
+                                         @RequestParam(defaultValue = "10") String size,
+                                         @RequestParam(defaultValue = "id") String sortByField,
+                                         @RequestParam(required = false) String email) {
         if (email != null)
             return Arrays.asList(sellerService.getSellerByEmail(email));
         return sellerService.getAllSeller(offset, size, sortByField);
     }
 
     @PutMapping("/activate/{id}")
-    public ResponseEntity activateUser(@PathVariable Long id, WebRequest webRequest) {
-        return userService.activateById(id, webRequest);
+    public String activateUser(@PathVariable Long id, WebRequest webRequest) {
+        return userService.activateUserById(id, webRequest);
     }
 
     @PutMapping("deactivate{id}")
-    public ResponseEntity deActivateUser(@PathVariable Long id, WebRequest webRequest) {
-        return userService.deActivateById(id, webRequest);
+    public String deActivateUser(@PathVariable Long id, WebRequest webRequest) {
+        return userService.deactivateUserById(id, webRequest);
     }
 
 }

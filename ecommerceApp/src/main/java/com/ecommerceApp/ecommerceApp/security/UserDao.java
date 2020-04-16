@@ -16,8 +16,8 @@ public class UserDao {
     @Autowired
     UserRepository userRepository;
 
-    public AppUser loadUserByUsername(String username) {
-        Users user = userRepository.findByEmail(username);
+    public AppUser loadUserByUsername(String email) {
+        Users user = userRepository.findByEmail(email);
         List<GrantAuthorityImpl> grantAuthorityList = new ArrayList<>();
         Set<Role> roles = user.getRoles();
 
@@ -26,7 +26,7 @@ public class UserDao {
                     grantAuthorityList.add(new GrantAuthorityImpl(role.getAuthority()));
                 }
         );
-        if (username != null) {
+        if (email != null) {
             return new AppUser(user.getEmail(),
                     user.getPassword(),
                     grantAuthorityList);

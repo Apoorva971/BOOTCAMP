@@ -1,7 +1,7 @@
 package com.ecommerceApp.ecommerceApp.services;
 
 import com.ecommerceApp.ecommerceApp.Repositories.CustomerRepository;
-import com.ecommerceApp.ecommerceApp.dtos.AdminCustomerDto;
+import com.ecommerceApp.ecommerceApp.dtos.CustomerDto;
 import com.ecommerceApp.ecommerceApp.dtos.CustomerRegistrationDto;
 import com.ecommerceApp.ecommerceApp.entities.Customer;
 import org.modelmapper.ModelMapper;
@@ -29,15 +29,15 @@ public class CustomerService {
         return customer;
     }
 
-    public AdminCustomerDto toCustomerDto(Customer customer) {
-        AdminCustomerDto adminCustomerDto = modelMapper.map(customer, AdminCustomerDto.class);
-        adminCustomerDto.setFirstName(customer.getFirstName());
-        adminCustomerDto.setMiddleName(customer.getMiddleName());
-        adminCustomerDto.setLastName(customer.getLastName());
-        return adminCustomerDto;
+    public CustomerDto toCustomerDto(Customer customer) {
+        CustomerDto customerDto = modelMapper.map(customer, CustomerDto.class);
+        customerDto.setFirstName(customer.getFirstName());
+        customerDto.setMiddleName(customer.getMiddleName());
+        customerDto.setLastName(customer.getLastName());
+        return customerDto;
     }
 
-    public List<AdminCustomerDto> getAllCustomers(String offset, String size, String field) {
+    public List<CustomerDto> getAllCustomers(String offset, String size, String field) {
         Integer pageNo = Integer.parseInt(offset);
         Integer pageSize = Integer.parseInt(size);
 
@@ -45,15 +45,15 @@ public class CustomerService {
 
         List<Customer> customers = customerRepository.findAll(pageable);
 
-        List<AdminCustomerDto> customerAdminApiDtos = new ArrayList<>();
+        List<CustomerDto> customerAdminApiDtos = new ArrayList<>();
 
         customers.forEach((customer) -> customerAdminApiDtos.add(toCustomerDto(customer)));
         return customerAdminApiDtos;
     }
 
-    public AdminCustomerDto getCustomerByEmail(String email) {
+    public CustomerDto getCustomerByEmail(String email) {
         Customer customer = customerRepository.findByEmail(email);
-        AdminCustomerDto adminCustomerDto =toCustomerDto(customer);
-        return adminCustomerDto;
+        CustomerDto customerDto =toCustomerDto(customer);
+        return customerDto;
     }
 }

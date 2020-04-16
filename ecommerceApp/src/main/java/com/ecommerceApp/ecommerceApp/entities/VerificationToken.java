@@ -3,6 +3,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
+
 @Entity
 public class VerificationToken{
     private static final Integer EXPIRATION = 24*60;
@@ -14,16 +16,21 @@ public class VerificationToken{
     private String token;
 
     @OneToOne(targetEntity = Users.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "user_id")
+    @JoinColumn(nullable = false, name = "users_id")
     private Users user;
     private Date expiryDate;
-    public VerificationToken(){
+    public VerificationToken(String token, Users user){
     }
 
-    public VerificationToken(String token, Users user, Date expiryDate) {
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+    public VerificationToken(Users user) {
         this.token = token;
         this.user = user;
-        this.expiryDate = expiryDate;
+        this.expiryDate = this.calculateExpiryDate(EXPIRATION);
+        createdDate = new Date();
+        token = UUID.randomUUID().toString();
     }
 
     public static Integer getEXPIRATION() {
