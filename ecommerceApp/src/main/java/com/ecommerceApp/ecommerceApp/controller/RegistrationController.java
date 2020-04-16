@@ -7,8 +7,10 @@ import com.ecommerceApp.ecommerceApp.dtos.SellerRegistrationDto;
 import com.ecommerceApp.ecommerceApp.entities.Customer;
 import com.ecommerceApp.ecommerceApp.entities.Seller;
 import com.ecommerceApp.ecommerceApp.exceptions.EmailAlreadyExistsException;
+import com.ecommerceApp.ecommerceApp.services.ActivationService;
 import com.ecommerceApp.ecommerceApp.services.CustomerService;
 //import com.ecommerceApp.ecommerceApp.services.RegistrationService;
+import com.ecommerceApp.ecommerceApp.services.RegistrationService;
 import com.ecommerceApp.ecommerceApp.services.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,46 +21,28 @@ import javax.validation.Valid;
 
 @RestController
 public class RegistrationController {
-     @Autowired
-     CustomerService customerService;
-     @Autowired
-     CustomerRepository customerRepository;
-     @Autowired
-     SellerService sellerService;
-     @Autowired
-     SellerRepository sellerRepository;
 
-     @PostMapping("/register/customer")
-     public String registerCustomer(@Valid @RequestBody CustomerRegistrationDto customerRegistrationDto,
-                                    WebRequest request) {
+    @Autowired
+    RegistrationService registrationService;
 
-         Customer customer = customerRepository.findByEmail(customerRegistrationDto.getEmail());
+    @Autowired
+    ActivationService activationService;
 
-         if (customer != null)
-             throw new EmailAlreadyExistsException("email id already exists");
 
-         else {
-             Customer newCustomer = customerService.toCustomer(customerRegistrationDto);
-             Customer savedCustomer = customerRepository.save(newCustomer);
-             System.out.println("customer registered successfully.");
+    @PostMapping("/register/customer")
+    public String registerCustomer(@Valid @RequestBody CustomerRegistrationDto customerRegistrationDto,
+                                   WebRequest request) {
 
-             return "success";
-         }
-     }
+        return registrationService.registerCustomer(customerRegistrationDto, request);
+    }
+
+    @PutMapping("/activate/customer")
+    public String activateCustomer(@RequestParam("token") String token, WebRequest request) {
+        return activationService.activateUserByToken(token, request);
+    }
+
     @PostMapping("/register/seller")
-    public String registerSeller(@Valid @RequestBody SellerRegistrationDto sellerRegistrationDto,
-                                 WebRequest webRequest) {
-
-        Seller seller = sellerRepository.findByEmail(sellerRegistrationDto.getEmail());
-
-        if (seller != null)
-            throw new EmailAlreadyExistsException("email id already exists");
-
-        else {
-            Seller newSeller = sellerService.toSeller(sellerRegistrationDto);
-            Seller savedSeller = sellerRepository.save(newSeller);
-            System.out.println("seller registered successfully.");
-            return "success";
-        }
+    public String registerSeller(@Valid @RequestBody SellerRegistrationDto sellerRegistrationDto){
+        return registrationService.registerSeller(sellerRegistrationDto);
     }
 }

@@ -10,7 +10,6 @@ import java.util.Set;
 public class Customer extends Users {
 
 
-    @Pattern(regexp = "(\\+91|0)[0-9]{10}")
     private String contact;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)

@@ -3,10 +3,11 @@ package com.ecommerceApp.ecommerceApp.services;
 import com.ecommerceApp.ecommerceApp.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.ecommerceApp.ecommerceApp.entities.VerificationToken;
+import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Calendar;
-
+@Service
 public class ActivationService {
     @Autowired
     TokenService tokenService;
