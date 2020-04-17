@@ -1,5 +1,7 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
+import com.ecommerceApp.ecommerceApp.security.Role;
+
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
@@ -20,13 +22,13 @@ public class Customer extends Users {
     private Set<Orders> orders;
 
     public Customer() {
-        this.addRole(new Role(3l, "ROLE_CUSTOMER"));
+        this.addRole(new Role( 3l,"ROLE_CUSTOMER"));
     }
 
 
     public Customer(String email, String firstName, String middleName, String lastName, String contact) {
         super(email, firstName, middleName, lastName);
-        this.addRole(new Role(3l, "ROLE_CUSTOMER"));
+        this.addRole(new Role( 3l,"ROLE_CUSTOMER"));
         this.contact = contact;
     }
 

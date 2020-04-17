@@ -1,5 +1,7 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
+import com.ecommerceApp.ecommerceApp.security.Role;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -27,10 +29,10 @@ public class Users {
     private Boolean isActive = false;
     private Boolean isExpired = false;
     private Boolean isLocked = false;
-    private boolean isEnabled;
-    private boolean isAccountNonExpired;
-    private boolean isAccountNonLocked;
-    private boolean isCredentialsNonExpired;
+    private Boolean isEnabled= false;
+    private Boolean isAccountNonExpired = true;
+    private Boolean isAccountNonLocked = true;
+    private Boolean isCredentialsNonExpired= true;
 
     private Integer loginStatus = 0;
 
@@ -149,7 +151,7 @@ public class Users {
         isLocked = locked;
     }
 
-    public boolean isEnabled() {
+    public boolean isEnabled(boolean b) {
         return isEnabled;
     }
 
@@ -233,5 +235,21 @@ public class Users {
 
     public boolean isActive() {
         return isActive;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public boolean isExpired() {
+        return isExpired;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
     }
 }

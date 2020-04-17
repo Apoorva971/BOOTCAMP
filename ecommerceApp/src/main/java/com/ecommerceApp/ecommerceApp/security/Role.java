@@ -1,9 +1,9 @@
-package com.ecommerceApp.ecommerceApp.entities;
+package com.ecommerceApp.ecommerceApp.security;
 
+import com.ecommerceApp.ecommerceApp.entities.Users;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,34 +11,37 @@ public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(unique = true)
-    private String authority;
+    Long id;
+    String authority;
     private boolean isDeleted = false;
     @ManyToMany(mappedBy = "roles")
     private Set<Users> users;
-
-    public Boolean isDeleted() {
-        return isDeleted();
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public Role() {
-
-    }
 
     public Role(Long id, String authority) {
         this.id = id;
         this.authority = authority;
     }
+public Role(){
 
+}
+    public Long getId() {
+        return id;
+    }
 
-    @Override
-    public String getAuthority() {
-        return null;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public Set<Users> getUsers() {
@@ -49,19 +52,9 @@ public class Role implements GrantedAuthority {
         this.users = users;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void addUser(Users users1) {
-        if (users == null)
-            users = new HashSet<>();
-
-        users.add(users1);
+    @Override
+    public String getAuthority() {
+        return authority;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.ecommerceApp.ecommerceApp.dtos;
 
 public class UserRegistrationDto {
-
-
     private String firstName;
 
     private String middleName;

@@ -13,7 +13,7 @@ public class Address  {
     private String label;
 
     @ManyToOne
-    @JoinColumn(name = "customer_user_id")
+    @JoinColumn(name = "users_id")
     private Users users;
 
 

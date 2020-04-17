@@ -22,7 +22,7 @@ public class AppConfig {
         javaMailSender.setPort(587);
 
         javaMailSender.setUsername("apoorvagarg0@gmail.com");
-        javaMailSender.setPassword("apoorvagarg");
+        javaMailSender.setPassword("3007jassu@a");
 
         Properties properties = javaMailSender.getJavaMailProperties();
         properties.put("mail.transport.protocol", "smtp");

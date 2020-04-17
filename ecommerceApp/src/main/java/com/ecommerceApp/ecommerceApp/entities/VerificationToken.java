@@ -8,20 +8,19 @@ import java.util.UUID;
 @Entity
 public class VerificationToken{
     private static final Integer EXPIRATION = 24*60;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String token;
-
     @OneToOne(targetEntity = Users.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "users_id")
     private Users user;
     private Date expiryDate;
     public VerificationToken(String token, Users user){
     }
+    public VerificationToken(){
 
+    }
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
@@ -32,23 +31,18 @@ public class VerificationToken{
         createdDate = new Date();
         token = UUID.randomUUID().toString();
     }
-
     public static Integer getEXPIRATION() {
         return EXPIRATION;
     }
-
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getToken() {
         return token;
     }
-
     public void setToken(String token) {
         this.token = token;
     }

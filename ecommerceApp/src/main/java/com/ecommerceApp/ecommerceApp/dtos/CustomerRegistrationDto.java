@@ -10,7 +10,6 @@ public class CustomerRegistrationDto extends UserRegistrationDto {
     @NotNull
     private String contact;
 
-
     public String getContact() {
         return contact;
     }

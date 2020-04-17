@@ -1,5 +1,7 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
+import com.ecommerceApp.ecommerceApp.security.Role;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -19,7 +21,7 @@ public class Seller extends Users{
 
 
     public Seller() {
-        this.addRole(new Role(2l, "ROLE_SELLER"));
+        this.addRole(new Role(2l,"ROLE_SELLER"));
     }
 
     public Seller(String email, String firstName, String middleName, String lastName,
@@ -28,7 +30,7 @@ public class Seller extends Users{
         this.GST = GST.toUpperCase();
         this.companyName = companyName;
         this.companyContact = companyContact;
-        this.addRole(new Role(2l, "ROLE_SELLER"));
+        this.addRole(new Role( 2l,"ROLE_SELLER"));
     }
 
     public String getGST() {

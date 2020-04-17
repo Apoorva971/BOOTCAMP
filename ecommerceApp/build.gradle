@@ -31,6 +31,12 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.2.0.RELEASE'
 
 	testImplementation 'org.springframework.security:spring-security-test'
+	// lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// model mapper
+	compile 'org.modelmapper:modelmapper:2.3.7'
 
 }
 

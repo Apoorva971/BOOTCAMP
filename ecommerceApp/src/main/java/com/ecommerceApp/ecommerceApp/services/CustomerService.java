@@ -1,59 +1,79 @@
 package com.ecommerceApp.ecommerceApp.services;
 
 import com.ecommerceApp.ecommerceApp.Repositories.CustomerRepository;
-import com.ecommerceApp.ecommerceApp.dtos.CustomerDto;
+import com.ecommerceApp.ecommerceApp.Repositories.VerificationTokenRepository;
 import com.ecommerceApp.ecommerceApp.dtos.CustomerRegistrationDto;
 import com.ecommerceApp.ecommerceApp.entities.Customer;
+import com.ecommerceApp.ecommerceApp.entities.VerificationToken;
+import com.ecommerceApp.ecommerceApp.exceptions.EmailAlreadyExistsException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Service
+@Component
 public class CustomerService {
+    @Autowired
+    CustomerRepository customerRepository;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    VerificationTokenRepository verificationTokenRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    EmailSenderService mailService;
+    Customer initializeNewCustomer(Customer customer) {
+        customer.setActive(false);
+        customer.setDeleted(false);
+        customer.setAccountNonExpired(true);
+        customer.setAccountNonLocked(true);
+        customer.setCredentialsNonExpired(true);
+        customer.setEnabled(true);
 
-
-    public Customer toCustomer(CustomerRegistrationDto customerRegistrationDto) {
-        Customer customer = modelMapper.map(customerRegistrationDto, Customer.class);
         return customer;
     }
 
-    public CustomerDto toCustomerDto(Customer customer) {
-        CustomerDto customerDto = modelMapper.map(customer, CustomerDto.class);
-        customerDto.setFirstName(customer.getFirstName());
-        customerDto.setMiddleName(customer.getMiddleName());
-        customerDto.setLastName(customer.getLastName());
-        return customerDto;
+    private ModelMapper modelMapper = new ModelMapper();
+
+    public ResponseEntity createNewCustomer(CustomerRegistrationDto customerRegistrationDto) throws
+            EmailAlreadyExistsException {
+
+        Customer customer = modelMapper.map(customerRegistrationDto, Customer.class);
+
+        if (customerRepository.findByEmail(customer.getEmail()) != null) // User already exists with this email
+            throw new EmailAlreadyExistsException("User already exists with email : " + customer.getEmail());
+        else {
+            customerRepository.save(initializeNewCustomer(customer));   // saving the Customer
+
+            VerificationToken verificationToken = new VerificationToken(customer);
+            verificationTokenRepository.save(verificationToken);
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+            mailMessage.setTo(customer.getEmail());
+            mailMessage.setSubject("Complete Registration of the Customer!");
+            mailMessage.setFrom("apoorvagarg0@gmail.com");
+            mailMessage.setText("To confirm your account, please click on the Link given below : "
+                    + "http://localhost:8080/register/confirm?token=" + verificationToken.getToken());
+
+            mailService.sendEmail(mailMessage);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    public List<CustomerDto> getAllCustomers(String offset, String size, String field) {
-        Integer pageNo = Integer.parseInt(offset);
-        Integer pageSize = Integer.parseInt(size);
+    public String validateRegistrationToken(String userToken) {
 
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
+        VerificationToken foundToken = verificationTokenRepository.findByToken(userToken);
 
-        List<Customer> customers = customerRepository.findAll(pageable);
-
-        List<CustomerDto> customerAdminApiDtos = new ArrayList<>();
-
-        customers.forEach((customer) -> customerAdminApiDtos.add(toCustomerDto(customer)));
-        return customerAdminApiDtos;
+        if (foundToken != null) {
+            Customer customer = customerRepository.findByEmail(foundToken.getUser().getEmail());
+            customer.setEnabled(true);
+            customerRepository.save(customer);
+            return "account verified";
+        }
+        return "something went wrong!";
     }
 
-    public CustomerDto getCustomerByEmail(String email) {
-        Customer customer = customerRepository.findByEmail(email);
-        CustomerDto customerDto =toCustomerDto(customer);
-        return customerDto;
-    }
+
 }

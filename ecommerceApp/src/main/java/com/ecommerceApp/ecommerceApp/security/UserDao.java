@@ -1,37 +1,23 @@
 package com.ecommerceApp.ecommerceApp.security;
 
 import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
-import com.ecommerceApp.ecommerceApp.entities.Role;
 import com.ecommerceApp.ecommerceApp.entities.Users;
+import com.ecommerceApp.ecommerceApp.exceptions.EmailAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserDao {
     @Autowired
     UserRepository userRepository;
 
-    public AppUser loadUserByUsername(String email) {
+    AppUser loadUserByUsername(String email) {
         Users user = userRepository.findByEmail(email);
-        List<GrantAuthorityImpl> grantAuthorityList = new ArrayList<>();
-        Set<Role> roles = user.getRoles();
-
-        roles.forEach(role ->
-                {
-                    grantAuthorityList.add(new GrantAuthorityImpl(role.getAuthority()));
-                }
-        );
-        if (email != null) {
-            return new AppUser(user.getEmail(),
-                    user.getPassword(),
-                    grantAuthorityList);
+        if (user != null) {
+            return new AppUser(user);
         } else {
-            throw new RuntimeException();
+            throw new EmailAlreadyExistsException("user  " + user.getEmail() + " was not found");
         }
     }
+
 }
