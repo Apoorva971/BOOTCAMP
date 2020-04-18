@@ -6,6 +6,7 @@ public class Address  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String addressLine;
     private String city;
     private String state;
     private String zipCode;
@@ -20,12 +21,21 @@ public class Address  {
     public Address() {
     }
 
-    public Address(String city, String state, String zipCode, String country, String label) {
+    public Address( String addressLine, String city, String state, String zipCode, String country, String label) {
+       this.addressLine=addressLine;
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
         this.country = country;
         this.label = label;
+    }
+
+    public String getAddressLine() {
+        return addressLine;
+    }
+
+    public void setAddressLine(String addressLine) {
+        this.addressLine = addressLine;
     }
 
     public Long getId() {
@@ -88,13 +98,14 @@ public class Address  {
     @Override
     public String toString() {
         return "Address{" +
-                "city='" + city + '\'' +
+                "id=" + id +
+                ", addressLine='" + addressLine + '\'' +
+                ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", zipCode='" + zipCode + '\'' +
                 ", country='" + country + '\'' +
                 ", label='" + label + '\'' +
-                ", user=" + users +
+                ", users=" + users +
                 '}';
     }
-
 }

@@ -1,7 +1,7 @@
 package com.ecommerceApp.ecommerceApp.dtos;
 
-import com.sun.istack.NotNull;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class CustomerRegistrationDto extends UserRegistrationDto {

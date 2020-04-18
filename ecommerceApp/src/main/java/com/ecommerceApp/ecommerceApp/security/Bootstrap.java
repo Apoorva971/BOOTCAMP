@@ -39,21 +39,21 @@ public class Bootstrap implements ApplicationRunner {
         admin1.setActive(true);
         admin1.addRole(admin);
         admin1.addRole(seller);
-        admin1.addAddress(new Address("Bulanshahar", "Uttar Pradesh", "202394", "India", "Home"));
+        admin1.addAddress(new Address("1153", "Bulanshahar", "Uttar Pradesh", "202394", "India","Home"));
         admin1.setActive(true);
 
         Customer customer1 = new Customer("daljitkalsi@gmai.com", "Daljit", "",
                 "kalsi", "9837564567");
 
         customer1.setPassword(passwordEncoder.encode("daljitkalsi"));
-        customer1.addAddress(new Address("punjab", "Punjab", "12345", "India", "P.G"));
-        customer1.addAddress(new Address("Chandigarh", "Punjab", "202345", "India", "Home"));
+        customer1.addAddress(new Address("112", "Punjab", "Punjab", "12345", "India","P.G"));
+        customer1.addAddress(new Address("101", "Chandigarh", "Punjab", "202344", "India","Home"));
 
         Seller seller1 = new Seller("yashbhatia@gmail.com", "Yash", ""
                 , "bhatia", "yfwbeu72384627", "574148715478",
                 "ttn");
         seller1.setPassword(passwordEncoder.encode("yashbhatia"));
-        seller1.addAddress(new Address("Dadri", "Uttar Pradesh", "201310", "India", "Office"));
+        seller1.addAddress(new Address("110", "Dadri", "Uttar Pradesh", "101310", "India","office"));
         userRepository.save(seller1);
         userRepository.save(admin1);
         userRepository.save(customer1);

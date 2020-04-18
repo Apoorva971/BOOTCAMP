@@ -1,16 +1,28 @@
 package com.ecommerceApp.ecommerceApp.dtos;
 
+import com.ecommerceApp.ecommerceApp.validators.ValidEmail;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 public class UserRegistrationDto {
+    @NotNull
     private String firstName;
 
+    @NotNull
     private String middleName;
 
+    @NotNull
     private String lastName;
 
+    @Email
+    @ValidEmail
     private String email;
 
+    @NotNull
     private String password;
 
+    @NotNull
     private String confirmPassword;
 
 
