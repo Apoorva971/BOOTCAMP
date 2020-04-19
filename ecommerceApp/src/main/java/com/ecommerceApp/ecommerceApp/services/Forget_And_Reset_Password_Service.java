@@ -48,7 +48,7 @@ public class Forget_And_Reset_Password_Service {
 
             simpleMailMessage.setTo(users.getEmail());
             simpleMailMessage.setText("To reset your password, please click on the Link given below :" + "" +
-                    "\n http://localhost:8080/resetPassword" + verificationToken.getToken());
+                    "\n http://localhost:8080/resetPassword?token=" + verificationToken.getToken());
             emailSenderService.sendEmail(simpleMailMessage);
         }
         return "check email to reset password";
@@ -59,8 +59,7 @@ public class Forget_And_Reset_Password_Service {
         String password = passwordDto.getPassword();
         String confirmPassword = passwordDto.getConfirmPassword();
         if (verificationToken.getEmail() == null) {
-            return "http://localhost:8080/resetPassword/"
-                    + Token + "expired";
+            return "http://localhost:8080/resetPassword?token=" + verificationToken.getToken()+ "expired";
         } else {
             if (!password.equals(confirmPassword)) {
                 throw new PasswordNotMatchedException("password and confirm password doesn't matched");
@@ -75,7 +74,8 @@ public class Forget_And_Reset_Password_Service {
                         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
                         simpleMailMessage.setSubject("Account security issue");
                         simpleMailMessage.setFrom("apoorvagarg30@gmail.com");
-                        simpleMailMessage.setText("Your password has been changed" + users.getEmail());
+                        simpleMailMessage.setText("To reset your password, please click on the Link given below :" + "" +
+                                "\n http://localhost:8080/resetPassword?token=" + verificationToken.getToken());
                         simpleMailMessage.setTo(users.getEmail());
                         emailSenderService.sendEmail(simpleMailMessage);
                         String encodePassword = passwordEncoder.encode(password);

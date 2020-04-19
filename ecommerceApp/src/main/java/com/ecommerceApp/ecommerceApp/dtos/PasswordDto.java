@@ -7,10 +7,9 @@ import javax.validation.constraints.NotNull;
 
 public class PasswordDto {
     @NotNull
-    @ValidPassword
     private String password;
     @NotNull
-    @ValidPassword
+
     private String confirmPassword;
 
     public String getPassword() {
