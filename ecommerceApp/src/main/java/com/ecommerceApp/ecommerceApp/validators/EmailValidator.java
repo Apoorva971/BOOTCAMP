@@ -28,6 +28,3 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
             return matcher.matches();
         }
     }
-
-//,message = "Password should contain atlea
-// st 8 characters and one Uppercase,lowercase,digit and special character")

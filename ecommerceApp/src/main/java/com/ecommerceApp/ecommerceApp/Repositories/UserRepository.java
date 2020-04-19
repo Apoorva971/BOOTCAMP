@@ -15,12 +15,8 @@ public interface UserRepository extends CrudRepository<Users, Long> {
     Users findByEmail(@Param("email") String email);
 
     Optional<Users> findById(Long id);
-     //    Users findByPassword(String password);
-
         @Transactional
     @Modifying
     @Query(value = "update Users set password=:Password where email=:email")
     void updatePassword(@Param("Password") String password, @Param("email") String email);
-
-
 }

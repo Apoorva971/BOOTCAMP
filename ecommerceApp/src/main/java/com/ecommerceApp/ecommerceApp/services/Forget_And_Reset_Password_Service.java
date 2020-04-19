@@ -26,25 +26,30 @@ public class Forget_And_Reset_Password_Service {
     @Autowired
     VerificationTokenRepository verificationTokenRepository;
 
-
     public String forgot_password(String email) {
+
         System.out.println(email);
+
         Users users = userRepository.findByEmail(email);
+
         System.out.println(users.getEmail());
-        if (users.getEmail() == null) {
+
+        if (users.getEmail() != null) {
             String token = UUID.randomUUID().toString();
             VerificationToken verificationToken = new VerificationToken();
             verificationToken.setCreatedDate(new Date());
             verificationToken.setExpiryDate(new Date());
             verificationToken.setToken(token);
+
+
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setSubject("Reset Your Password");
-            simpleMailMessage.setFrom("apoorvagarg0@gmail.com");
+            simpleMailMessage.setFrom("apoorvagarg30@gmail.com");
 
+            simpleMailMessage.setTo(users.getEmail());
             simpleMailMessage.setText("To reset your password, please click on the Link given below :" + "" +
                     "\n http://localhost:8080/resetPassword" + verificationToken.getToken());
             emailSenderService.sendEmail(simpleMailMessage);
-
         }
         return "check email to reset password";
     }
@@ -68,9 +73,10 @@ public class Forget_And_Reset_Password_Service {
                 } else {
                     try {
                         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-                        simpleMailMessage.setSubject("A ccount securitu issue");
-                        simpleMailMessage.setFrom("apoorvagarg0@gmail.com");
+                        simpleMailMessage.setSubject("Account security issue");
+                        simpleMailMessage.setFrom("apoorvagarg30@gmail.com");
                         simpleMailMessage.setText("Your password has been changed" + users.getEmail());
+                        simpleMailMessage.setTo(users.getEmail());
                         emailSenderService.sendEmail(simpleMailMessage);
                         String encodePassword = passwordEncoder.encode(password);
                         userRepository.updatePassword(encodePassword, users.getEmail());
@@ -81,7 +87,6 @@ public class Forget_And_Reset_Password_Service {
                 }
             }
             return "password changed successfully";
-
         }
     }
 }

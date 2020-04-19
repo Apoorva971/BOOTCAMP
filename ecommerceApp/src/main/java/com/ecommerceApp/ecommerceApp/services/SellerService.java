@@ -131,10 +131,10 @@ public class SellerService {
     }
 
     public void acknowledgementEmail(String email) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setSubject("Registration confirmation");
-        mailMessage.setText("Your account is awaited for confirmation");
-        emailSenderService.sendEmail(mailMessage);
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setSubject("Registration confirmation");
+        simpleMailMessage.setText("Your account is awaited for confirmation");
+        emailSenderService.sendEmail(simpleMailMessage);
     }
 
     public  SellerDto getSellerbyEmail(String email) {

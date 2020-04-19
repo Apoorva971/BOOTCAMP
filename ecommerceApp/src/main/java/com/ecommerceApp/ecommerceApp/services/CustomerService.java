@@ -73,7 +73,7 @@ public class CustomerService {
 
             mailMessage.setTo(customer.getEmail());
             mailMessage.setSubject("Complete Registration of the Customer!");
-            mailMessage.setFrom("apoorvagarg0@gmail.com");
+            mailMessage.setFrom("apoorvagarg30@gmail.com");
             mailMessage.setText("To confirm your account, please click on the Link given below : "
                     + "http://localhost:8080/register/confirm?token=" + verificationToken.getToken());
 

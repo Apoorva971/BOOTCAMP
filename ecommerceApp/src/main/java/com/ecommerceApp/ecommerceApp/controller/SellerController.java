@@ -32,7 +32,7 @@ public class SellerController {
         return sellerService.updateSellerProfile(username,profileDto);
     }
 
-    @PatchMapping("/seller/update_addresses/{id}")
+    @PatchMapping("/seller/update/addresses/{id}")
     public ResponseEntity<String> updateAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable Long id, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();

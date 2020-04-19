@@ -22,7 +22,7 @@ public class Forgot_And_Reset_Password_Controller {
         return forget_and_reset_password_service.forgot_password(user.getEmail());
     }
 
-    @PostMapping(path="resetPassword/{token}")
+    @PostMapping(path="/resetPassword/{token}")
     public String resetPassword(@Valid @RequestBody PasswordDto passwordDto, @PathVariable String token){
         return forget_and_reset_password_service.resetPassword(passwordDto,token);
     }
