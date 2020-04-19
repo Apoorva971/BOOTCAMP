@@ -28,7 +28,7 @@ public class Bootstrap implements ApplicationRunner {
         roleRepository.save(seller);
         roleRepository.save(customer);
 
-        Admin admin1 = new Admin("apoorvagarg@gmail.com", "Apoorva", "", "Garg");
+        Admin admin1 = new Admin("chiragtest9654@gmail.com", "Apoorva", "", "Garg");
         admin1.setPassword(passwordEncoder.encode("apoorvagarg"));
 
         admin1.isEnabled(true);
@@ -42,7 +42,7 @@ public class Bootstrap implements ApplicationRunner {
         admin1.addAddress(new Address("1153", "Bulanshahar", "Uttar Pradesh", "202394", "India","Home"));
         admin1.setActive(true);
 
-        Customer customer1 = new Customer("daljitkalsi@gmai.com", "Daljit", "",
+        Customer customer1 = new Customer("daljitkalsi@gmail.com", "Daljit", "",
                 "kalsi", "9837564567");
 
         customer1.setPassword(passwordEncoder.encode("daljitkalsi"));

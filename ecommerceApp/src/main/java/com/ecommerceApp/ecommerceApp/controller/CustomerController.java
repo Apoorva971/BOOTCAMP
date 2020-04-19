@@ -1,0 +1,62 @@
+package com.ecommerceApp.ecommerceApp.controller;
+
+import com.ecommerceApp.ecommerceApp.dtos.AddressDto;
+import com.ecommerceApp.ecommerceApp.dtos.CustomerViewProfileDto;
+import com.ecommerceApp.ecommerceApp.services.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Set;
+
+public class CustomerController {
+    @Autowired
+    CustomerService customerService;
+
+    @GetMapping("/customer/view_profile")
+            public CustomerViewProfileDto getprofile(HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        String username = principal.getName();
+        return customerService.getcustomerProfile(username);
+
+    }
+
+    @GetMapping("/customer/get_All_addresses")
+    public Set<AddressDto> getCustomerAddresses(HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        String username = principal.getName();
+        return customerService.getCustomerAllAdress(username);
+    }
+
+    @PostMapping("/customer/add_new_addresses")
+    public ResponseEntity addNewAddress(@Valid @RequestBody AddressDto addressDto, HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        String username = principal.getName();
+        return customerService.addNewAddress(username,addressDto);
+    }
+
+    @PatchMapping("/customer/profile")
+    public ResponseEntity updateProfile(@Valid @RequestBody CustomerViewProfileDto customerViewProfileDto,HttpServletRequest httpServletRequest){
+        Principal principal=httpServletRequest.getUserPrincipal();
+        String username=principal.getName();
+        return customerService.updateCustomerProfile(username,customerViewProfileDto);
+    }
+
+    @DeleteMapping("/customer/delete_addresses/{id}")
+    public ResponseEntity<String> deleteAddressById(@PathVariable Long id, HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        String username = principal.getName();
+        return customerService.deleteAddress(username, id);
+    }
+    @PatchMapping("/updateAddress/{id}")
+    public ResponseEntity<String> updateCustomerAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable Long id, HttpServletRequest httpServletRequest)
+    {
+        Principal principal=httpServletRequest.getUserPrincipal();
+        String username=principal.getName();
+        return customerService.updateCustomerAddress(username,addressDto,id);
+
+    }
+}

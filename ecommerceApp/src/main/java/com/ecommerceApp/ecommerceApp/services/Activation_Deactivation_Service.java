@@ -16,7 +16,7 @@ public class Activation_Deactivation_Service {
 
     public String ActivateUser(Long id, WebRequest request) {
         Optional<Users> user = userRepository.findById(id);
-        String message;
+        String message ;
 
         if (!user.isPresent()) {
             message = "no user is present of id = " + id + "";
@@ -34,7 +34,7 @@ public class Activation_Deactivation_Service {
                 message = "User account has been activated";
             }
         }
-       return message;
+       return "activated";
     }
     public String DeactivateUser(Long id, WebRequest request) {
         Optional<Users> user = userRepository.findById(id);
@@ -56,6 +56,6 @@ public class Activation_Deactivation_Service {
                 message = "User acount has been Deactivated";
             }
         }
-        return message;
+        return "de-activated";
     }
 }

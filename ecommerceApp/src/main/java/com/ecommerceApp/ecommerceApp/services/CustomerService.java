@@ -1,11 +1,16 @@
 package com.ecommerceApp.ecommerceApp.services;
 
+import com.ecommerceApp.ecommerceApp.Repositories.AddressRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.CustomerRepository;
+import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.VerificationTokenRepository;
+import com.ecommerceApp.ecommerceApp.dtos.AddressDto;
 import com.ecommerceApp.ecommerceApp.dtos.CustomerDto;
 import com.ecommerceApp.ecommerceApp.dtos.CustomerRegistrationDto;
 import com.ecommerceApp.ecommerceApp.dtos.CustomerViewProfileDto;
+import com.ecommerceApp.ecommerceApp.entities.Address;
 import com.ecommerceApp.ecommerceApp.entities.Customer;
+import com.ecommerceApp.ecommerceApp.entities.Users;
 import com.ecommerceApp.ecommerceApp.entities.VerificationToken;
 import com.ecommerceApp.ecommerceApp.exceptions.EmailAlreadyExistsException;
 import org.modelmapper.ModelMapper;
@@ -18,8 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class CustomerService {
@@ -30,7 +34,14 @@ public class CustomerService {
     VerificationTokenRepository verificationTokenRepository;
 
     @Autowired
+    AddressRepository addressRepository;
+    @Autowired
     EmailSenderService mailService;
+    @Autowired
+    AddressService addressService;
+    @Autowired
+    UserRepository userRepository;
+
 
     Customer initializeNewCustomer(Customer customer) {
         customer.setActive(false);
@@ -113,5 +124,71 @@ public class CustomerService {
         CustomerViewProfileDto customerViewProfileDto = toCustomerViewProfile(customer);
         return customerViewProfileDto;
   }
+    public ResponseEntity<String> updateCustomerProfile(String email, CustomerViewProfileDto customerViewProfileDto){
+        Customer customer=customerRepository.findByEmail(email);
+        if(customerViewProfileDto.getFirstName()!=null)
+            customer.setFirstName(customerViewProfileDto.getFirstName());
+        if(customerViewProfileDto.getMiddleName()!=null)
+            customer.setFirstName(customerViewProfileDto.getFirstName());
+        if(customerViewProfileDto.getLastName()!=null)
+            customer.setLastName(customerViewProfileDto.getLastName());
+        if(customerViewProfileDto.getContact() != null)
+            customer.setContact(customerViewProfileDto.getContact());
+        customerRepository.save(customer);
+        return new ResponseEntity<>("Profile Updated",HttpStatus.OK);
+
+    }
+
+    public  Set getCustomerAllAdress(String email) {
+        Customer customer = customerRepository.findByEmail(email);
+        Set<AddressDto> addressDtoSet = new HashSet<>();
+        Set<Address> addresses = customer.getAddresses();
+        addresses.forEach(address -> addressDtoSet.add(addressService.toAddressDto(address)));
+        return addressDtoSet;
+    }
+    public ResponseEntity<String> addNewAddress(String email, AddressDto addressDto) {
+        Customer customer = customerRepository.findByEmail(email);
+        Address newAddress = addressService.toAddress(addressDto);
+        customer.addAddress(newAddress);
+        customerRepository.save(customer);
+        String message="Address added successfully";
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
+    }
+    public ResponseEntity<String> deleteAddress(String email, Long id) {
+        Optional<Address> addressOptional = addressRepository.findById(id);
+        if (!addressOptional.isPresent()) {
+            return new ResponseEntity<>("No address found with the given id", HttpStatus.NOT_FOUND);
+        }
+        Address savedAddress = addressOptional.get();
+        if (savedAddress.getUser().getEmail().equals(email)) {
+            addressRepository.deleteAddressById(id);
+            return new ResponseEntity<>("Address successfully deleted", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Invalid Operation", HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<String> updateCustomerAddress(String username, AddressDto addressDto, Long id) {
+        Optional<Address> address = addressRepository.findById(id);
+        if (!address.isPresent())
+            return new ResponseEntity<>("Address not found",HttpStatus.NOT_FOUND);
+        Address savedAddress = address.get();
+        Users users = userRepository.findByEmail(username);
+        if (!savedAddress.getUser().getEmail().equals(username))
+            return new ResponseEntity<>("Address not found",HttpStatus.BAD_REQUEST);
+        if (addressDto.getCity() != null)
+            savedAddress.setCity(addressDto.getCity());
+        if (addressDto.getState() != null)
+            savedAddress.setState(addressDto.getCity());
+        if (addressDto.getCountry() != null)
+            savedAddress.setCountry(addressDto.getCountry());
+        if (addressDto.getZipCode() != null)
+            savedAddress.setZipCode(addressDto.getZipCode());
+        if (addressDto.getLabel() != null)
+            savedAddress.setLabel(addressDto.getLabel());
+        if (addressDto.getAddressLine() != null)
+            savedAddress.setLabel(addressDto.getAddressLine());
+        addressRepository.save(savedAddress);
+        return new ResponseEntity<>("Success",HttpStatus.OK);
+    }
 
 }

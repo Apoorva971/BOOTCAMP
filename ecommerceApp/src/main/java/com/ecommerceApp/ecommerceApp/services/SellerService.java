@@ -1,21 +1,29 @@
 package com.ecommerceApp.ecommerceApp.services;
 
+import com.ecommerceApp.ecommerceApp.Repositories.AddressRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.SellerRepository;
-import com.ecommerceApp.ecommerceApp.dtos.CustomerViewProfileDto;
+import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
+import com.ecommerceApp.ecommerceApp.dtos.AddressDto;
 import com.ecommerceApp.ecommerceApp.dtos.SellerDto;
 import com.ecommerceApp.ecommerceApp.dtos.SellerRegistrationDto;
 import com.ecommerceApp.ecommerceApp.dtos.SellerViewProfileDto;
-import com.ecommerceApp.ecommerceApp.entities.Customer;
+import com.ecommerceApp.ecommerceApp.entities.Address;
 import com.ecommerceApp.ecommerceApp.entities.Seller;
+import com.ecommerceApp.ecommerceApp.entities.Users;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SellerService {
@@ -23,9 +31,17 @@ public class SellerService {
     SellerRepository sellerRepository;
 
     @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
     ModelMapper modelMapper;
     @Autowired
     EmailSenderService emailSenderService;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    AddressRepository addressRepository;
+    @Autowired
+    Forget_And_Reset_Password_Service forget_and_reset_password_service;
 
     public Seller toSeller(SellerRegistrationDto sellerRegistrationDto) {
         Seller seller = modelMapper.map(sellerRegistrationDto, Seller.class);
@@ -54,64 +70,141 @@ public class SellerService {
         SellerDto sellerDto = toSellerDto(seller);
         return sellerDto;
     }
-    public SellerViewProfileDto toSellerViewProfileDto(Seller seller){
-        SellerViewProfileDto sellerViewProfileDto = modelMapper.map(seller,SellerViewProfileDto.class);
+
+    public SellerViewProfileDto toSellerViewProfileDto(Seller seller) {
+        SellerViewProfileDto sellerViewProfileDto = modelMapper.map(seller, SellerViewProfileDto.class);
         return sellerViewProfileDto;
     }
-    public SellerViewProfileDto getSellerProfile(String email){
+
+    public SellerViewProfileDto getSellerProfile(String email) {
         Seller seller = sellerRepository.findByEmail(email);
         SellerViewProfileDto sellerViewProfileDto = toSellerViewProfileDto(seller);
         return sellerViewProfileDto;
     }
+
+    public String registerSeller(SellerRegistrationDto sellerRegistrationDto) {
+        if (!(check_if_all_details_unique(sellerRegistrationDto) == "unique")) {
+            return "Invalid data";
+        }
+        Seller seller = toSeller(sellerRegistrationDto);
+        seller.setPassword(passwordEncoder.encode(seller.getPassword()));
+        sellerRepository.save(seller);
+        acknowledgementEmail(seller.getEmail());
+        return "Account created successfully. It will be activated after verification.";
+
+    }
+
+    public boolean isEmailUnique(String email) {
+        Seller seller = sellerRepository.findByEmail(email);
+        if (seller != null)
+            return false;
+
+        return true;
+    }
+
+    public boolean isGSTUnique(String GST) {
+        Seller seller = sellerRepository.findByGST(GST);
+        if (seller != null)
+            return false;
+
+        return true;
+    }
+
+    public boolean isCompanyNameUnique(String name) {
+        Seller seller = sellerRepository.findByCompanyName(name);
+        if (seller != null)
+            return false;
+
+        return true;
+    }
+
+    public String check_if_all_details_unique(SellerRegistrationDto sellerRegistrationDto) {
+        if (!isEmailUnique(sellerRegistrationDto.getEmail())) {
+            return "Email already exits";
+        } else if (!isGSTUnique(sellerRegistrationDto.getGST())) {
+            return "GST already exists";
+        } else if (!isCompanyNameUnique(sellerRegistrationDto.getCompanyName())) {
+            return "Comapny name already exits ";
+        } else {
+            return "unique";
+        }
+    }
+
+    public void acknowledgementEmail(String email) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setSubject("Registration confirmation");
+        mailMessage.setText("Your account is awaited for confirmation");
+        emailSenderService.sendEmail(mailMessage);
+    }
+
+    public  SellerDto getSellerbyEmail(String email) {
+        Seller seller = sellerRepository.findByEmail(email);
+        if (email == null) {
+            return null;
+        }
+        SellerDto sellerDto =toSellerDto(seller);
+        return sellerDto;
+    }
+    public SellerViewProfileDto tosellerProfileDto(Seller seller) {
+        SellerViewProfileDto sellerViewProfileDto= modelMapper.map(seller, SellerViewProfileDto.class);
+        return sellerViewProfileDto;
+    }
+
+    public ResponseEntity<String> updateSellerProfile(String email, SellerViewProfileDto profileDto) {
+        Seller savedSeller = sellerRepository.findByEmail(email);
+
+        if(profileDto.getFirstName() != null)
+            savedSeller.setFirstName(profileDto.getFirstName());
+
+        if(profileDto.getLastName() != null)
+            savedSeller.setLastName(profileDto.getLastName());
+
+        if(profileDto.getActive() != null && !profileDto.getActive())
+            savedSeller.setActive(profileDto.getActive());
+
+        if(profileDto.getGST() != null)
+            savedSeller.setGST(profileDto.getGST());
+
+        if(profileDto.getCompanyContact() != null)
+            savedSeller.setCompanyContact(profileDto.getCompanyContact());
+
+        if(profileDto.getCompanyName() != null)
+            savedSeller.setCompanyName(profileDto.getCompanyName());
+
+        sellerRepository.save(savedSeller);
+
+        return new ResponseEntity("Your profile details has been updated", HttpStatus.OK);
 }
-//    public boolean isEmailUnique(String email){
-//        Seller seller = sellerRepository.findByEmail(email);
-//        if(seller != null)
-//            return false;
-//
-//        return true;
-//    }
-//    public boolean isGSTUnique(String GST){
-//        Seller seller = sellerRepository.findByGST(GST);
-//        if(seller != null)
-//            return false;
-//
-//        return true;
-//    }
-//    public boolean isCompanyNameUnique(String name){
-//        Seller seller = sellerRepository.findByCompanyName(name);
-//        if(seller != null)
-//            return false;
-//
-//        return true;
-//    }
-//    public String checkIfUnique(SellerRegistrationDto sellerRegistrationDto){
-//        if(!isEmailUnique(sellerRegistrationDto.getEmail())){
-//            return "Email already exits";
-//        }
-//        else if(!isGSTUnique(sellerRegistrationDto.getGST())){
-//            return "GST already exists";
-//        }
-//        else if(!isCompanyNameUnique(sellerRegistrationDto.getCompanyName())){
-//            return "Comapny name already exits ";
-//        }
-//        else{
-//            return "unique";
-//        }
-//    }
-//    public void acknowledgementEmail(String email){
-//        String subject="Registration confirmation";
-//        String text="Your account is awaited for confirmation";
-//        mailService.sendEmail(email,subject,text);
-//    }
-//    public SellerDto getSellerByEmaiId(String email){
-//        Seller seller=sellerRepository.findByEmail(email);
-//        if(email==null){
-//            return null;
-//        }
-//        SellerDto sellerDto =toadminSellerDto(seller);
-//        return sellerDto;
-//    }
-//
-//
-//}
+    public ResponseEntity<String> updateSellerAddress(String email, Long addressId, AddressDto addressDto) {
+        Optional<Address> address = addressRepository.findById(addressId);
+        Users user = userRepository.findByEmail(email);
+
+        if(!address.isPresent()){
+            return new ResponseEntity<>("No address found with the given id;", HttpStatus.NOT_FOUND);
+        }
+        Address savedAddress = address.get();
+        if(!savedAddress.getUser().getEmail().equals(email)){
+            return new ResponseEntity<>("Invalid Operation", HttpStatus.CONFLICT);
+        }
+
+        if(addressDto.getAddressLine() != null)
+            savedAddress.setAddressLine(addressDto.getAddressLine());
+
+        if(addressDto.getCity() != null)
+            savedAddress.setCity(addressDto.getCity());
+
+        if(addressDto.getState() != null)
+            savedAddress.setState(addressDto.getState());
+
+        if(addressDto.getCountry() != null)
+            savedAddress.setCountry(addressDto.getCountry());
+
+        if(addressDto.getZipCode() != null)
+            savedAddress.setZipCode(addressDto.getZipCode());
+
+        if(addressDto.getLabel() != null)
+            savedAddress.setLabel(addressDto.getLabel());
+
+        return new ResponseEntity<>("Address Updated", HttpStatus.OK);
+    }
+}

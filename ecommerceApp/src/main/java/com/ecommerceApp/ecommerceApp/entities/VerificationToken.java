@@ -1,5 +1,9 @@
 package com.ecommerceApp.ecommerceApp.entities;
+import com.ecommerceApp.ecommerceApp.validators.ValidEmail;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +15,9 @@ public class VerificationToken{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Email
+    @ValidEmail
+    private String email;
     private String token;
     @OneToOne(targetEntity = Users.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "users_id")
@@ -27,7 +34,7 @@ public class VerificationToken{
     public VerificationToken(Users user) {
         this.token = token;
         this.user = user;
-        this.expiryDate = this.calculateExpiryDate(EXPIRATION);
+        expiryDate = calculateExpiryDate(EXPIRATION);
         createdDate = new Date();
         token = UUID.randomUUID().toString();
     }
@@ -62,11 +69,28 @@ public class VerificationToken{
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     private Date calculateExpiryDate(int expiryTimeInMinutes) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(cal.getTime().getTime()));
         cal.add(Calendar.MINUTE, expiryTimeInMinutes);
         return new Date(cal.getTime().getTime());
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override

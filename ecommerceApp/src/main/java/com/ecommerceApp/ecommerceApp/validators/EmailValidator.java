@@ -29,3 +29,5 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
         }
     }
 
+//,message = "Password should contain atlea
+// st 8 characters and one Uppercase,lowercase,digit and special character")

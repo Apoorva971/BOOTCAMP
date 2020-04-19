@@ -4,5 +4,6 @@ import com.ecommerceApp.ecommerceApp.entities.Address;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface AdressRepository extends CrudRepository<Address,Long> {
+public interface AddressRepository extends CrudRepository<Address,Long> {
+    void deleteAddressById(Long id);
 }

@@ -15,19 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class EcommerceAppApplication {
 
-	@Autowired
-	private TokenStore tokenStore;
 
-	@GetMapping("/doLogout")
-	public String logout(HttpServletRequest request){
-		String authHeader = request.getHeader("Authorization");
-		if (authHeader != null) {
-			String tokenValue = authHeader.replace("Bearer", "").trim();
-			OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
-			tokenStore.removeAccessToken(accessToken);
-		}
-		return "Logged out successfully";
-	}
 
 	@GetMapping("/")
 	public String index(){
@@ -53,8 +41,6 @@ public class EcommerceAppApplication {
 	public String sellerHome(){
 		return "Seller Home";
 	}
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(EcommerceAppApplication.class, args);
 	}
