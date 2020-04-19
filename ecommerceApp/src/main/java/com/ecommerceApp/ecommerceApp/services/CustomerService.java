@@ -4,15 +4,14 @@ import com.ecommerceApp.ecommerceApp.Repositories.AddressRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.CustomerRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.VerificationTokenRepository;
-import com.ecommerceApp.ecommerceApp.dtos.AddressDto;
-import com.ecommerceApp.ecommerceApp.dtos.CustomerDto;
-import com.ecommerceApp.ecommerceApp.dtos.CustomerRegistrationDto;
-import com.ecommerceApp.ecommerceApp.dtos.CustomerViewProfileDto;
+import com.ecommerceApp.ecommerceApp.dtos.*;
 import com.ecommerceApp.ecommerceApp.entities.Address;
 import com.ecommerceApp.ecommerceApp.entities.Customer;
 import com.ecommerceApp.ecommerceApp.entities.Users;
 import com.ecommerceApp.ecommerceApp.entities.VerificationToken;
 import com.ecommerceApp.ecommerceApp.exceptions.EmailAlreadyExistsException;
+import com.ecommerceApp.ecommerceApp.exceptions.PasswordNotMatchedException;
+import com.ecommerceApp.ecommerceApp.security.AppUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -21,8 +20,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Component
@@ -41,6 +44,9 @@ public class CustomerService {
     AddressService addressService;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
 
     Customer initializeNewCustomer(Customer customer) {
@@ -189,6 +195,25 @@ public class CustomerService {
             savedAddress.setLabel(addressDto.getAddressLine());
         addressRepository.save(savedAddress);
         return new ResponseEntity<>("Success",HttpStatus.OK);
+    }
+    public Customer getLoggedInCustomer() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AppUser userDetail = (AppUser) authentication.getPrincipal();
+        String username = userDetail.getUsername();
+        Customer customer = customerRepository.findByEmail(username);
+        return customer;
+    }
+    @Transactional
+    public void updateCustomerPassword(PasswordDto password) {
+        Customer customer = getLoggedInCustomer();
+        String password1 = password.getPassword();
+        String confirmPassword = password.getConfirmPassword();
+        if (password1.equals(confirmPassword)) {
+            customer.setPassword(passwordEncoder.encode(password1));
+            customerRepository.save(customer);
+        }
+        else
+            throw new PasswordNotMatchedException("password didn't matched");
     }
 
 }

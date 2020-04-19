@@ -3,13 +3,12 @@ package com.ecommerceApp.ecommerceApp.services;
 import com.ecommerceApp.ecommerceApp.Repositories.AddressRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.SellerRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
-import com.ecommerceApp.ecommerceApp.dtos.AddressDto;
-import com.ecommerceApp.ecommerceApp.dtos.SellerDto;
-import com.ecommerceApp.ecommerceApp.dtos.SellerRegistrationDto;
-import com.ecommerceApp.ecommerceApp.dtos.SellerViewProfileDto;
+import com.ecommerceApp.ecommerceApp.dtos.*;
 import com.ecommerceApp.ecommerceApp.entities.Address;
 import com.ecommerceApp.ecommerceApp.entities.Seller;
 import com.ecommerceApp.ecommerceApp.entities.Users;
+import com.ecommerceApp.ecommerceApp.exceptions.PasswordNotMatchedException;
+import com.ecommerceApp.ecommerceApp.security.AppUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -18,9 +17,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -206,5 +208,24 @@ public class SellerService {
             savedAddress.setLabel(addressDto.getLabel());
 
         return new ResponseEntity<>("Address Updated", HttpStatus.OK);
+    }
+    public Seller getLoggedInSeller() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AppUser userDetail = (AppUser) authentication.getPrincipal();
+        String username = userDetail.getUsername();
+        Seller seller = sellerRepository.findByEmail(username);
+        return seller;
+    }
+    @Transactional
+    public void updatePassword(PasswordDto password) {
+        Seller seller = getLoggedInSeller();
+        String password1 = password.getPassword();
+        String confirmPassword = password.getConfirmPassword();
+        if (password1.equals(confirmPassword)) {
+            seller.setPassword(passwordEncoder.encode(password1));
+            sellerRepository.save(seller);
+        }
+        else
+            throw new PasswordNotMatchedException("password didn't matched");
     }
 }

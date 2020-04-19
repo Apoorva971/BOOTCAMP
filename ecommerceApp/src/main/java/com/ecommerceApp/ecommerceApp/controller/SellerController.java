@@ -1,14 +1,12 @@
 package com.ecommerceApp.ecommerceApp.controller;
 
 import com.ecommerceApp.ecommerceApp.dtos.AddressDto;
+import com.ecommerceApp.ecommerceApp.dtos.PasswordDto;
 import com.ecommerceApp.ecommerceApp.dtos.SellerViewProfileDto;
 import com.ecommerceApp.ecommerceApp.services.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -37,6 +35,11 @@ public class SellerController {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return sellerService.updateSellerAddress(username, id, addressDto);
+    }
+    @PutMapping("/seller/update/password")
+    public String updatePassword(@RequestBody PasswordDto passwordDto){
+        sellerService.updatePassword(passwordDto);
+        return "Password updated...";
     }
 }
 

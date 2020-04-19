@@ -21,10 +21,7 @@ public class AppUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Users users = userRepository.findByEmail(email);
-        //String encryptedPassword = passwordEncoder.encode("pass");
-
         System.out.println("Trying to authenticate user ::" + email);
-        //System.out.println("Encrypted Password ::"+encryptedPassword);
         UserDetails userDetails = userDao.loadUserByUsername(email);
         return userDetails;
     }

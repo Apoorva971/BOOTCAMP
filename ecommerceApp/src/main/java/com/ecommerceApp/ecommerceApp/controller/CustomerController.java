@@ -2,6 +2,7 @@ package com.ecommerceApp.ecommerceApp.controller;
 
 import com.ecommerceApp.ecommerceApp.dtos.AddressDto;
 import com.ecommerceApp.ecommerceApp.dtos.CustomerViewProfileDto;
+import com.ecommerceApp.ecommerceApp.dtos.PasswordDto;
 import com.ecommerceApp.ecommerceApp.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -60,5 +61,10 @@ public class CustomerController {
         String username=principal.getName();
         return customerService.updateCustomerAddress(username,addressDto,id);
 
+    }
+    @PutMapping("customer/update/password")
+    public String updatePassword(@RequestBody PasswordDto passwordDto){
+        customerService.updateCustomerPassword(passwordDto);
+        return "Password updated...";
     }
 }
