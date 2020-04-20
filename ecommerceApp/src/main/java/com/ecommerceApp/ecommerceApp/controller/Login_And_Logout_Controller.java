@@ -18,7 +18,7 @@ public class Login_And_Logout_Controller {
     public String logout(HttpServletRequest request){
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null) {
-            String tokenValue = authHeader.replace("Bearer", "").trim();
+            String tokenValue = authHeader.replace("Bearer ", "").trim();
             OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
             tokenStore.removeAccessToken(accessToken);
         }

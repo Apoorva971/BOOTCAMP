@@ -8,5 +8,4 @@ import org.springframework.data.repository.query.Param;
 
 public interface VerificationTokenRepository extends CrudRepository<VerificationToken,Long> {
     VerificationToken findByToken( String token);
-
 }

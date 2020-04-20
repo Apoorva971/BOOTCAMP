@@ -22,7 +22,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -81,14 +80,11 @@ public class SellerService {
     }
 
     public SellerViewProfileDto getSellerProfile(String email) {
-
         Seller seller = sellerRepository.findByEmail(email);
-
         if(seller == null)
             throw new UserNotFountException("not found")      ;
 
         SellerViewProfileDto sellerViewProfileDto = toSellerViewProfileDto(seller);
-
         return sellerViewProfileDto;
     }
 

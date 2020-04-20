@@ -27,7 +27,6 @@ public class VerificationToken{
     public VerificationToken(){
 
     }
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
     public VerificationToken(Users user) {
@@ -60,6 +59,7 @@ public class VerificationToken{
     public void setUser(Users user) {
         this.user = user;
     }
+
 
     public Date getExpiryDate() {
         return expiryDate;
