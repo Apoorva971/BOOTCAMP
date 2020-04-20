@@ -11,6 +11,7 @@ import com.ecommerceApp.ecommerceApp.entities.Users;
 import com.ecommerceApp.ecommerceApp.entities.VerificationToken;
 import com.ecommerceApp.ecommerceApp.exceptions.EmailAlreadyExistsException;
 import com.ecommerceApp.ecommerceApp.exceptions.PasswordNotMatchedException;
+import com.ecommerceApp.ecommerceApp.exceptions.UserNotFountException;
 import com.ecommerceApp.ecommerceApp.security.AppUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,8 +127,14 @@ public class CustomerService {
         return customerViewProfileDto;
   }
   public CustomerViewProfileDto getcustomerProfile(String email){
+
         Customer customer = customerRepository.findByEmail(email);
+
+        if(customer == null)
+            throw new UserNotFountException("not found")      ;
+
         CustomerViewProfileDto customerViewProfileDto = toCustomerViewProfile(customer);
+
         return customerViewProfileDto;
   }
     public ResponseEntity<String> updateCustomerProfile(String email, CustomerViewProfileDto customerViewProfileDto){
