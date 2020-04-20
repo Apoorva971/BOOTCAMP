@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 public class SellerViewProfileDto extends UserViewProfileDto {
 
-    @ValidGST
+//    @ValidGST
     @Size(min = 15, max = 15)
     private String GST;
 

@@ -136,6 +136,7 @@ public class SellerService {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setSubject("Registration confirmation");
         simpleMailMessage.setText("Your account is awaited for confirmation");
+        simpleMailMessage.setTo(email);
         emailSenderService.sendEmail(simpleMailMessage);
     }
 

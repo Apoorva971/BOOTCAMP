@@ -16,7 +16,6 @@ public class UserRegistrationDto {
     private String lastName;
 
     @Email
-    @ValidEmail
     private String email;
 
     @NotNull
