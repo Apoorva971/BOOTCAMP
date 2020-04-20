@@ -8,6 +8,7 @@ import com.ecommerceApp.ecommerceApp.entities.Address;
 import com.ecommerceApp.ecommerceApp.entities.Seller;
 import com.ecommerceApp.ecommerceApp.entities.Users;
 import com.ecommerceApp.ecommerceApp.exceptions.PasswordNotMatchedException;
+import com.ecommerceApp.ecommerceApp.exceptions.UserNotFountException;
 import com.ecommerceApp.ecommerceApp.security.AppUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
 public class SellerService {
     @Autowired
     SellerRepository sellerRepository;
@@ -80,6 +82,9 @@ public class SellerService {
 
     public SellerViewProfileDto getSellerProfile(String email) {
         Seller seller = sellerRepository.findByEmail(email);
+        if(seller == null)
+            throw new UserNotFountException("not found")      ;
+
         SellerViewProfileDto sellerViewProfileDto = toSellerViewProfileDto(seller);
         return sellerViewProfileDto;
     }

@@ -1,8 +1,5 @@
 package com.ecommerceApp.ecommerceApp.dtos;
 
-import com.ecommerceApp.ecommerceApp.validators.PasswordMatches;
-import com.ecommerceApp.ecommerceApp.validators.ValidPassword;
-
 import javax.validation.constraints.NotNull;
 
 public class PasswordDto {

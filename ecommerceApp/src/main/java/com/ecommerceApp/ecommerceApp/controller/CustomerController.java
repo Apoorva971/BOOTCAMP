@@ -61,7 +61,7 @@ public class CustomerController {
         return customerService.updateCustomerAddress(username,addressDto,id);
 
     }
-    @PutMapping("customer/update/password")
+    @PutMapping("/customer/update/password")
     public String updatePassword(@RequestBody PasswordDto passwordDto){
         customerService.updateCustomerPassword(passwordDto);
         return "Password updated...";

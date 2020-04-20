@@ -22,17 +22,17 @@ public class EmailSenderService {
     {
         javaMailSender.send(email);
     }
-    public SimpleMailMessage getCustomerAwaitingActivationMail(String customerEmail, String confirmationToken)
-    {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(customerEmail);
-        mailMessage.setSubject("Complete Registration!");
-        mailMessage.setFrom("apoorvagarg30@gmail.com");
-        mailMessage.setText("To confirm your account, please click here : "
-                +"http://localhost:8080/register/confirm?token="+confirmationToken);
-
-        return mailMessage;
-    }
+//    public SimpleMailMessage getCustomerAwaitingActivationMail(String customerEmail, String confirmationToken)
+//    {
+//        SimpleMailMessage mailMessage = new SimpleMailMessage();
+//        mailMessage.setTo(customerEmail);
+//        mailMessage.setSubject("Complete Registration!");
+//        mailMessage.setFrom("apoorvagarg30@gmail.com");
+//        mailMessage.setText("To confirm your account, please click here : "
+//                +"http://localhost:8080/register/confirm?token="+confirmationToken);
+//
+//        return mailMessage;
+//    }
 
 }
 

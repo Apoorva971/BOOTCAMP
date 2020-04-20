@@ -91,7 +91,7 @@ public class CustomerService {
 
     public String validateRegistrationToken(String userToken) {
 
-        VerificationToken foundToken = verificationTokenRepository.findByToken(userToken);
+        VerificationToken foundToken = verificationTokenRepository.getByToken(userToken);
 
         if (foundToken != null) {
             Customer customer = customerRepository.findByEmail(foundToken.getUser().getEmail());
@@ -142,7 +142,7 @@ public class CustomerService {
         if(customerViewProfileDto.getFirstName()!=null)
             customer.setFirstName(customerViewProfileDto.getFirstName());
         if(customerViewProfileDto.getMiddleName()!=null)
-            customer.setFirstName(customerViewProfileDto.getFirstName());
+            customer.setMiddleName(customerViewProfileDto.getMiddleName());
         if(customerViewProfileDto.getLastName()!=null)
             customer.setLastName(customerViewProfileDto.getLastName());
         if(customerViewProfileDto.getContact() != null)

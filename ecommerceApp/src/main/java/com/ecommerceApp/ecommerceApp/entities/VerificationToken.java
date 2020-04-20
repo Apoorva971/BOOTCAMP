@@ -1,5 +1,4 @@
 package com.ecommerceApp.ecommerceApp.entities;
-import com.ecommerceApp.ecommerceApp.validators.ValidEmail;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -16,7 +15,7 @@ public class VerificationToken{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Email
-    @ValidEmail
+
     private String email;
     private String token;
     @OneToOne(targetEntity = Users.class, fetch = FetchType.EAGER)

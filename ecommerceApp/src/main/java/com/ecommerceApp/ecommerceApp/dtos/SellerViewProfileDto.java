@@ -1,6 +1,5 @@
 package com.ecommerceApp.ecommerceApp.dtos;
 
-import com.ecommerceApp.ecommerceApp.validators.ValidGST;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -8,7 +7,6 @@ import javax.validation.constraints.Size;
 
 public class SellerViewProfileDto extends UserViewProfileDto {
 
-//    @ValidGST
     @Size(min = 15, max = 15)
     private String GST;
 
@@ -20,6 +18,9 @@ public class SellerViewProfileDto extends UserViewProfileDto {
     @Size(min = 10, max = 10)
     private String companyContact;
 
+    public SellerViewProfileDto(){
+
+    }
     public SellerViewProfileDto(@NotNull String firstName, @NotNull String middleName,
                                 @NotNull String lastName, Boolean isActive, @Size(min = 15, max = 15)
             String GST, String companyName, @Size(min = 10, max = 10) String companyContact) {

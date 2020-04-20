@@ -1,7 +1,4 @@
 package com.ecommerceApp.ecommerceApp.dtos;
-
-import com.ecommerceApp.ecommerceApp.validators.ValidEmail;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 

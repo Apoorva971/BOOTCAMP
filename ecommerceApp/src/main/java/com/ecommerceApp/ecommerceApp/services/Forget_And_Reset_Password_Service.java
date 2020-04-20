@@ -55,7 +55,7 @@ public class Forget_And_Reset_Password_Service {
     }
 
     public String resetPassword(PasswordDto passwordDto, String Token) {
-        VerificationToken verificationToken = verificationTokenRepository.findByToken(Token);
+        VerificationToken verificationToken = verificationTokenRepository.getByToken(Token);
         String password = passwordDto.getPassword();
         String confirmPassword = passwordDto.getConfirmPassword();
         if (verificationToken.getEmail() == null) {
