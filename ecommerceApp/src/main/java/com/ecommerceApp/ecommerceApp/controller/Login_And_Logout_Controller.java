@@ -1,6 +1,8 @@
 package com.ecommerceApp.ecommerceApp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +15,13 @@ public class Login_And_Logout_Controller {
     private TokenStore tokenStore;
 
     @GetMapping("/doLogout")
-    public String logout(HttpServletRequest request){
+    public ResponseEntity<String> logout(HttpServletRequest request){
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null) {
             String tokenValue = authHeader.replace("Bearer", "").trim();
             OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
             tokenStore.removeAccessToken(accessToken);
         }
-        return "Logged out successfully";
+        return new ResponseEntity<>("Logged out successfully", HttpStatus.OK);
     }
 }

@@ -16,6 +16,7 @@ public class SellerController {
 
     @Autowired
     SellerService sellerService;
+
     @GetMapping("/seller/profile")
     public SellerViewProfileDto getProfileDetails(HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
@@ -23,7 +24,7 @@ public class SellerController {
         return sellerService.getSellerProfile(username);
     }
 
-    @PatchMapping("/seller/update_profile")
+    @PatchMapping("/seller/update/profile")
     public ResponseEntity updateProfileDetails(@RequestBody SellerViewProfileDto profileDto, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();

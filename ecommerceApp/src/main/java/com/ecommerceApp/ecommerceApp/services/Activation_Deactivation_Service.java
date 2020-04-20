@@ -30,6 +30,7 @@ public class Activation_Deactivation_Service {
                 SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
                 simpleMailMessage.setSubject("Account Activation");
                 simpleMailMessage.setText("Your account has been activated");
+                simpleMailMessage.setTo(saveUser.getEmail());
                 emailSenderService.sendEmail(simpleMailMessage);
                 message = "User account has been activated";
             }
@@ -47,11 +48,12 @@ public class Activation_Deactivation_Service {
             if (!saveUser.isActive()) {
                 message = "User is inactive";
             } else {
-                saveUser.setActive(true);
+                saveUser.setActive(false);
                 userRepository.save(saveUser);
                 SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
                 simpleMailMessage.setSubject("Account De-activation");
-                simpleMailMessage.setText("Your account has been activated");
+                simpleMailMessage.setText("Your account has been deactivated");
+                simpleMailMessage.setTo(saveUser.getEmail());
                 emailSenderService.sendEmail(simpleMailMessage);
                 message = "User acount has been Deactivated";
             }

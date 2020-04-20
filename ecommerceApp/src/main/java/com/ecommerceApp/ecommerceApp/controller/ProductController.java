@@ -23,7 +23,7 @@ public class ProductController {
 
     @GetMapping("/seller/product/view/{productId}")
     public Optional<Product> viewProductAsSeller(@PathVariable Long productId) {
-        Optional<Product> product = productService.viewProductAsSeller(productId);
+        Optional<Product> product = productService.viewProduct(productId);
         return product;
     }
 

@@ -45,7 +45,7 @@ public class ProductService {
 else
     throw new InvalidDetailException("feilds should not be null");
     }
-    public Optional<Product> viewProductAsSeller(Long productId) {
+    public Optional<Product> viewProduct(Long productId) {
         Seller seller = sellerService.getLoggedInSeller();
         Optional<Product> product = productRepository.findByIdAndSellerId(productId, seller.getId());
         if (product.get().getId() != null)

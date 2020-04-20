@@ -22,7 +22,6 @@ public class CustomerController {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return customerService.getcustomerProfile(username);
-
     }
 
     @GetMapping("/customer/getAll/addresses")
