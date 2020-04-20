@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Set;
-
+@RestController
 public class CustomerController {
     @Autowired
     CustomerService customerService;

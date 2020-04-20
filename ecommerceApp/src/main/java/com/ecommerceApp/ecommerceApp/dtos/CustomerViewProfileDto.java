@@ -17,6 +17,12 @@ public class CustomerViewProfileDto extends UserViewProfileDto {
         this.contact = contact;
     }
 
+    public CustomerViewProfileDto(@Pattern(regexp = "^[789]\\d{9}$", message = "Please enter a valid number!") String contact) {
+        this.contact = contact;
+    }
+public CustomerViewProfileDto(){
+
+}
     public CustomerViewProfileDto(@javax.validation.constraints.NotNull String firstName,
                                   @javax.validation.constraints.NotNull String middleName,
                                   @javax.validation.constraints.NotNull String lastName,
