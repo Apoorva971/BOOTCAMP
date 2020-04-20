@@ -131,7 +131,7 @@ public class CustomerService {
         Customer customer = customerRepository.findByEmail(email);
 
         if(customer == null)
-            throw new UserNotFountException("not found")      ;
+            throw new UserNotFountException("not foun")      ;
 
         CustomerViewProfileDto customerViewProfileDto = toCustomerViewProfile(customer);
 
