@@ -49,7 +49,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(final HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+               // .antMatchers("/").permitAll()
+                .antMatchers("/seller/profile").hasAnyRole("SELLER")
                 .antMatchers("/customer/*").hasAnyRole("CUSTOMER")
                 .antMatchers("/doLogout").hasAnyRole("ADMIN", "CUSTOMER", "SELLER")
                 .antMatchers("/register/*").anonymous()

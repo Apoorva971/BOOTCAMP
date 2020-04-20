@@ -48,14 +48,14 @@ public class Forget_And_Reset_Password_Service {
 
             simpleMailMessage.setTo(users.getEmail());
             simpleMailMessage.setText("To reset your password, please click on the Link given below :" + "" +
-                    "\n http://localhost:8080/resetPassword?token=" + verificationToken.getToken());
+                    "\n http://localhost:8080/resetPassword/" + verificationToken.getToken());
             emailSenderService.sendEmail(simpleMailMessage);
         }
         return "check email to reset password";
     }
 
     public String resetPassword(PasswordDto passwordDto, String Token) {
-        VerificationToken verificationToken = verificationTokenRepository.getByToken(Token);
+        VerificationToken verificationToken = verificationTokenRepository.findByToken(Token);
         String password = passwordDto.getPassword();
         String confirmPassword = passwordDto.getConfirmPassword();
         if (verificationToken.getEmail() == null) {

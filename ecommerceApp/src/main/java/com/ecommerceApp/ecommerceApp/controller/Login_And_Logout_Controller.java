@@ -15,13 +15,13 @@ public class Login_And_Logout_Controller {
     private TokenStore tokenStore;
 
     @GetMapping("/doLogout")
-    public ResponseEntity<String> logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request){
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null) {
             String tokenValue = authHeader.replace("Bearer", "").trim();
             OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
             tokenStore.removeAccessToken(accessToken);
         }
-        return new ResponseEntity<>("Logged out successfully", HttpStatus.OK);
+        return "Logged out successfully";
     }
 }

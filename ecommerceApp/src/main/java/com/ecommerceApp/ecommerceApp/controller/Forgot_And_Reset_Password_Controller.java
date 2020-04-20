@@ -20,8 +20,8 @@ public class Forgot_And_Reset_Password_Controller {
     }
 
 
-    @PostMapping(path="/resetPassword")
-    public String resetPassword(@Valid @RequestBody PasswordDto passwordDto, @RequestParam("token") String token){
+    @PostMapping(path="/resetPassword/{token}")
+    public String resetPassword(@Valid @RequestBody PasswordDto passwordDto, @PathVariable("token") String token){
         return forget_and_reset_password_service.resetPassword(passwordDto,token);
     }
 }

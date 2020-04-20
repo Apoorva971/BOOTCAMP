@@ -81,11 +81,14 @@ public class SellerService {
     }
 
     public SellerViewProfileDto getSellerProfile(String email) {
+
         Seller seller = sellerRepository.findByEmail(email);
+
         if(seller == null)
             throw new UserNotFountException("not found")      ;
 
         SellerViewProfileDto sellerViewProfileDto = toSellerViewProfileDto(seller);
+
         return sellerViewProfileDto;
     }
 

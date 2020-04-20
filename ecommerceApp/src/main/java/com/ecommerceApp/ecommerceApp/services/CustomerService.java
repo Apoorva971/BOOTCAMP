@@ -91,7 +91,7 @@ public class CustomerService {
 
     public String validateRegistrationToken(String userToken) {
 
-        VerificationToken foundToken = verificationTokenRepository.getByToken(userToken);
+        VerificationToken foundToken = verificationTokenRepository.findByToken(userToken);
 
         if (foundToken != null) {
             Customer customer = customerRepository.findByEmail(foundToken.getUser().getEmail());
