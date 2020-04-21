@@ -16,21 +16,21 @@ import java.util.Set;
 public class CustomerController {
     @Autowired
     CustomerService customerService;
-
-    @GetMapping("/customer/view/profile")
+///////////////done
+        @GetMapping("/customer/view/profile")
             public CustomerViewProfileDto getprofile(HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return customerService.getcustomerProfile(username);
     }
-
+//////////done
     @GetMapping("/customer/getAll/addresses")
     public Set<AddressDto> getCustomerAddresses(HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return customerService.getCustomerAllAdress(username);
     }
-
+//////////done
     @PostMapping("/customer/addnew/addresses")
     public ResponseEntity addNewAddress(@Valid @RequestBody AddressDto addressDto, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
@@ -38,7 +38,7 @@ public class CustomerController {
         return customerService.addNewAddress(username,addressDto);
     }
 
-    @PatchMapping("/customer/profile")
+    @PutMapping("/customer/profile")
     public ResponseEntity updateProfile(@Valid @RequestBody CustomerViewProfileDto customerViewProfileDto,
                                         HttpServletRequest httpServletRequest){
         Principal principal=httpServletRequest.getUserPrincipal();
@@ -61,6 +61,7 @@ public class CustomerController {
         return customerService.updateCustomerAddress(username,addressDto,id);
 
     }
+    /////////done
     @PutMapping("/customer/update/password")
     public String updatePassword(@RequestBody PasswordDto passwordDto){
         customerService.updateCustomerPassword(passwordDto);

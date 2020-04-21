@@ -43,8 +43,7 @@ public class SellerService {
     UserRepository userRepository;
     @Autowired
     AddressRepository addressRepository;
-    @Autowired
-    Forget_And_Reset_Password_Service forget_and_reset_password_service;
+
 
     public Seller toSeller(SellerRegistrationDto sellerRegistrationDto) {
         Seller seller = modelMapper.map(sellerRegistrationDto, Seller.class);
@@ -70,6 +69,9 @@ public class SellerService {
 
     public SellerDto getSellerByEmail(String email) {
         Seller seller = sellerRepository.findByEmail(email);
+        if(email== null){
+            return null;
+        }
         SellerDto sellerDto = toSellerDto(seller);
         return sellerDto;
     }
@@ -79,9 +81,10 @@ public class SellerService {
         return sellerViewProfileDto;
     }
 
-    public SellerViewProfileDto getSellerProfile(String email) {
-        Seller seller = sellerRepository.findByEmail(email);
-        if(seller == null)
+    public SellerViewProfileDto getSellerProfile() {
+        Seller seller1 = getLoggedInSeller();
+        Seller seller = sellerRepository.findByEmail(seller1.getEmail());
+        if(seller.getEmail() == null)
             throw new UserNotFountException("not found")      ;
 
         SellerViewProfileDto sellerViewProfileDto = toSellerViewProfileDto(seller);
@@ -157,26 +160,26 @@ public class SellerService {
         return sellerViewProfileDto;
     }
 
-    public ResponseEntity<String> updateSellerProfile(String email, SellerViewProfileDto profileDto) {
+    public ResponseEntity<String> updateSellerProfile(String email, SellerViewProfileDto sellerviewProfileDto) {
         Seller savedSeller = sellerRepository.findByEmail(email);
 
-        if(profileDto.getFirstName() != null)
-            savedSeller.setFirstName(profileDto.getFirstName());
+        if(sellerviewProfileDto.getFirstName() != null)
+            savedSeller.setFirstName(sellerviewProfileDto.getFirstName());
 
-        if(profileDto.getLastName() != null)
-            savedSeller.setLastName(profileDto.getLastName());
+        if(sellerviewProfileDto.getLastName() != null)
+            savedSeller.setLastName(sellerviewProfileDto.getLastName());
 
-        if(profileDto.getActive() != null && !profileDto.getActive())
-            savedSeller.setActive(profileDto.getActive());
+        if(sellerviewProfileDto.getActive() != null && !sellerviewProfileDto.getActive())
+            savedSeller.setActive(sellerviewProfileDto.getActive());
 
-        if(profileDto.getGST() != null)
-            savedSeller.setGST(profileDto.getGST());
+        if(sellerviewProfileDto.getGST() != null)
+            savedSeller.setGST(sellerviewProfileDto.getGST());
 
-        if(profileDto.getCompanyContact() != null)
-            savedSeller.setCompanyContact(profileDto.getCompanyContact());
+        if(sellerviewProfileDto.getCompanyContact() != null)
+            savedSeller.setCompanyContact(sellerviewProfileDto.getCompanyContact());
 
-        if(profileDto.getCompanyName() != null)
-            savedSeller.setCompanyName(profileDto.getCompanyName());
+        if(sellerviewProfileDto.getCompanyName() != null)
+            savedSeller.setCompanyName(sellerviewProfileDto.getCompanyName());
 
         sellerRepository.save(savedSeller);
 
@@ -211,7 +214,7 @@ public class SellerService {
 
         if(addressDto.getLabel() != null)
             savedAddress.setLabel(addressDto.getLabel());
-
+addressRepository.save(savedAddress);
         return new ResponseEntity<>("Address Updated", HttpStatus.OK);
     }
     public Seller getLoggedInSeller() {
@@ -231,6 +234,6 @@ public class SellerService {
             sellerRepository.save(seller);
         }
         else
-            throw new PasswordNotMatchedException("password didn't matched");
+            throw new PasswordNotMatchedException("password and confirmPassword didn't matched");
     }
 }

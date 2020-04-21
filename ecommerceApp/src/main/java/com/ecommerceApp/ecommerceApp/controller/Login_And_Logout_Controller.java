@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 public class Login_And_Logout_Controller {
     @Autowired
     private TokenStore tokenStore;
-
+////////////done
     @GetMapping("/doLogout")
     public String logout(HttpServletRequest request){
         String authHeader = request.getHeader("Authorization");

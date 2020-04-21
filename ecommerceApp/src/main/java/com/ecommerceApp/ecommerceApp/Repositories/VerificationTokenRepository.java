@@ -7,5 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface VerificationTokenRepository extends CrudRepository<VerificationToken,Long> {
-    VerificationToken findByToken( String token);
+    @Query(value = "select *from VerificationToken where token=:token",nativeQuery = true)
+    VerificationToken findByToken(@Param("token") String token);
 }

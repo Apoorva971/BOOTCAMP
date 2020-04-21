@@ -64,18 +64,19 @@ public class RegistrationController {
     CustomerService customerService;
     @Autowired
     SellerService sellerService;
-
+//////////done
     @PostMapping("/register/customer")
     ResponseEntity registerCustomer(@Valid @RequestBody CustomerRegistrationDto customerRegistrationDto) {
         return customerService.createNewCustomer(customerRegistrationDto);
     }
-
+////////////done
     @GetMapping("register/confirm")
     String confirmRegistration(@RequestParam("token") String token) {
 
         return customerService.validateRegistrationToken(token);
 
     }
+/////////////done
     @PostMapping("/register/seller")
     String registerseller(@Valid @RequestBody SellerRegistrationDto sellerRegistrationDto){
         return sellerService.registerSeller(sellerRegistrationDto);

@@ -14,12 +14,13 @@ public class Forgot_And_Reset_Password_Controller {
 
     @Autowired
     Forget_And_Reset_Password_Service forget_and_reset_password_service;
-
+//////////done
     @PostMapping(path="/forgotPassword")
     public String forgotPassword(@RequestBody Users users){
        return   forget_and_reset_password_service.forgot_password(users.getEmail());
 
     }
+    ////done
     @PostMapping(path="/resetPassword/{token}")
     public String resetPassword(@Valid @RequestBody PasswordDto passwordDto, @PathVariable("token") String token){
         return forget_and_reset_password_service.resetPassword(passwordDto,token);

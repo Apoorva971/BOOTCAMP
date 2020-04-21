@@ -14,13 +14,13 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
-
+//////////done
     @PostMapping("/seller/product/add")
     public String addProduct(@RequestBody Product product) {
         productService.addProduct(product);
         return "product added successfully";
     }
-
+//////////done
     @GetMapping("/seller/product/view/{productId}")
     public Optional<Product> viewProductAsSeller(@PathVariable Long productId) {
         Optional<Product> product = productService.viewProduct(productId);
@@ -31,13 +31,13 @@ public class ProductController {
     public List<Product> viewAllProductAsSeller() {
         return productService.viewAllProductAsSeller();
     }
-
+/////////////done
     @DeleteMapping("/seller/product/delete/{productId}")
     public String deleteProductAsSeller(@PathVariable Long productId) {
         productService.deleteProduct(productId);
         return "product deleted successfully";
     }
-
+/////////done
     @PostMapping("/seller/product/update/{productId}")
     public String updateProductAsSeller(@PathVariable Long productId, @RequestBody ProductDto productDto) {
         productService.updateProduct(productId, productDto);

@@ -5,14 +5,12 @@ import com.ecommerceApp.ecommerceApp.services.Activation_Deactivation_Service;
 import com.ecommerceApp.ecommerceApp.services.CustomerService;
 import com.ecommerceApp.ecommerceApp.services.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Arrays;
 import java.util.List;
-
+/////////////done
 @RestController
 public class AdminController {
     @Autowired

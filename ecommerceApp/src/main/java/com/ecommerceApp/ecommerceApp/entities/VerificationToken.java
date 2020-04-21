@@ -15,12 +15,8 @@ public class VerificationToken{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Email
-
     private String email;
     private String token;
-    @OneToOne(targetEntity = Users.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "users_id")
-    private Users user;
     private Date expiryDate;
     public VerificationToken(String token, Users user){
     }
@@ -31,7 +27,7 @@ public class VerificationToken{
 
     public VerificationToken(Users user) {
         this.token = token;
-        this.user = user;
+
         expiryDate = calculateExpiryDate(EXPIRATION);
         createdDate = new Date();
         token = UUID.randomUUID().toString();
@@ -52,13 +48,8 @@ public class VerificationToken{
         this.token = token;
     }
 
-    public Users getUser() {
-        return user;
-    }
 
-    public void setUser(Users user) {
-        this.user = user;
-    }
+
 
 
     public Date getExpiryDate() {
@@ -97,7 +88,6 @@ public class VerificationToken{
         return "VerificationToken{" +
                 "id=" + id +
                 ", token='" + token + '\'' +
-                ", user=" + user +
                 ", expiryDate=" + expiryDate +
                 '}';
     }

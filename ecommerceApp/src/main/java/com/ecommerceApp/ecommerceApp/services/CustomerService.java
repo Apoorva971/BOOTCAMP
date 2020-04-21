@@ -94,7 +94,7 @@ public class CustomerService {
         VerificationToken foundToken = verificationTokenRepository.findByToken(userToken);
 
         if (foundToken != null) {
-            Customer customer = customerRepository.findByEmail(foundToken.getUser().getEmail());
+            Customer customer = customerRepository.findByEmail(foundToken.getEmail());
             customer.setEnabled(true);
             customerRepository.save(customer);
             return "account verified";

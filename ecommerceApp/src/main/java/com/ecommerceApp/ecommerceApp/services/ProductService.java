@@ -43,7 +43,7 @@ public class ProductService {
             return "product added successfully";
         }
 else
-    throw new InvalidDetailException("feilds should not be null");
+    throw new InvalidDetailException("fields should not be null");
     }
     public Optional<Product> viewProduct(Long productId) {
         Seller seller = sellerService.getLoggedInSeller();

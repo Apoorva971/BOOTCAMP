@@ -40,12 +40,14 @@ public class Forget_And_Reset_Password_Service {
             verificationToken.setCreatedDate(new Date());
             verificationToken.setExpiryDate(new Date());
             verificationToken.setToken(token);
+            verificationToken.setEmail(email);
 
 
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setSubject("Reset Your Password");
             simpleMailMessage.setFrom("apoorvagarg30@gmail.com");
 
+            verificationTokenRepository.save(verificationToken);
             simpleMailMessage.setTo(users.getEmail());
             simpleMailMessage.setText("To reset your password, please click on the Link given below :" + "" +
                     "\n http://localhost:8080/resetPassword/" + verificationToken.getToken());
@@ -66,6 +68,7 @@ public class Forget_And_Reset_Password_Service {
             } else {
                 String email = verificationToken.getEmail();
 
+                System.out.println("just to check");
                 Users users = userRepository.findByEmail(email);
                 if (users.getEmail() == null) {
                     throw new UserNotFountException("user not found");

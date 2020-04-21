@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 
 public interface AddressRepository extends CrudRepository<Address,Long> {
-    void deleteAddressById(Long id);
+    Address deleteAddressById(Long id);
 }
