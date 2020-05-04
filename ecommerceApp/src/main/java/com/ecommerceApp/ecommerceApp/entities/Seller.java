@@ -1,21 +1,31 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
 import com.ecommerceApp.ecommerceApp.security.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Seller extends Users{
 
     private String GST;
     private String companyName;
     private String companyContact;
+    @Column(name = "createdDate",nullable = false,updatable =false)
+    @CreatedDate
+    private Date createdDate;
+    @Column(name = "modifiedDate")
+    @LastModifiedDate
+    private Date modifiedDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private Set<Product> products;
 
@@ -59,6 +69,26 @@ public class Seller extends Users{
 
     public Set<Product> getProducts() {
         return products;
+    }
+
+    @Override
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    @Override
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Override
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    @Override
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public void setProducts(Set<Product> products) {

@@ -6,17 +6,20 @@ import com.ecommerceApp.ecommerceApp.dtos.PasswordDto;
 import com.ecommerceApp.ecommerceApp.entities.Users;
 import com.ecommerceApp.ecommerceApp.entities.VerificationToken;
 import com.ecommerceApp.ecommerceApp.exceptions.PasswordNotMatchedException;
-import com.ecommerceApp.ecommerceApp.exceptions.UserNotFountException;
+import com.ecommerceApp.ecommerceApp.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 @Service
-public class Forget_And_Reset_Password_Service {
+public class ForgetAndResetPasswordService {
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -25,8 +28,10 @@ public class Forget_And_Reset_Password_Service {
     EmailSenderService emailSenderService;
     @Autowired
     VerificationTokenRepository verificationTokenRepository;
+    @Autowired
+    MessageSource messageSource;
 
-    public String forgot_password(String email) {
+    public String forgot_password(String email,Locale locale) {
 
         System.out.println(email);
 
@@ -53,10 +58,10 @@ public class Forget_And_Reset_Password_Service {
                     "\n http://localhost:8080/resetPassword/" + verificationToken.getToken());
             emailSenderService.sendEmail(simpleMailMessage);
         }
-        return "check email to reset password";
+        return messageSource.getMessage("password.resetPassword.message",null,locale);
     }
 
-    public String resetPassword(PasswordDto passwordDto, String Token) {
+    public String resetPassword(PasswordDto passwordDto, String Token, Locale locale) {
         VerificationToken verificationToken = verificationTokenRepository.findByToken(Token);
         String password = passwordDto.getPassword();
         String confirmPassword = passwordDto.getConfirmPassword();
@@ -71,7 +76,7 @@ public class Forget_And_Reset_Password_Service {
                 System.out.println("just to check");
                 Users users = userRepository.findByEmail(email);
                 if (users.getEmail() == null) {
-                    throw new UserNotFountException("user not found");
+                    throw new UserNotFoundException("user not found");
                 } else {
                     try {
                         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -89,7 +94,7 @@ public class Forget_And_Reset_Password_Service {
                     }
                 }
             }
-            return "password changed successfully";
+            return messageSource.getMessage("password.changed.message",null,locale);
         }
     }
 }

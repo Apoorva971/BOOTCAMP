@@ -9,15 +9,20 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category")
     private Set<Product> products;
     private String name;
+
     @ManyToOne
     @JoinColumn(name = "PARENT_ID")
     private Category parentCategory;
 
-    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parentCategory")
     private Set<Category> subCategories;
+
+    @OneToMany(mappedBy = "category")
+    private Set<CategoryMetadataFieldValues> metadatafieldvalues;
+
 
     public Category() {
         parentCategory = null;
@@ -85,6 +90,16 @@ public class Category {
             products.add(product);
 
             product.setCategory(this);
+        }
+    }
+    public void addFieldValues(CategoryMetadataFieldValues fieldValue){
+        if(fieldValue != null){
+            if(metadatafieldvalues ==null)
+                metadatafieldvalues = new HashSet<>();
+
+            metadatafieldvalues.add(fieldValue);
+            fieldValue.setCategory(this);
+
         }
     }
 

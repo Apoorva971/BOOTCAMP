@@ -3,18 +3,18 @@ package com.ecommerceApp.ecommerceApp.services;
 import com.ecommerceApp.ecommerceApp.Repositories.AddressRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.SellerRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
+import com.ecommerceApp.ecommerceApp.Util.PagingAndSortingUtil;
 import com.ecommerceApp.ecommerceApp.dtos.*;
 import com.ecommerceApp.ecommerceApp.entities.Address;
 import com.ecommerceApp.ecommerceApp.entities.Seller;
 import com.ecommerceApp.ecommerceApp.entities.Users;
 import com.ecommerceApp.ecommerceApp.exceptions.PasswordNotMatchedException;
-import com.ecommerceApp.ecommerceApp.exceptions.UserNotFountException;
+import com.ecommerceApp.ecommerceApp.exceptions.UserNotFoundException;
 import com.ecommerceApp.ecommerceApp.security.AppUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Component
@@ -43,6 +44,9 @@ public class SellerService {
     UserRepository userRepository;
     @Autowired
     AddressRepository addressRepository;
+    @Autowired
+    MessageSource messageSource;
+    PagingAndSortingUtil pagingAndSortingUtil = new PagingAndSortingUtil();
 
 
     public Seller toSeller(SellerRegistrationDto sellerRegistrationDto) {
@@ -55,16 +59,12 @@ public class SellerService {
         return sellerDto;
     }
 
-    public List<SellerDto> getAllSeller(String offset, String size, String field) {
-
-        Integer pageNo = Integer.parseInt(offset);
-        Integer pageSize = Integer.parseInt(size);
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
+    public List<SellerDto> getAllSeller(PagingAndSortingDto pagingAndSortingDto) {
+        Pageable pageable = pagingAndSortingUtil.getPageable(pagingAndSortingDto);
         List<Seller> sellers = sellerRepository.findAll(pageable);
         List<SellerDto> sellerDtos = new ArrayList<>();
         sellers.forEach((seller -> sellerDtos.add(toSellerDto(seller))));
         return sellerDtos;
-
     }
 
     public SellerDto getSellerByEmail(String email) {
@@ -85,13 +85,13 @@ public class SellerService {
         Seller seller1 = getLoggedInSeller();
         Seller seller = sellerRepository.findByEmail(seller1.getEmail());
         if(seller.getEmail() == null)
-            throw new UserNotFountException("not found")      ;
+            throw new UserNotFoundException("not found")      ;
 
         SellerViewProfileDto sellerViewProfileDto = toSellerViewProfileDto(seller);
         return sellerViewProfileDto;
     }
 
-    public String registerSeller(SellerRegistrationDto sellerRegistrationDto) {
+    public String registerSeller(SellerRegistrationDto sellerRegistrationDto,Locale locale) {
         if (!(check_if_all_details_unique(sellerRegistrationDto) == "unique")) {
             return "Invalid data";
         }
@@ -99,7 +99,7 @@ public class SellerService {
         seller.setPassword(passwordEncoder.encode(seller.getPassword()));
         sellerRepository.save(seller);
         acknowledgementEmail(seller.getEmail());
-        return "Account created successfully. It will be activated after verification.";
+        return messageSource.getMessage("account.created.message",null,locale);
 
     }
 
@@ -160,7 +160,7 @@ public class SellerService {
         return sellerViewProfileDto;
     }
 
-    public ResponseEntity<String> updateSellerProfile(String email, SellerViewProfileDto sellerviewProfileDto) {
+    public ResponseEntity<String> updateSellerProfile(String email, SellerViewProfileDto sellerviewProfileDto, Locale locale) {
         Seller savedSeller = sellerRepository.findByEmail(email);
 
         if(sellerviewProfileDto.getFirstName() != null)
@@ -182,10 +182,10 @@ public class SellerService {
             savedSeller.setCompanyName(sellerviewProfileDto.getCompanyName());
 
         sellerRepository.save(savedSeller);
-
-        return new ResponseEntity("Your profile details has been updated", HttpStatus.OK);
+String message=messageSource.getMessage("seller.update.message",null,locale);
+        return new ResponseEntity(message, HttpStatus.OK);
 }
-    public ResponseEntity<String> updateSellerAddress(String email, Long addressId, AddressDto addressDto) {
+    public ResponseEntity<String> updateSellerAddress(String email, Long addressId, AddressDto addressDto,Locale locale) {
         Optional<Address> address = addressRepository.findById(addressId);
         Users user = userRepository.findByEmail(email);
 
@@ -215,7 +215,8 @@ public class SellerService {
         if(addressDto.getLabel() != null)
             savedAddress.setLabel(addressDto.getLabel());
 addressRepository.save(savedAddress);
-        return new ResponseEntity<>("Address Updated", HttpStatus.OK);
+String message = messageSource.getMessage("address.updated.message",null,locale);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
     public Seller getLoggedInSeller() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -225,7 +226,7 @@ addressRepository.save(savedAddress);
         return seller;
     }
     @Transactional
-    public void updatePassword(PasswordDto password) {
+    public void updatePassword(PasswordDto password,Locale locale) {
         Seller seller = getLoggedInSeller();
         String password1 = password.getPassword();
         String confirmPassword = password.getConfirmPassword();
@@ -234,6 +235,6 @@ addressRepository.save(savedAddress);
             sellerRepository.save(seller);
         }
         else
-            throw new PasswordNotMatchedException("password and confirmPassword didn't matched");
+            throw new PasswordNotMatchedException(messageSource.getMessage("password.notMatched.message",null,locale));
     }
 }

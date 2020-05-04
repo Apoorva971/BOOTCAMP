@@ -1,15 +1,23 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
 import com.ecommerceApp.ecommerceApp.security.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@EntityListeners(AuditingEntityListener.class)
 
 public class Users {
     @Id
@@ -24,7 +32,15 @@ public class Users {
     @Email
     private String email;
     private String password;
-
+    @Column(name = "createdDate",nullable = false,updatable =false)
+    @CreatedDate
+    private Date createdDate;
+    @Column(name = "modifiedDate")
+    @LastModifiedDate
+    private Date modifiedDate;
+    @Column(name = "lastModifiedBy")
+    @LastModifiedBy
+    private String lastModifiedBy;
     private Boolean isDeleted = false;
     private Boolean isActive = false;
     private Boolean isExpired = false;
@@ -36,12 +52,14 @@ public class Users {
 
     private Integer loginStatus = 0;
 
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_role",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Address> addresses;
     public Users() {
@@ -53,6 +71,11 @@ public class Users {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+    }
+    public Users(String username, String password, Set<Role> grantAuthorities) {
+        this.email = username;
+        this.password = password;
+        this.roles = grantAuthorities;
     }
 
     public Set<Role> getRoles() {
@@ -131,6 +154,22 @@ public class Users {
         return isActive;
     }
 
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
     public void setActive(Boolean active) {
         isActive = active;
     }
@@ -161,6 +200,14 @@ public class Users {
 
     public boolean isAccountNonExpired() {
         return isAccountNonExpired;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     public void setAccountNonExpired(boolean accountNonExpired) {

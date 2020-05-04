@@ -4,6 +4,7 @@ package com.ecommerceApp.ecommerceApp.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableResourceServer
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableJpaAuditing
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Autowired
@@ -49,18 +51,18 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(final HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-               // .antMatchers("/").permitAll()
-                .antMatchers("/seller/profile").hasAnyRole("SELLER")
                 .antMatchers("/customer/*").hasAnyRole("CUSTOMER")
-              //  .antMatchers("/doLogout").hasAnyRole("ADMIN", "CUSTOMER", "SELLER")
+                .antMatchers("/seller/profile").hasAnyRole("SELLER")
                 .antMatchers("/customer/home").hasAnyRole("CUSTOMER")
                 .antMatchers("/register/*").anonymous()
-                .antMatchers("/seller/profile").hasAnyRole("SELLER")
+                .antMatchers("/productvariation").hasAnyRole("SELLER")
                 .antMatchers("/activate/*").hasAnyRole("ADMIN")
                 .antMatchers("/forgotPassword").anonymous()
                 .antMatchers("/resetPassword/{token}").anonymous()
                .antMatchers("/admin/*").hasAnyRole("ADMIN")
                 .antMatchers("/seller/*").hasAnyRole("SELLER")
+                .antMatchers("/category").anonymous()
+                .antMatchers("/category/{id}").hasAnyRole("ADMIN")
 
                 .anyRequest().authenticated()
                 .and()

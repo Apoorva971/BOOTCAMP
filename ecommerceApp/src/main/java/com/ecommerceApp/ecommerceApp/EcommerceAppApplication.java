@@ -9,8 +9,11 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 @SpringBootApplication
 @EnableAsync
@@ -23,30 +26,13 @@ public class EcommerceAppApplication {
 		return  new ModelMapper();
 	}
 
-	@GetMapping("/")
-	public String index(){
-		return "index";
+	@Bean
+	public LocaleResolver localeResolver(){
+		AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
+		localeResolver.setDefaultLocale(Locale.US);
+		return localeResolver;
 	}
 
-	@GetMapping("/admin/home")
-	public String adminHome(){
-		return "Admin Home";
-	}
-
-	@GetMapping("/users/home")
-	public String userHome(){
-		return "Users Home";
-	}
-
-	@GetMapping("/customer/home")
-	public String customerHome(){
-		return "Customer Home";
-	}
-
-	@GetMapping("/seller/home")
-	public String sellerHome(){
-		return "Seller Home";
-	}
 	public static void main(String[] args) {
 		SpringApplication.run(EcommerceAppApplication.class, args);
 	}

@@ -1,12 +1,16 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import java.util.*;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Product  {
 
     @Id
@@ -20,19 +24,29 @@ public class Product  {
     private boolean isCancelleable;
     private boolean isActive;
     private boolean isDeleted;
+    @Column(name = "createdDate",nullable = false,updatable =false)
+    @CreatedDate
+    private Date createdDate;
+    @Column(name = "modifiedDate")
+    @LastModifiedDate
+    private Date modifiedDate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "seller_user_id")
     private Seller seller;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private Set<ProductVariation> variations;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "categoryid")
     private Category category;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
     private List<ProductReview> reviews;
 
     {
@@ -44,11 +58,12 @@ public class Product  {
 
     public Product() {
     }
-
-    public Product(String name, String description, String brand) {
+    public Product(String name, String description, String brand, boolean isReturnable, boolean isCancelleable) {
         this.name = name;
         this.description = description;
         this.brand = brand;
+        this.isReturnable = isReturnable;
+        this.isCancelleable = isCancelleable;
     }
 
     public Long getId() {
@@ -115,20 +130,20 @@ public class Product  {
         isDeleted = deleted;
     }
 
-    public Set<ProductVariation> getVariations() {
-        return variations;
-    }
-
-    public void setVariations(Set<ProductVariation> variations) {
-        this.variations = variations;
-    }
-
     public Seller getSeller() {
         return seller;
     }
 
     public void setSeller(Seller seller) {
         this.seller = seller;
+    }
+
+    public Set<ProductVariation> getVariations() {
+        return variations;
+    }
+
+    public void setVariations(Set<ProductVariation> variations) {
+        this.variations = variations;
     }
 
     public Category getCategory() {
@@ -145,6 +160,22 @@ public class Product  {
 
     public void setReviews(List<ProductReview> reviews) {
         this.reviews = reviews;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public void addVariation(ProductVariation variation) {

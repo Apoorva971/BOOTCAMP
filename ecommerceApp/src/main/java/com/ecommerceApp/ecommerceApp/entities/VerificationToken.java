@@ -2,7 +2,6 @@ package com.ecommerceApp.ecommerceApp.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,11 +46,6 @@ public class VerificationToken{
     public void setToken(String token) {
         this.token = token;
     }
-
-
-
-
-
     public Date getExpiryDate() {
         return expiryDate;
     }

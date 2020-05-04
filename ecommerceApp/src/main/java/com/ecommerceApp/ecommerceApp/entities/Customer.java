@@ -1,18 +1,28 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
 import com.ecommerceApp.ecommerceApp.security.Role;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Customer extends Users {
 
 
     private String contact;
+    @Column(name = "createdDate",nullable = false,updatable =false)
+    @CreatedDate
+    private Date createdDate;
+    @Column(name = "modifiedDate")
+    @LastModifiedDate
+    private Date modifiedDate;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<ProductReview> reviews;
@@ -42,6 +52,26 @@ public class Customer extends Users {
 
     public List<ProductReview> getReviews() {
         return reviews;
+    }
+
+    @Override
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    @Override
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Override
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    @Override
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public void setReviews(List<ProductReview> reviews) {

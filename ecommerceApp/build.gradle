@@ -29,7 +29,6 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.2.0.RELEASE'
-
 	testImplementation 'org.springframework.security:spring-security-test'
 	// lombok
 	compileOnly 'org.projectlombok:lombok'

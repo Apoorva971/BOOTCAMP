@@ -1,6 +1,7 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 public class ProductVariation {
@@ -8,12 +9,14 @@ public class ProductVariation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer quantityAvailable;
-    private Double price;
+    private Long quantityAvailable;
+    private Long price;
     private String primaryImageName;
-    private String metadata;
 
-
+    @Convert(converter = HashMapConverter.class)
+    @Column(columnDefinition = "json")
+    private Map<String,String>metadata;
+    private Boolean isActive;
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
@@ -21,9 +24,19 @@ public class ProductVariation {
     public ProductVariation() {
     }
 
-    public ProductVariation(Integer quantityAvailable, Double price) {
+    public ProductVariation(Long quantityAvailable, Long price) {
         this.quantityAvailable = quantityAvailable;
         this.price = price;
+    }
+
+    public ProductVariation(Long id, Long quantityAvailable, Long price, String primaryImageName, Map<String, String> metadata, Boolean isActive, Product product) {
+        this.id = id;
+        this.quantityAvailable = quantityAvailable;
+        this.price = price;
+        this.primaryImageName = primaryImageName;
+        this.metadata = metadata;
+        this.isActive = isActive;
+        this.product = product;
     }
 
     public Long getId() {
@@ -34,19 +47,19 @@ public class ProductVariation {
         this.id = id;
     }
 
-    public Integer getQuantityAvailable() {
+    public Long getQuantityAvailable() {
         return quantityAvailable;
     }
 
-    public void setQuantityAvailable(Integer quantityAvailable) {
+    public void setQuantityAvailable(Long quantityAvailable) {
         this.quantityAvailable = quantityAvailable;
     }
 
-    public Double getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
@@ -58,11 +71,11 @@ public class ProductVariation {
         this.primaryImageName = primaryImageName;
     }
 
-    public String getMetadata() {
+    public Map<String, String> getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(String metadata) {
+    public void setMetadata(Map<String, String> metadata) {
         this.metadata = metadata;
     }
 
@@ -74,13 +87,23 @@ public class ProductVariation {
         this.product = product;
     }
 
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
     @Override
     public String toString() {
         return "ProductVariation{" +
-                "quantityAvailable=" + quantityAvailable +
+                "id=" + id +
+                ", quantityAvailable=" + quantityAvailable +
                 ", price=" + price +
                 ", primaryImageName='" + primaryImageName + '\'' +
                 ", metadata='" + metadata + '\'' +
+                ", isActive=" + isActive +
                 ", product=" + product +
                 '}';
     }
