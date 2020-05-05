@@ -23,7 +23,7 @@ public class RegistrationController {
     String registerCustomer(@Valid @RequestBody CustomerRegistrationDto customerRegistrationDto, Locale locale) {
         return customerService.createNewCustomer(customerRegistrationDto,locale);
     }
-    @GetMapping("/activate-customer-account/{token}")
+    @GetMapping("/activate/customer/account/{token}")
     public String activateCustomer(@PathVariable String token){
         String message = customerService.activateCustomer(token);
         return message;

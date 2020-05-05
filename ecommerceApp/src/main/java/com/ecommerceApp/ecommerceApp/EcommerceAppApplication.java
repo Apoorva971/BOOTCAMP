@@ -1,10 +1,13 @@
 package com.ecommerceApp.ecommerceApp;
 
+import com.ecommerceApp.ecommerceApp.entities.AuditorAwareImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -17,7 +20,6 @@ import java.util.Locale;
 
 @SpringBootApplication
 @EnableAsync
-
 public class EcommerceAppApplication {
 
 	@Bean
@@ -31,6 +33,12 @@ public class EcommerceAppApplication {
 		AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
 		localeResolver.setDefaultLocale(Locale.US);
 		return localeResolver;
+	}
+
+
+	@Bean
+	public AuditorAware<String> auditorAware() {
+		return new AuditorAwareImpl();
 	}
 
 	public static void main(String[] args) {

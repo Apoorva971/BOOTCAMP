@@ -73,8 +73,6 @@ public class CustomerService {
             EmailAlreadyExistsException {
 
         Customer customer = modelMapper.map(customerRegistrationDto, Customer.class);
-
-
         if (customerRepository.findByEmail(customer.getEmail()) != null) // User already exists with this email
             throw new EmailAlreadyExistsException("User already exists with email : " + customer.getEmail());
         else  if(customer.getPassword().equals(customer.getPassword())){
@@ -146,7 +144,7 @@ public class CustomerService {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setSubject("ACCOUNT ACTIVATE TOKEN");
             simpleMailMessage.setText("Hii, To confirm your account, please click here : "
-                    + "http://localhost:8080/activate-customer-account/" + verificationToken.getToken());
+                    + "http://localhost:8080/activate-customer-account?token=" + verificationToken.getToken());
             simpleMailMessage.setTo(verificationToken.getEmail());
             emailSenderService.sendEmail(simpleMailMessage);
             verificationTokenRepository.save(verificationToken);

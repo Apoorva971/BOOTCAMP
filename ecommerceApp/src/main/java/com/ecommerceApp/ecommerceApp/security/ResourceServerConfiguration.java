@@ -19,7 +19,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableResourceServer
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-@EnableJpaAuditing
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Autowired
@@ -46,6 +45,15 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configureGlobal(final AuthenticationManagerBuilder authenticationManagerBuilder) {
         authenticationManagerBuilder.authenticationProvider(authenticationProvider());
     }
+    private static final String[] AUTH_WHITELIST={
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"
+    };
 
     @Override
     public void configure(final HttpSecurity http) throws Exception {
@@ -63,7 +71,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers("/seller/*").hasAnyRole("SELLER")
                 .antMatchers("/category").anonymous()
                 .antMatchers("/category/{id}").hasAnyRole("ADMIN")
-                .antMatchers("/activate-customer-account").anonymous()
+                .antMatchers("/activate/customer/account").anonymous()
+                .antMatchers(AUTH_WHITELIST).permitAll()
 
                 .anyRequest().authenticated()
                 .and()

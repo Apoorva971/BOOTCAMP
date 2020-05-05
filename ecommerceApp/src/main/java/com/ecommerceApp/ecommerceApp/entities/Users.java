@@ -17,9 +17,7 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@EntityListeners(AuditingEntityListener.class)
-
-public class Users {
+public class Users extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,15 +30,6 @@ public class Users {
     @Email
     private String email;
     private String password;
-    @Column(name = "createdDate",nullable = false,updatable =false)
-    @CreatedDate
-    private Date createdDate;
-    @Column(name = "modifiedDate")
-    @LastModifiedDate
-    private Date modifiedDate;
-    @Column(name = "lastModifiedBy")
-    @LastModifiedBy
-    private String lastModifiedBy;
     private Boolean isDeleted = false;
     private Boolean isActive = false;
     private Boolean isExpired = false;
@@ -153,23 +142,6 @@ public class Users {
     public Boolean getActive() {
         return isActive;
     }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
     public void setActive(Boolean active) {
         isActive = active;
     }
@@ -202,13 +174,6 @@ public class Users {
         return isAccountNonExpired;
     }
 
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
 
     public void setAccountNonExpired(boolean accountNonExpired) {
         isAccountNonExpired = accountNonExpired;
