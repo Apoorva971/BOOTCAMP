@@ -12,17 +12,19 @@ public class ProductVariationDto {
     private String primaryImageName;
     private Boolean isActive;
    private Map<String,String>metadata;
-    public ProductVariationDto() {
+
+    public ProductVariationDto(Long id, String name, Long price, Long quantityAvailable, Boolean active, String imageName) {
 
     }
 
-    public ProductVariationDto(@NotNull(message = "Please Enter productId In ProductVariationDto Object") Long productId, String productName,
-                               Long quantity, Long price, String imageName, Boolean isActive, Map<String, String> metadata) {
+    public ProductVariationDto(Long productId, String productName, Long quantity,
+                               Long price, String primaryImageName, Boolean isActive,
+                               Map<String, String> metadata) {
         this.productId = productId;
         this.productName = productName;
         this.quantity = quantity;
         this.price = price;
-        this.primaryImageName = imageName;
+        this.primaryImageName = primaryImageName;
         this.isActive = isActive;
         this.metadata = metadata;
     }

@@ -59,4 +59,24 @@ public class ProductController {
     public String deactivateProduct(@PathVariable Long productId,Locale locale) {
         return productService.deactivateProduct(productId,locale);
     }
+    @GetMapping("/product/view/{productId}")
+    public Optional<Product> viewProduct(@PathVariable Long productId){
+        return productService.viewProductAsCustomer(productId);
+    }
+
+    @GetMapping("/product/view/all/{categoryId}")
+    public List<Product> viewAllProduct(@PathVariable Long categoryId){
+        return productService.viewAllProductAsCustomer(categoryId);
+    }
+
+    @GetMapping("/admin/product/view/{productId}")
+    public Optional<Product> viewProductAsAdmin(@PathVariable Long productId){
+        return productService.viewAProductAsAdmin(productId);
+    }
+
+    @GetMapping("/admin/product/view/all/{categoryId}")
+    public List<Product> viewAllProductAsAdmin(@PathVariable Long categoryId){
+        return productService.viewAllProductsAsAdmin(categoryId);
+    }
+
 }

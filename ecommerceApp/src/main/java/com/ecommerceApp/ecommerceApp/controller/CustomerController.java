@@ -23,17 +23,17 @@ public class CustomerController {
     @Autowired
     MessageSource messageSource;
 
-
-    @GetMapping("/activate-customer-account/{token}")
-    public String activateCustomer(@PathVariable String token){
-        String message = customerService.activateCustomer(token);
-        return message;
-    }
-    @GetMapping("/re-sent-link/{email}")
-    public String reSentLink(@PathVariable String email) {
-        String message = customerService.reSentLink(email);
-        return message;
-    }
+//
+//    @GetMapping("/activate-customer-account/{token}")
+//    public String activateCustomer(@PathVariable String token){
+//        String message = customerService.activateCustomer(token);
+//        return message;
+//    }
+//    @GetMapping("/re-sent-link/{email}")
+//    public String reSentLink(@PathVariable String email) {
+//        String message = customerService.reSentLink(email);
+//        return message;
+//    }
 ///////////////done
         @GetMapping("/customer/view/profile")
             public CustomerViewProfileDto getprofile(HttpServletRequest request){

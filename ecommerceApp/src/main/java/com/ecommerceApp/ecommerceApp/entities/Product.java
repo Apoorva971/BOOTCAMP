@@ -3,10 +3,10 @@ package com.ecommerceApp.ecommerceApp.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Entity
@@ -138,7 +138,7 @@ public class Product  {
         this.seller = seller;
     }
 
-    public Set<ProductVariation> getVariations() {
+    public Set<ProductVariation> getVariations(Pageable pageable) {
         return variations;
     }
 

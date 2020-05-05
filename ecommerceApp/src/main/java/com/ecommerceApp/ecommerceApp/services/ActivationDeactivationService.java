@@ -52,7 +52,7 @@ public class ActivationDeactivationService {
             }
 
         }
-       return "activated";
+       return messageSource.getMessage("account.activated.message",null,locale);
     }
     public String DeactivateUser(Long id, WebRequest request, Locale locale) {
         Optional<Users> user = userRepository.findById(id);

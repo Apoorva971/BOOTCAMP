@@ -13,16 +13,16 @@ import java.util.Locale;
 public class ForgotAndResetPasswordController {
 
     @Autowired
-    ForgetAndResetPasswordService forget_and_reset_password_service;
+    ForgetAndResetPasswordService forgetAndResetPasswordService;
 //////////done
     @PostMapping(path="/forgotPassword")
     public String forgotPassword(@RequestBody Users users, Locale locale){
-       return   forget_and_reset_password_service.forgot_password(users.getEmail(),locale);
+       return   forgetAndResetPasswordService.forgot_password(users.getEmail(),locale);
 
     }
     ////done
     @PostMapping(path="/resetPassword/{token}")
     public String resetPassword(@Valid @RequestBody PasswordDto passwordDto, @PathVariable("token") String token,Locale locale){
-        return forget_and_reset_password_service.resetPassword(passwordDto,token,locale);
+        return forgetAndResetPasswordService.resetPassword(passwordDto,token,locale);
     }
 }
