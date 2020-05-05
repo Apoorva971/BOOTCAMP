@@ -8,21 +8,19 @@ import com.ecommerceApp.ecommerceApp.services.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 /////////////done
 @RestController
-public class AdminController {
+public class AdminController  {
     @Autowired
     CustomerService customerService;
     @Autowired
     SellerService sellerService;
 
     @Autowired
-    ActivationDeactivationService activation_deactivation_service;
+    ActivationDeactivationService activationDeactivationService;
     @GetMapping("/admin/customers/list_of_all_customers")
 
     public List<CustomerDto>getAllCustomer(@RequestBody(required = false) PagingAndSortingDto pagingAndSortingDto){
@@ -37,11 +35,11 @@ public class AdminController {
 
     @PutMapping("/admin/activate/{id}")
     public String activateUser(@PathVariable Long id, WebRequest webRequest,Locale locale) {
-        return activation_deactivation_service.ActivateUser(id, webRequest,locale);
+        return activationDeactivationService.ActivateUser(id, webRequest,locale);
     }
 
     @PutMapping("/admin/deactivate/{id}")
     public String deActivateUser(@PathVariable Long id, WebRequest webRequest, Locale locale) {
-        return activation_deactivation_service.DeactivateUser(id, webRequest,locale);
+        return activationDeactivationService.DeactivateUser(id, webRequest,locale);
     }
 }
