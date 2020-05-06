@@ -7,6 +7,7 @@ import com.ecommerceApp.ecommerceApp.services.ActivationDeactivationService;
 import com.ecommerceApp.ecommerceApp.services.CustomerService;
 import com.ecommerceApp.ecommerceApp.services.SellerService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
@@ -25,16 +26,16 @@ public class AdminController {
     @Autowired
     ActivationDeactivationService activationDeactivationService;
 
-    @ApiOperation(value = "shows the list of all customer")
-    @GetMapping("/admin/customers/list_of_all_customers")
+    @ApiOperation(value = "shows the list of all customer",authorizations = {@Authorization(value = "Bearer")})
+    @GetMapping(value = "/admin/customers/list_of_all_customers",produces = "application/json")
 
     public List<CustomerDto> getAllCustomer(@RequestBody(required = false) PagingAndSortingDto pagingAndSortingDto) {
         return customerService.getAllCustomer(pagingAndSortingDto);
 
     }
 
-    @ApiOperation(value = "shows the list of All Sellers")
-    @GetMapping("/admin/sellers/list_of_all_sellers")
+    @ApiOperation(value = "shows the list of All Sellers",authorizations = {@Authorization(value = "Bearer")})
+    @GetMapping(value = "/admin/sellers/list_of_all_sellers",produces = "application/json")
     public List<SellerDto> getAllSellers(@RequestBody(required = false) PagingAndSortingDto pagingAndSortingDto) {
         return sellerService.getAllSeller(pagingAndSortingDto);
     }

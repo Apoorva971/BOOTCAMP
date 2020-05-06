@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Product  {
 
     @Id
@@ -23,6 +24,12 @@ public class Product  {
     private boolean isCancelleable;
     private boolean isActive;
     private boolean isDeleted;
+    @Column(name = "createdDate",nullable = false,updatable =false)
+    @CreatedDate
+    private Date createdDate;
+    @Column(name = "modifiedDate")
+    @LastModifiedDate
+    private Date modifiedDate;
 
 
     @JsonIgnore
@@ -58,6 +65,26 @@ public class Product  {
         this.brand = brand;
         this.isReturnable = isReturnable;
         this.isCancelleable = isCancelleable;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public Set<ProductVariation> getVariations() {
+        return variations;
     }
 
     public Long getId() {

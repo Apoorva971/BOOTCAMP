@@ -17,13 +17,21 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Users extends Auditable<String> {
+@EntityListeners(AuditingEntityListener.class)
+public class Users  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String middleName;
     private String lastName;
+
+    @Column(name = "createdDate",nullable = false,updatable =false)
+    @CreatedDate
+    private Date createdDate;
+    @Column(name = "modifiedDate")
+    @LastModifiedDate
+    private Date modifiedDate;
 
     @Column(nullable=false,unique = true)
     @NotBlank(message = "Enter the UserName")
@@ -65,6 +73,22 @@ public class Users extends Auditable<String> {
         this.email = username;
         this.password = password;
         this.roles = grantAuthorities;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public Set<Role> getRoles() {

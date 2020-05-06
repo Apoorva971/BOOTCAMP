@@ -1,37 +1,42 @@
 package com.ecommerceApp.ecommerceApp.dtos;
 
-import javax.validation.constraints.NotNull;
+import com.ecommerceApp.ecommerceApp.entities.Product;
 import java.util.Map;
 
 public class ProductVariationDto {
-//    @NotNull(message = "Please Enter productId In ProductVariationDto Object")
     private Long productId;
-    public String productName;
+    private Product product;
+
     private Long quantity;
     private Long price;
     private String primaryImageName;
     private Boolean isActive;
    private Map<String,String>metadata;
 
-    public ProductVariationDto(Long id, String name, Long price, Long quantityAvailable, Boolean active, String imageName) {
+    public ProductVariationDto(Long id, Product product, Map<String, String> metadata, Long price, Long quantityAvailable, Boolean active, String primaryImageName) {
+        this.productId = id;
+        this.quantity = quantityAvailable;
+        this.price = price;
+        this.primaryImageName = primaryImageName;
+        this.metadata = metadata;
+        this.isActive = active;
+        this.product=product;
+    }
+    public ProductVariationDto(){
 
     }
 
-    public ProductVariationDto(Long productId, String productName, Long quantity,
+    public ProductVariationDto(Long productId, Product productName, Long quantity,
                                Long price, String primaryImageName, Boolean isActive,
                                Map<String, String> metadata) {
         this.productId = productId;
-        this.productName = productName;
+        this.product = productName;
         this.quantity = quantity;
         this.price = price;
         this.primaryImageName = primaryImageName;
         this.isActive = isActive;
         this.metadata = metadata;
     }
-
-    public ProductVariationDto(Long id, String name, Double price, Integer quantityAvailable, Boolean active) {
-    }
-
     public Long getProductId() {
         return productId;
     }
@@ -40,14 +45,13 @@ public class ProductVariationDto {
         this.productId = productId;
     }
 
-    public String getProductName() {
-        return productName;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProduct(Product product) {
+        this.product = product;
     }
-
 
     public Long getQuantity() {
         return quantity;

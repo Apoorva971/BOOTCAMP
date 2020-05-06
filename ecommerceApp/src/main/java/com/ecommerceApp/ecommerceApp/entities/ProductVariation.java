@@ -38,7 +38,6 @@ public class ProductVariation {
         this.isActive = isActive;
         this.product = product;
     }
-
     public Long getId() {
         return id;
     }

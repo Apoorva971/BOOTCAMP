@@ -12,10 +12,7 @@ import com.ecommerceApp.ecommerceApp.exceptions.ValidationException;
 import com.ecommerceApp.ecommerceApp.security.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -51,8 +48,7 @@ public class ProductVariationService {
         Users user = userRepository.findByEmail(username);
         return user;
     }
-
-
+    //////////////////////to get product variation by id being passed
     public ProductVariation getProductVariation(Long variationId) {
         Optional<ProductVariation> productVariation = productVariationRepository.findById(variationId);
         if (!productVariation.isPresent())
@@ -67,7 +63,7 @@ public class ProductVariationService {
             throw new ProductNotFoundException("User not authorized");
         }
     }
-
+////////////////////to add a new product variation
     public String addProductVariation(ProductVariationDto productVariationDto) {
         Optional<Product> product = productRepository.findById(productVariationDto.getProductId());
         if (!product.isPresent() && !product.get().isActive())
@@ -105,7 +101,7 @@ public class ProductVariationService {
         productVariationRepository.save(productVariation);
         return "product variation added successfully";
     }
-
+//////////////////////////////////to update existing product variation
     public String updateProductVariation(Long productVariationId,
                                          ProductVariationDto productVariationDto, Locale locale
     ) throws IOException {
@@ -130,7 +126,7 @@ public class ProductVariationService {
                     ("productVariation.Updated.message", null, locale));
         }
     }
-
+/////////////////////////////////////to get all product variation
     public List<ProductVariationDto> getAllProductVariationOfSeller(PagingAndSortingDto pagingAndSortingDto) {
 
         Pageable pageable = pagingAndSortingUtil.getPageable(pagingAndSortingDto);
@@ -147,16 +143,16 @@ public class ProductVariationService {
 
         while (productIterator.hasNext()) {
             Product product = productIterator.next();
+
             Set<ProductVariation> productVariationSet = product.getVariations(pageable);
 
             if (productVariationSet == null) {
                 throw new InvalidDetailException("Currently Logged In Seller Does Not Have Any Product Variation");
             }
             productVariationSet.forEach(productVariation -> productVariationDtoList.add(new ProductVariationDto(
-                    productVariation.getProduct().getId(), productVariation.getProduct().getName(), productVariation.getPrice(),
+                    productVariation.getProduct().getId(), productVariation.getProduct(),productVariation.getMetadata(), productVariation.getPrice(),
                     productVariation.getQuantityAvailable(), productVariation.getActive(), primaryImageName)));
         }
-
         return productVariationDtoList;
     }
 }

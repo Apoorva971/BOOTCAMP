@@ -113,7 +113,7 @@ public class ProductService {
     public String deleteProduct(Long productId, Locale locale) {
         Seller seller = sellerService.getLoggedInSeller();
         try {
-            Optional<Product> product = productRepository.findByIdAndSellerId(productId, seller.getId());
+            Optional<Product> product = productRepository.findByIdAndSellerId( seller.getId(),productId);
 //            product.get().setDeleted(true);
             if(product.get().getId() !=null){
                 productRepository.deleteByIdAndSellerId(productId,seller.getId());

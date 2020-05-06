@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableResourceServer
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableJpaAuditing
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Autowired
