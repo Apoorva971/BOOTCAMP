@@ -26,27 +26,27 @@ public class AdminController {
     @Autowired
     ActivationDeactivationService activationDeactivationService;
 
-    @ApiOperation(value = "shows the list of all customer",authorizations = {@Authorization(value = "Bearer")})
-    @GetMapping(value = "/admin/customers/list_of_all_customers",produces = "application/json")
+    @ApiOperation(value = "Api to display the list of all customer", authorizations = {@Authorization(value = "Bearer")})
+    @GetMapping(value = "/admin/customers/list_of_all_customers", produces = "application/json")
 
-    public List<CustomerDto> getAllCustomer(@RequestBody(required = false) PagingAndSortingDto pagingAndSortingDto) {
+    public List<CustomerDto> getAllCustomer(@RequestParam(required = false) PagingAndSortingDto pagingAndSortingDto) {
         return customerService.getAllCustomer(pagingAndSortingDto);
 
     }
 
-    @ApiOperation(value = "shows the list of All Sellers",authorizations = {@Authorization(value = "Bearer")})
-    @GetMapping(value = "/admin/sellers/list_of_all_sellers",produces = "application/json")
-    public List<SellerDto> getAllSellers(@RequestBody(required = false) PagingAndSortingDto pagingAndSortingDto) {
+    @ApiOperation(value = "Api to display the list of All Sellers", authorizations = {@Authorization(value = "Bearer")})
+    @GetMapping(value = "/admin/sellers/list_of_all_sellers", produces = "application/json")
+    public List<SellerDto> getAllSellers(@RequestParam(required = false) PagingAndSortingDto pagingAndSortingDto) {
         return sellerService.getAllSeller(pagingAndSortingDto);
     }
 
-    @ApiOperation(value = "This Api is used to Activated the user present with the passed Id")
-    @PutMapping("/admin/activate/{id}")
+    @ApiOperation(value = "Api is used to Activated the user", authorizations = {@Authorization(value = "Bearer")})
+    @PutMapping(value = "/admin/activate/{id}", produces = "application/json")
     public String activateUser(@PathVariable Long id, WebRequest webRequest, Locale locale) {
         return activationDeactivationService.ActivateUser(id, webRequest, locale);
     }
 
-    @ApiOperation(value = "This Api is used to De-Activated the user present with the passed Id")
+    @ApiOperation(value = "This Api is used to De-Activated the user",authorizations = {@Authorization(value = "Bearer")})
     @PutMapping("/admin/deactivate/{id}")
     public String deActivateUser(@PathVariable Long id, WebRequest webRequest, Locale locale) {
         return activationDeactivationService.DeactivateUser(id, webRequest, locale);

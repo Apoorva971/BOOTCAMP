@@ -28,7 +28,6 @@ public interface ProductRepository extends CrudRepository<Product,Long> {
     @Query(value = "delete from Product where id=:productId and seller_user_id=:userId",nativeQuery = true)
     void deleteByIdAndSellerId(@Param("productId") Long productId, @Param("userId") Long id);
 
-
     @Transactional
     @Modifying
     @Query(value = "update Product set isActive=:isactive where id=:productId",nativeQuery = true)

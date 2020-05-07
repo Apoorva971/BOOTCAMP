@@ -1,5 +1,7 @@
 package com.ecommerceApp.ecommerceApp.dtos;
 
+import com.ecommerceApp.ecommerceApp.entities.Seller;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,7 @@ public class ProductDto {
     private boolean isCancelleable;
     private boolean isActive;
     private boolean isDeleted;
+    private Seller seller;//new
 
     public ProductDto(Long id, String name, String description, String brand, boolean isReturnable, boolean isCancelleable) {
         this.id = id;
@@ -78,6 +81,7 @@ public class ProductDto {
         return isActive;
     }
 
+
     public void setActive(boolean active) {
         isActive = active;
     }
@@ -88,5 +92,13 @@ public class ProductDto {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 }

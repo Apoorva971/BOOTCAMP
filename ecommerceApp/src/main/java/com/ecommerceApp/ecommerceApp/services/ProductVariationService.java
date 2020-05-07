@@ -66,7 +66,7 @@ public class ProductVariationService {
 ////////////////////to add a new product variation
     public String addProductVariation(ProductVariationDto productVariationDto) {
         Optional<Product> product = productRepository.findById(productVariationDto.getProductId());
-        if (!product.isPresent() && !product.get().isActive())
+        if (product.isPresent()==false && product.get().isActive()==false)
             throw new ProductNotFoundException("Product with this id not found");
         Product product1 = product.get();
         if (product1.getSeller().getId() != getLoggedInSeller().getId())
