@@ -33,7 +33,7 @@ public class SellerController {
 
     ////////////////donedone
     @ApiOperation(value = "Api to Update the profile of the Seller", authorizations = {@Authorization(value = "Bearer")})
-    @PostMapping(value = "/seller/update/profile", produces = "application/json")
+    @PostMapping(value = "/seller/profile", produces = "application/json")
     public ResponseEntity updateProfileDetails(@RequestBody SellerViewProfileDto profileDto, HttpServletRequest request, Locale locale) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
@@ -42,7 +42,7 @@ public class SellerController {
 
     //////////donedone
     @ApiOperation(value = "Api to Update the address of Seller", authorizations = {@Authorization(value = "Bearer")})
-    @PatchMapping(value = "/seller/update/addresses/{id}", produces = "appliation/json")
+    @PatchMapping(value = "/seller/address/{id}", produces = "appliation/json")
     public ResponseEntity<String> updateAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable Long id, HttpServletRequest request, Locale locale) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
@@ -51,7 +51,7 @@ public class SellerController {
 
     ////////donedone
     @ApiOperation(value = "Api to Update the Password of the Seller", authorizations = {@Authorization(value = "Bearer")})
-    @PutMapping(value = "/seller/update/password", produces = "application/json")
+    @PutMapping(value = "/seller/password", produces = "application/json")
     public String updatePassword(@RequestBody PasswordDto passwordDto, Locale locale) {
         sellerService.updatePassword(passwordDto, locale);
         return messageSource.getMessage("password.updated.message", null, locale);

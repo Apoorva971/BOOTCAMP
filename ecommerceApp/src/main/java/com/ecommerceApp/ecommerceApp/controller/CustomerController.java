@@ -27,7 +27,7 @@ public class CustomerController {
     MessageSource messageSource;
 ///////////////done
     @ApiOperation(value = "Api to view the profile of customer", authorizations = {@Authorization(value = "Bearer")})
-    @GetMapping(value = "/customer/view/profile", produces = "application/json")
+    @GetMapping(value = "/customer", produces = "application/json")
     public CustomerViewProfileDto getprofile(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
@@ -36,7 +36,7 @@ public class CustomerController {
 
     //////////done
     @ApiOperation(value = "Api to view all the address of customer", authorizations = {@Authorization(value = "Bearer")})
-    @GetMapping(value = "/customer/getAll/addresses", produces = "application/json")
+    @GetMapping(value = "/customer/addresses", produces = "application/json")
     public Set<AddressDto> getCustomerAddresses(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
@@ -45,7 +45,7 @@ public class CustomerController {
 
     //////////done
     @ApiOperation(value = "Api to add new address for the customer", authorizations = {@Authorization(value = "Bearer")})
-    @PostMapping(value = "/customer/addnew/addresses", produces = "application/json")
+    @PostMapping(value = "/customer/addresses", produces = "application/json")
     public ResponseEntity addNewAddress(@Valid @RequestBody AddressDto addressDto, HttpServletRequest request, Locale locale) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
@@ -54,7 +54,7 @@ public class CustomerController {
 
     /////////////////////done
     @ApiOperation(value = "Api to Update the profile of the customer", authorizations = {@Authorization(value = "Bearer")})
-    @PutMapping(value = "/customer/profile", produces = "application/json")
+    @PutMapping(value = "/customer", produces = "application/json")
     public ResponseEntity updateProfile(@Valid @RequestBody CustomerViewProfileDto customerViewProfileDto,
                                         HttpServletRequest httpServletRequest, Locale locale) {
         Principal principal = httpServletRequest.getUserPrincipal();
@@ -64,7 +64,7 @@ public class CustomerController {
 
     ////////////////dalabase mai persist nai ho rha
     @ApiOperation(value = "Api to delete address of customer", authorizations = {@Authorization(value = "Bearer")})
-    @DeleteMapping(value = "/customer/delete/addresses/{id}", produces = "application/json")
+    @DeleteMapping(value = "/customer/address/{id}", produces = "application/json")
     public ResponseEntity<String> deleteAddressById(@PathVariable Long id, HttpServletRequest request, Locale locale) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
@@ -73,7 +73,7 @@ public class CustomerController {
 
     ///////////////////dekha ha
     @ApiOperation(value = "Api to Update the address of customer", authorizations = {@Authorization(value = "Bearer")})
-    @PatchMapping(value = "/customer/update/Address/{id}", produces = "application/json")
+    @PatchMapping(value = "/customer/address/{id}", produces = "application/json")
     public ResponseEntity<String> updateCustomerAddress(@Valid @RequestBody AddressDto addressDto,
                                                         @PathVariable Long id, HttpServletRequest httpServletRequest, Locale locale) {
         Principal principal = httpServletRequest.getUserPrincipal();
@@ -84,7 +84,7 @@ public class CustomerController {
 
     /////////done
     @ApiOperation(value = "Api to Update the Password of customer", authorizations = {@Authorization(value = "Bearer")})
-    @PutMapping(value = "/customer/update/password", produces = "application/json")
+    @PutMapping(value = "/customer/password", produces = "application/json")
     public String updatePassword(@RequestBody PasswordDto passwordDto, Locale locale) {
         customerService.updateCustomerPassword(passwordDto, locale);
         return messageSource.getMessage("password.updated.message", null, locale);

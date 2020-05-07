@@ -27,7 +27,7 @@ public class AdminController {
     ActivationDeactivationService activationDeactivationService;
 
     @ApiOperation(value = "Api to display the list of all customer", authorizations = {@Authorization(value = "Bearer")})
-    @GetMapping(value = "/admin/customers/list_of_all_customers", produces = "application/json")
+    @GetMapping(value = "/admin/customers", produces = "application/json")
 
     public List<CustomerDto> getAllCustomer(@RequestParam(required = false) PagingAndSortingDto pagingAndSortingDto) {
         return customerService.getAllCustomer(pagingAndSortingDto);
@@ -35,7 +35,7 @@ public class AdminController {
     }
 
     @ApiOperation(value = "Api to display the list of All Sellers", authorizations = {@Authorization(value = "Bearer")})
-    @GetMapping(value = "/admin/sellers/list_of_all_sellers", produces = "application/json")
+    @GetMapping(value = "/admin/sellers", produces = "application/json")
     public List<SellerDto> getAllSellers(@RequestParam(required = false) PagingAndSortingDto pagingAndSortingDto) {
         return sellerService.getAllSeller(pagingAndSortingDto);
     }

@@ -29,7 +29,7 @@ public class CategoryController {
     }
 
     @ApiOperation(value = "Add a new category", authorizations = {@Authorization("Bearer")})
-    @PostMapping(value = "/admin/category/add", produces = "application/json")
+    @PostMapping(value = "/admin/category", produces = "application/json")
     public String addCategory(@RequestBody Category category, Locale locale) {
         return categoryService.addCategory(category, locale);
     }

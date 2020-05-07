@@ -2,6 +2,7 @@ package com.ecommerceApp.ecommerceApp.services;
 
 import com.ecommerceApp.ecommerceApp.Repositories.*;
 import com.ecommerceApp.ecommerceApp.Util.PagingAndSortingUtil;
+import com.ecommerceApp.ecommerceApp.dtos.CustomerViewProfileDto;
 import com.ecommerceApp.ecommerceApp.dtos.PagingAndSortingDto;
 import com.ecommerceApp.ecommerceApp.dtos.ProductVariationDto;
 import com.ecommerceApp.ecommerceApp.entities.*;
@@ -12,10 +13,14 @@ import com.ecommerceApp.ecommerceApp.exceptions.ValidationException;
 import com.ecommerceApp.ecommerceApp.security.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.WebRequest;
 
 import java.io.IOException;
 import java.util.*;
@@ -41,12 +46,12 @@ public class ProductVariationService {
     MessageSource messageSource;
     PagingAndSortingUtil pagingAndSortingUtil = new PagingAndSortingUtil();
 
-    public Users getLoggedInSeller() {
+    public Seller getLoggedInSeller() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AppUser userDetail = (AppUser) authentication.getPrincipal();
         String username = userDetail.getUsername();
-        Users user = userRepository.findByEmail(username);
-        return user;
+        Seller seller = sellerRepository.findByEmail(username);
+        return seller;
     }
     //////////////////////to get product variation by id being passed
     public ProductVariation getProductVariation(Long variationId) {
@@ -65,9 +70,10 @@ public class ProductVariationService {
     }
 ////////////////////to add a new product variation
     public String addProductVariation(ProductVariationDto productVariationDto) {
+        if(!productRepository.findById(productVariationDto.getProductId()).isPresent()){
+            throw new ProductNotFoundException("product with this id does not present");
+        }
         Optional<Product> product = productRepository.findById(productVariationDto.getProductId());
-        if (product.isPresent()==false && product.get().isActive()==false)
-            throw new ProductNotFoundException("Product with this id not found");
         Product product1 = product.get();
         if (product1.getSeller().getId() != getLoggedInSeller().getId())
             throw new UserNotFoundException("Product not belong to this seller");
@@ -105,27 +111,19 @@ public class ProductVariationService {
     public String updateProductVariation(Long productVariationId,
                                          ProductVariationDto productVariationDto, Locale locale
     ) throws IOException {
-        Long seller = getLoggedInSeller().getId();
-        System.out.println(seller);
-        if (productVariationRepository.findById(productVariationId).get() == null) {
-            throw new InvalidDetailException("You Have Entered A Wrong Product variation Id Product Variation Does Not" +
-                    "Exists");
-        }
-        if (productVariationRepository.findById(productVariationId).get().getProduct().getSeller().getId()
-                != seller) {
-            throw new InvalidDetailException("Can Not Update Product Variation, Because Currently Logged-In Seller Is " +
-                    "Not Creator Of Product");
-        } else {
-            System.out.println("true");
-            ProductVariation updatedProductVariation = productVariationRepository.findById(productVariationId).get();
-            updatedProductVariation.setActive(productVariationDto.getActive());
-            updatedProductVariation.setPrice(productVariationDto.getPrice());
-            updatedProductVariation.setQuantityAvailable(productVariationDto.getQuantity());
-            productVariationRepository.save(updatedProductVariation);
+        ProductVariation saveProductVariation = productVariationRepository.findById(productVariationId).get();
+        if(productVariationDto.getPrice() != null)
+            saveProductVariation.setPrice(productVariationDto.getPrice());
+       if(productVariationDto.getQuantity()!=null)
+           saveProductVariation.setQuantityAvailable(productVariationDto.getQuantity());
+       if(productVariationDto.getActive()!=null)
+           saveProductVariation.setActive(productVariationDto.getActive());
+       if(productVariationDto.getMetadata()!=null)
+           saveProductVariation.setMetadata(productVariationDto.getMetadata());
+            productVariationRepository.save(saveProductVariation);
             return (messageSource.getMessage
                     ("productVariation.Updated.message", null, locale));
         }
-    }
 /////////////////////////////////////to get all product variation
     public List<ProductVariationDto> getAllProductVariationOfSeller(PagingAndSortingDto pagingAndSortingDto) {
 

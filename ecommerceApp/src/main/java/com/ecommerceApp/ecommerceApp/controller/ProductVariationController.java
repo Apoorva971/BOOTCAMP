@@ -22,14 +22,14 @@ public class ProductVariationController {
     ////////////////done
     @ApiOperation(value = "Api to view all ProductVariation of the Product",authorizations = {@Authorization(value = "Bearer")})
 
-    @GetMapping(value = "/productvariation/{id}",produces = "application/json")
+    @GetMapping(value = "/seller/productvariation/{id}",produces = "application/json")
     public ProductVariation getProductVariation(@PathVariable Long id) {
         return productVariationService.getProductVariation(id);
     }
     //////////////////////not working
     @ApiOperation(value = "Api to add a new ProductVariation of the Product",authorizations = {@Authorization(value = "Bearer")})
 
-    @PostMapping(value = "/seller/productVariation/add",produces = "application/json")
+    @PostMapping(value = "/seller/productVariation",produces = "application/json")
     public String addProductVariation(@RequestBody ProductVariationDto productVariationDto) {
         productVariationService.addProductVariation(productVariationDto);
         return "saved";
@@ -37,16 +37,16 @@ public class ProductVariationController {
     ///////////////not working
     @ApiOperation(value = "Api to Update the ProductVariation of the Product",authorizations = {@Authorization(value = "Bearer")})
 
-    @PutMapping(value = "/seller/update/productVariation",produces = "application/json")
+    @PutMapping(value = "/seller/productVariation",produces = "application/json")
     public String updateNewProductVariation(@RequestParam("productVariationId") Long productVariationId,
-                                            ProductVariationDto productVariationDto, Locale locale)
+                                            @RequestBody ProductVariationDto productVariationDto, Locale locale)
             throws IOException {
         return productVariationService.updateProductVariation(productVariationId, productVariationDto, locale);
     }
     /////////////////////done
     @ApiOperation(value = "Api to view all the ProductVariation",authorizations = {@Authorization(value = "Bearer")})
 
-    @GetMapping(value = "/seller/all/productVariation",produces = "application/json")
+    @GetMapping(value = "/seller/productVariations",produces = "application/json")
     public List<ProductVariationDto> getProductVariation(@RequestBody(required = false)
                                                                  PagingAndSortingDto pagingAndSortingDto) {
         return productVariationService.getAllProductVariationOfSeller(pagingAndSortingDto);

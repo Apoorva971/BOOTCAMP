@@ -19,12 +19,12 @@ public class CategoryMetaDataFieldController {
     @Autowired
     MetaDataFieldService metaDataFieldService;
     @ApiOperation(value = "Api to add the CategoryMetaDataFeild ", authorizations = {@Authorization("Bearer")})
-    @PostMapping(value = "/admin/add/metadata-field",produces = "application/json")
+    @PostMapping(value = "/admin/metadatafields",produces = "application/json")
     public String addMetadataField(@Valid @RequestBody CategoryMetaDataField categoryMetaDataField, Locale locale){
         return metaDataFieldService.addField(categoryMetaDataField,locale);
     }
     @ApiOperation(value = "Api to add the CategoryMetaDataFeilld Values", authorizations = {@Authorization("Bearer")})
-    @PostMapping(value = "/admin/add/metadatavalues/{categoryId}/{fieldId}",produces = "application/json")
+    @PostMapping(value = "/admin/metadatavalues/{categoryId}/{fieldId}",produces = "application/json")
     public String addMetadataWithValues(@Valid @RequestBody CategoryMetadataFieldValues values, @PathVariable Long categoryId, @PathVariable Long fieldId,Locale locale){
         return metaDataFieldService.addValues(values,categoryId,fieldId,locale);
     }
@@ -35,7 +35,7 @@ public class CategoryMetaDataFieldController {
     }
 
     @ApiOperation(value = "Api to update the CategoryMetaDataFeild Value", authorizations = {@Authorization("Bearer")})
-    @PutMapping("/admin/update/metadatavalues/{categoryId}/{fieldId}")
+    @PutMapping("/admin/metadatavalues/{categoryId}/{fieldId}")
     public String updateMetadataWithValues(@RequestBody CategoryMetadataFieldValues values, @PathVariable Long categoryId, @PathVariable Long fieldId,Locale locale){
         return metaDataFieldService.updateValues(values,categoryId,fieldId,locale);
     }
