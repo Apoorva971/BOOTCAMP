@@ -26,17 +26,15 @@ public class ActivationDeactivationService {
 
     public String ActivateUser(Long id, WebRequest request,Locale locale) {
         Optional<Users> user = userRepository.findById(id);
-        Optional<UserAttempts>userAttempts = userAttemptRepository.findById(id);
-        String message ;
-
         if (!user.isPresent()) {
-            message = messageSource.getMessage("user.Invalid.message",null,locale);
+            return messageSource.getMessage("user.Invalid.message",null,locale);
         } else {
             Users saveUser = user.get();
             if (saveUser.isActive()) {
-                message = messageSource.getMessage("account.alreadyactivated.message",null,locale);
+                return messageSource.getMessage("account.alreadyactivated.message",null,locale);
             } else {
                 saveUser.setActive(true);
+                saveUser.setAccountNonLocked(true);
                 userRepository.save(saveUser);
                 UserAttempts userAttempts1 = new UserAttempts();
                 userAttempts1.setAttempts(0);
@@ -48,23 +46,21 @@ public class ActivationDeactivationService {
                 simpleMailMessage.setText("your account is activated successfully");
                 simpleMailMessage.setTo(saveUser.getEmail());
                 emailSenderService.sendEmail(simpleMailMessage);
-                message = messageSource.getMessage("account.activated.message",null,locale);
+                return messageSource.getMessage("account.activated.message",null,locale);
             }
 
         }
-       return messageSource.getMessage("account.activated.message",null,locale);
     }
     public String DeactivateUser(Long id, WebRequest request, Locale locale) {
         Optional<Users> user = userRepository.findById(id);
         System.out.println(user.get().getId());
-        String message;
 
         if(user.isPresent()==false){
             throw new NoSuchElementException(messageSource.getMessage("user.Invalid.message",null,locale));
         } else {
             Users saveUser = user.get();
             if (saveUser.isActive()==false) {
-                message = messageSource.getMessage("account.alreadydeactivated.message",null,locale);
+                return messageSource.getMessage("account.alreadydeactivated.message",null,locale);
             } else {
                 saveUser.setActive(false);
                 userRepository.save(saveUser);
@@ -73,9 +69,8 @@ public class ActivationDeactivationService {
                 simpleMailMessage.setText("your account is de-activated successfully");
                 simpleMailMessage.setTo(saveUser.getEmail());
                 emailSenderService.sendEmail(simpleMailMessage);
-               message = messageSource.getMessage("account.deactivated.message",null,locale);
+               return messageSource.getMessage("account.deactivated.message",null,locale);
             }
         }
-        return messageSource.getMessage("account.deactivated.message",null,locale);
     }
 }

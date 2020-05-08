@@ -89,7 +89,7 @@ public class ProductController {
     ////////////////done
     @ApiOperation(value = "Api to view all the Category of the Product As a Customer", authorizations = {@Authorization(value = "Bearer")})
 
-    @GetMapping(value = "/products/{categoryId}", produces = "application/json")
+    @GetMapping(value = "/customer/products/{categoryId}", produces = "application/json")
     public List<Product> viewAllProduct(@PathVariable Long categoryId) {
         return productService.viewAllProductAsCustomer(categoryId);
     }
@@ -109,5 +109,4 @@ public class ProductController {
     public List<Product> viewAllProductAsAdmin(@PathVariable Long categoryId) {
         return productService.viewAllProductsAsAdmin(categoryId);
     }
-
 }

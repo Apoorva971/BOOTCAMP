@@ -106,7 +106,6 @@ public class ProductService {
                 product.get().setCancelleable(productDto.isCancelleable());
             if (productDto.isReturnable())
                 product.get().setReturnable(productDto.isReturnable());
-            // Product product1 = product.get();
             productRepository.save(product.get());
         }
         return messageSource.getMessage("product.updated.message", null, locale);
@@ -177,7 +176,7 @@ public class ProductService {
         if(product.get().isActive()){
             try {
                 SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-                simpleMailMessage.setSubject("REGARDING PRODUCT ACTIVATION");
+                simpleMailMessage.setSubject("REGARDING PRODUCT DE-ACTIVATION");
                 simpleMailMessage.setText("Hi we have found a illegal product that is added by you so we have to deactivate this product"+"Category "+product.get().getCategory().getName()+"name"+product.get().getName()+"Brand"+product.get().getBrand()+"Description"+product.get().getDescription());
                 simpleMailMessage.setTo(product.get().getSeller().getEmail());
                 emailSenderService.sendEmail(simpleMailMessage);

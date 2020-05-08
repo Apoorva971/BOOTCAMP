@@ -93,10 +93,10 @@ public class CustomerService {
             mailMessage.setTo(customer.getEmail());
             mailMessage.setSubject("Complete Registration of the Customer!");
             mailMessage.setFrom("apoorvagarg30@gmail.com");
-            mailMessage.setText("To confirm your account, please click on the Link given below : "
-                    + "http://localhost:8080/register/confirm?token=" + verificationToken.getToken());
-//            mailMessage.setText("Hii,  To confirm your account, please click here : "
-//                    + "http://localhost:8080/activate-customer-account?token=" + verificationToken.getToken());
+//            mailMessage.setText("To confirm your account, please click on the Link given below : "
+//                    + "http://localhost:8080/register/confirm?token=" + verificationToken.getToken());
+            mailMessage.setText("Hii,  To confirm your account, please click here : "
+                    + "http://localhost:8080/register/activate?token=" + verificationToken.getToken());
             emailSenderService.sendEmail(mailMessage);
         }
         else{
@@ -119,16 +119,17 @@ public class CustomerService {
         return "something went wrong!";
     }
 
-    public String activateCustomer(String token) {
-        VerificationToken token1 = verificationTokenRepository.findByToken(token);
+    public String activateCustomer(String userToken) {
+        VerificationToken token1 = verificationTokenRepository.findByToken(userToken);
         if (token1 != null) {
             Customer customer = customerRepository.findByEmail(token1.getEmail());
             customer.setActive(true);
             customer.setEnabled(true);
+            userRepository.save(customer);
             customerRepository.save(customer);
             return "Your account has been activated";
         } else {
-            return "http://localhost:8080/activate-customer-account/" + token + " has been expired.";
+            return "http://localhost:8080/register/activate" + userToken + " has been expired.";
         }
     }
 

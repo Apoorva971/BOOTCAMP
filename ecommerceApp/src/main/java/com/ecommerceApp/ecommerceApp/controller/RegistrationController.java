@@ -29,10 +29,9 @@ public class RegistrationController {
     }
     @ApiOperation(value = "Api to Activate the new registered customer",authorizations = {@Authorization(value = "Bearer")})
 
-    @GetMapping(value = "/activate/customer/account/{token}",produces = "application/json")
-    public String activateCustomer(@PathVariable String token){
-        String message = customerService.activateCustomer(token);
-        return message;
+    @GetMapping(value = "register/activate",produces = "application/json")
+    public String activateCustomer(@RequestParam("token") String token){
+        return customerService.activateCustomer(token);
     }
     @ApiOperation(value = "Api to get the Re-sent link",authorizations = {@Authorization(value = "Bearer")})
 
@@ -46,7 +45,6 @@ public class RegistrationController {
 
 @GetMapping(value = "register/confirm",produces = "application/json")
     String confirmRegistration(@RequestParam("token") String token) {
-
         return customerService.validateRegistrationToken(token);
 
     }

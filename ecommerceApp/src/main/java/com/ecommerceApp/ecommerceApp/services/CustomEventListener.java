@@ -42,6 +42,7 @@ public class CustomEventListener {
                 {
                     Users user = userRepository.findByEmail(username);
                    user.setActive(false);
+                   user.setAccountNonLocked(false);
                     userRepository.save(user);
                     count++;
                     SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
