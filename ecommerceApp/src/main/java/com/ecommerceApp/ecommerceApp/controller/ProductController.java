@@ -1,5 +1,6 @@
 package com.ecommerceApp.ecommerceApp.controller;
 
+import com.ecommerceApp.ecommerceApp.dtos.PagingAndSortingDto;
 import com.ecommerceApp.ecommerceApp.dtos.ProductDto;
 import com.ecommerceApp.ecommerceApp.entities.Product;
 import com.ecommerceApp.ecommerceApp.services.ProductService;
@@ -40,8 +41,8 @@ public class ProductController {
     @ApiOperation(value = "Api to view all the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping(value = "/seller/Products", produces = "application/json")
-    public List<Product> viewAllProductAsSeller() {
-        return productService.viewAllProductAsSeller();
+    public List<Product> viewAllProductAsSeller(@RequestParam(required = false)PagingAndSortingDto pagingAndSortingDto) {
+        return productService.viewAllProductAsSeller(pagingAndSortingDto);
     }
 
     /////////////done
@@ -95,7 +96,7 @@ public class ProductController {
     }
 
     //////////////done
-    @ApiOperation(value = "Api to view the Product As a Admin", authorizations = {@Authorization(value = "Bearer")})
+    @ApiOperation(value = "Api to view the Product As an Admin", authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping(value = "/admin/product/{productId}", produces = "application/json")
     public Optional<Product> viewProductAsAdmin(@PathVariable Long productId) {
@@ -103,7 +104,7 @@ public class ProductController {
     }
 
     //////////////////doen
-    @ApiOperation(value = "Api to view all the Category As a Admin", authorizations = {@Authorization(value = "Bearer")})
+    @ApiOperation(value = "Api to view all the Category As an Admin", authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping(value = "/admin/products/{categoryId}", produces = "application/json")
     public List<Product> viewAllProductAsAdmin(@PathVariable Long categoryId) {

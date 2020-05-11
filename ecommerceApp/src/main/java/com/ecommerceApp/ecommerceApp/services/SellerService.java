@@ -69,7 +69,7 @@ public class SellerService {
 
     public SellerDto getSellerByEmail(String email) {
         Seller seller = sellerRepository.findByEmail(email);
-        if(email== null){
+        if (email == null) {
             return null;
         }
         SellerDto sellerDto = toSellerDto(seller);
@@ -84,22 +84,22 @@ public class SellerService {
     public SellerViewProfileDto getSellerProfile() {
         Seller seller1 = getLoggedInSeller();
         Seller seller = sellerRepository.findByEmail(seller1.getEmail());
-        if(seller.getEmail() == null)
-            throw new UserNotFoundException("not found")      ;
+        if (seller.getEmail() == null)
+            throw new UserNotFoundException("not found");
 
         SellerViewProfileDto sellerViewProfileDto = toSellerViewProfileDto(seller);
         return sellerViewProfileDto;
     }
 
-    public String registerSeller(SellerRegistrationDto sellerRegistrationDto,Locale locale) {
-        if (!(check_if_all_details_unique(sellerRegistrationDto) == "unique")) {
+    public String registerSeller(SellerRegistrationDto sellerRegistrationDto, Locale locale) {
+        if (!(checkIfAllDetailsUnique(sellerRegistrationDto) == "unique")) {
             return "Invalid data";
         }
         Seller seller = toSeller(sellerRegistrationDto);
         seller.setPassword(passwordEncoder.encode(seller.getPassword()));
         sellerRepository.save(seller);
         acknowledgementEmail(seller.getEmail());
-        return messageSource.getMessage("account.created.message",null,locale);
+        return messageSource.getMessage("account.created.message", null, locale);
 
     }
 
@@ -127,7 +127,7 @@ public class SellerService {
         return true;
     }
 
-    public String check_if_all_details_unique(SellerRegistrationDto sellerRegistrationDto) {
+    public String checkIfAllDetailsUnique(SellerRegistrationDto sellerRegistrationDto) {
         if (!isEmailUnique(sellerRegistrationDto.getEmail())) {
             return "Email already exits";
         } else if (!isGSTUnique(sellerRegistrationDto.getGST())) {
@@ -147,77 +147,80 @@ public class SellerService {
         emailSenderService.sendEmail(simpleMailMessage);
     }
 
-    public  SellerDto getSellerbyEmail(String email) {
+    public SellerDto getSellerbyEmail(String email) {
         Seller seller = sellerRepository.findByEmail(email);
         if (email == null) {
             return null;
         }
-        SellerDto sellerDto =toSellerDto(seller);
+        SellerDto sellerDto = toSellerDto(seller);
         return sellerDto;
     }
+
     public SellerViewProfileDto tosellerProfileDto(Seller seller) {
-        SellerViewProfileDto sellerViewProfileDto= modelMapper.map(seller, SellerViewProfileDto.class);
+        SellerViewProfileDto sellerViewProfileDto = modelMapper.map(seller, SellerViewProfileDto.class);
         return sellerViewProfileDto;
     }
 
     public ResponseEntity<String> updateSellerProfile(String email, SellerViewProfileDto sellerviewProfileDto, Locale locale) {
         Seller savedSeller = sellerRepository.findByEmail(email);
 
-        if(sellerviewProfileDto.getFirstName() != null)
+        if (sellerviewProfileDto.getFirstName() != null)
             savedSeller.setFirstName(sellerviewProfileDto.getFirstName());
 
-        if(sellerviewProfileDto.getLastName() != null)
+        if (sellerviewProfileDto.getLastName() != null)
             savedSeller.setLastName(sellerviewProfileDto.getLastName());
 
-        if(sellerviewProfileDto.getActive() != null && !sellerviewProfileDto.getActive())
+        if (sellerviewProfileDto.getActive() != null && !sellerviewProfileDto.getActive())
             savedSeller.setActive(sellerviewProfileDto.getActive());
 
-        if(sellerviewProfileDto.getGST() != null)
+        if (sellerviewProfileDto.getGST() != null)
             savedSeller.setGST(sellerviewProfileDto.getGST());
 
-        if(sellerviewProfileDto.getCompanyContact() != null)
+        if (sellerviewProfileDto.getCompanyContact() != null)
             savedSeller.setCompanyContact(sellerviewProfileDto.getCompanyContact());
 
-        if(sellerviewProfileDto.getCompanyName() != null)
+        if (sellerviewProfileDto.getCompanyName() != null)
             savedSeller.setCompanyName(sellerviewProfileDto.getCompanyName());
 
         sellerRepository.save(savedSeller);
-String message=messageSource.getMessage("seller.update.message",null,locale);
+        String message = messageSource.getMessage("seller.update.message", null, locale);
         return new ResponseEntity(message, HttpStatus.OK);
-}
-    public ResponseEntity<String> updateSellerAddress(String email, Long addressId, AddressDto addressDto,Locale locale) {
+    }
+
+    public ResponseEntity<String> updateSellerAddress(String email, Long addressId, AddressDto addressDto, Locale locale) {
         Optional<Address> address = addressRepository.findById(addressId);
         Users user = userRepository.findByEmail(email);
 
-        if(!address.isPresent()){
+        if (!address.isPresent()) {
             return new ResponseEntity<>("No address found with the given id;", HttpStatus.NOT_FOUND);
         }
         Address savedAddress = address.get();
-        if(!savedAddress.getUser().getEmail().equals(email)){
+        if (!savedAddress.getUser().getEmail().equals(email)) {
             return new ResponseEntity<>("Invalid Operation", HttpStatus.CONFLICT);
         }
 
-        if(addressDto.getAddressLine() != null)
+        if (addressDto.getAddressLine() != null)
             savedAddress.setAddressLine(addressDto.getAddressLine());
 
-        if(addressDto.getCity() != null)
+        if (addressDto.getCity() != null)
             savedAddress.setCity(addressDto.getCity());
 
-        if(addressDto.getState() != null)
+        if (addressDto.getState() != null)
             savedAddress.setState(addressDto.getState());
 
-        if(addressDto.getCountry() != null)
+        if (addressDto.getCountry() != null)
             savedAddress.setCountry(addressDto.getCountry());
 
-        if(addressDto.getZipCode() != null)
+        if (addressDto.getZipCode() != null)
             savedAddress.setZipCode(addressDto.getZipCode());
 
-        if(addressDto.getLabel() != null)
+        if (addressDto.getLabel() != null)
             savedAddress.setLabel(addressDto.getLabel());
-addressRepository.save(savedAddress);
-String message = messageSource.getMessage("address.updated.message",null,locale);
+        addressRepository.save(savedAddress);
+        String message = messageSource.getMessage("address.updated.message", null, locale);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
     public Seller getLoggedInSeller() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AppUser userDetail = (AppUser) authentication.getPrincipal();
@@ -225,16 +228,16 @@ String message = messageSource.getMessage("address.updated.message",null,locale)
         Seller seller = sellerRepository.findByEmail(username);
         return seller;
     }
+
     @Transactional
-    public void updatePassword(PasswordDto password,Locale locale) {
+    public void updatePassword(PasswordDto password, Locale locale) {
         Seller seller = getLoggedInSeller();
         String password1 = password.getPassword();
         String confirmPassword = password.getConfirmPassword();
         if (password1.equals(confirmPassword)) {
             seller.setPassword(passwordEncoder.encode(password1));
             sellerRepository.save(seller);
-        }
-        else
-            throw new PasswordNotMatchedException(messageSource.getMessage("password.notMatched.message",null,locale));
+        } else
+            throw new PasswordNotMatchedException(messageSource.getMessage("password.notMatched.message", null, locale));
     }
 }

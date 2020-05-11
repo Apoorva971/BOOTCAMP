@@ -9,7 +9,6 @@ import com.ecommerceApp.ecommerceApp.exceptions.PasswordNotMatchedException;
 import com.ecommerceApp.ecommerceApp.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -98,65 +97,3 @@ public class ForgetAndResetPasswordService {
         }
     }
 }
-
-/*
-public String forgotPassword(String email) {
-//        System.out.println(email+">>>>>>>>>");
-    Users user=userRepository.findByEmail(email);
-//        System.out.println(user.getEmail());
-    if(user.getEmail()==null)
-        throw new UserNotFountException("User doesn't exist");
-    else{
-        String token= UUID.randomUUID().toString();
-        VerificationToken verificationToken=new VerificationToken();
-        verificationToken.setEmail(user.getEmail());
-        verificationToken.setCreatedDate(new Date());
-        verificationToken.setToken(token);
-        SimpleMailMessage simpleMailMessage =  new SimpleMailMessage();
-        simpleMailMessage.setSubject("RESET YOUR PASSWORD");
-        simpleMailMessage.setText("Hii, \nUse this link to reset your password ->" +
-                " http://localhost:8080/password/reset/"+verificationToken.getToken());
-        simpleMailMessage.setTo(user.getEmail());
-        emailSenderService.sendEmail(simpleMailMessage);
-        verificationTokenRepository.save(verificationToken);
-    }
-    return "Kindly check your email to reset Password.";
-}
-
-    public String resetPassword(PasswordDto passwordDto, String token) {
-        VerificationToken verificationToken = verificationTokenRepository.getByToken(token);
-        String password = passwordDto.getPassword();
-        String confirmPassword = passwordDto.getConfirmPassword();
-        if (verificationToken.getEmail() == null)
-            return "http://localhost:8080/password/reset/" + token + "has been expired";
-        else {
-            if (!password.equals(confirmPassword)) {
-                throw new PasswordNotMatchedException("Password and confirm password not match");
-            }
-            else {
-                String email = verificationToken.getEmail();
-                Users user = userRepository.findByEmail(email);
-                if (user.getEmail() == null)
-                    throw new UserNotFountException("user not exist");
-                else {
-                    try {
-                        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-                        simpleMailMessage.setSubject("ACCOUNT SECURITY ISSUE");
-                        simpleMailMessage.setText("Hii, \nYour password has been changed.");
-                        simpleMailMessage.setTo(user.getEmail());
-                        emailSenderService.sendEmail(simpleMailMessage);
-                        String encodedPassword = passwordEncoder.encode(password);
-                        userRepository.updatePassword(encodedPassword, user.getEmail());
-                        verificationTokenRepository.deleteById(verificationToken.getId());
-                    }
-                    catch (Exception ex){
-                        return "Hit the reset password link again.";
-                    }
-                }
-            }
-            return "password has changed successfully";
-        }
-    }
-
-
- */

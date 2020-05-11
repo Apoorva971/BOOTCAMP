@@ -12,7 +12,9 @@ import com.ecommerceApp.ecommerceApp.exceptions.ValidationException;
 import com.ecommerceApp.ecommerceApp.security.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -66,7 +68,7 @@ public class ProductVariationService {
     }
 
     ////////////////////to add a new product variation
-    public String addProductVariation(ProductVariationDto productVariationDto) {
+    public String addProductVariation(ProductVariationDto productVariationDto, Locale locale) {
         if (!productRepository.findById(productVariationDto.getProductId()).isPresent()) {
             throw new ProductNotFoundException("product with this id does not present");
         }
@@ -100,9 +102,9 @@ public class ProductVariationService {
         }
         productVariation.setQuantityAvailable(productVariationDto.getQuantity());
         productVariation.setPrimaryImageName(productVariationDto.getPrimaryImageName());
-
+        productVariation.setActive(productVariationDto.getActive());
         productVariationRepository.save(productVariation);
-        return "product variation added successfully";
+        return messageSource.getMessage("productVariation.added.message", null, locale);
     }
 
     //////////////////////////////////to update existing product variation
@@ -151,5 +153,21 @@ public class ProductVariationService {
                     productVariation.getQuantityAvailable(), productVariation.getActive(), primaryImageName)));
         }
         return productVariationDtoList;
+
+    }
+
+    /////////////////////////////////////////////////////////////////////
+    public List<Product> similarProductVariation(Long productId, PagingAndSortingDto pagingAndSortingDto, Locale locale) {
+        Optional<Product> product = productRepository.findById(productId);
+        if (!product.isPresent())
+            throw new ProductNotFoundException(messageSource.getMessage("product.invalid.message", null, locale));
+        if (!product.get().isActive())
+            throw new ProductNotFoundException(messageSource.getMessage("product.invalid.message", null, locale));
+        if (product.get().isDeleted())
+            throw new ProductNotFoundException(messageSource.getMessage("product.invalid.message", null, locale));
+        Optional<Category> productCategory = categoryRepository.findById(product.get().getCategory().getId());
+        Pageable pageable = pagingAndSortingUtil.getPageable(pagingAndSortingDto);
+        List<Product> products = productRepository.findAllByCategoryIdForCustomer(productCategory.get().getId(), pageable);
+        return products;
     }
 }

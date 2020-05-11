@@ -2,6 +2,7 @@ package com.ecommerceApp.ecommerceApp.controller;
 
 import com.ecommerceApp.ecommerceApp.dtos.PagingAndSortingDto;
 import com.ecommerceApp.ecommerceApp.dtos.ProductVariationDto;
+import com.ecommerceApp.ecommerceApp.entities.Product;
 import com.ecommerceApp.ecommerceApp.entities.ProductVariation;
 import com.ecommerceApp.ecommerceApp.services.ProductVariationService;
 import io.swagger.annotations.ApiOperation;
@@ -26,15 +27,14 @@ public class ProductVariationController {
     public ProductVariation getProductVariation(@PathVariable Long id) {
         return productVariationService.getProductVariation(id);
     }
-    //////////////////////not working
+    ////////////////////// working
     @ApiOperation(value = "Api to add a new ProductVariation of the Product",authorizations = {@Authorization(value = "Bearer")})
 
     @PostMapping(value = "/seller/productVariation",produces = "application/json")
-    public String addProductVariation(@RequestBody ProductVariationDto productVariationDto) {
-        productVariationService.addProductVariation(productVariationDto);
-        return "saved";
+    public String addProductVariation(@RequestBody ProductVariationDto productVariationDto,Locale locale) {
+       return productVariationService.addProductVariation(productVariationDto,locale);
     }
-    ///////////////not working
+    /////////////// working
     @ApiOperation(value = "Api to Update the ProductVariation of the Product",authorizations = {@Authorization(value = "Bearer")})
 
     @PutMapping(value = "/seller/productVariation",produces = "application/json")
@@ -47,9 +47,14 @@ public class ProductVariationController {
     @ApiOperation(value = "Api to view all the ProductVariation",authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping(value = "/seller/productVariations",produces = "application/json")
-    public List<ProductVariationDto> getProductVariation(@RequestBody(required = false)
+    public List<ProductVariationDto> getProductVariation(@RequestParam(required = false)
                                                                  PagingAndSortingDto pagingAndSortingDto) {
         return productVariationService.getAllProductVariationOfSeller(pagingAndSortingDto);
 
+    }
+    @ApiOperation(value = "Api to view similar productVariation of the Product",authorizations = {@Authorization(value = "Bearer")})
+    @GetMapping(value = "/customer/product/similar/{productId}",produces = "application/json")
+    public List<Product> similarProductVariation(@PathVariable Long productId, @RequestParam(required = false) PagingAndSortingDto pagingAndSortingDto,Locale locale){
+        return productVariationService.similarProductVariation(productId,pagingAndSortingDto,locale);
     }
 }

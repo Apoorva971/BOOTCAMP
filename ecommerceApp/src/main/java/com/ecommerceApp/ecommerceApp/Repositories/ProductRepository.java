@@ -1,11 +1,14 @@
 package com.ecommerceApp.ecommerceApp.Repositories;
 
+import com.ecommerceApp.ecommerceApp.dtos.PagingAndSortingDto;
 import com.ecommerceApp.ecommerceApp.entities.Product;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -32,8 +35,13 @@ public interface ProductRepository extends CrudRepository<Product,Long> {
     @Modifying
     @Query(value = "update Product set isActive=:isactive where id=:productId",nativeQuery = true)
     void activateProduct(@Param("productId") Long productId,@Param("isactive") boolean isactive);
+
     @Transactional
     @Modifying
     @Query(value = "update Product set isActive=:isactive where id=:productId",nativeQuery = true)
     void deActivateProduct(@Param("productId") Long productId,@Param("isactive") boolean isactive);
+
+    @Query(value = "select * from Product where categoryid=:categoryId and isDeleted = false and isActive =true", nativeQuery = true)
+    List<Product> findAllByCategoryIdForCustomer(@Param("categoryId")Long id, Pageable pageable);
+
 }
