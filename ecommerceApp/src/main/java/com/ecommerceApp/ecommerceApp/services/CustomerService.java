@@ -16,9 +16,7 @@ import com.ecommerceApp.ecommerceApp.security.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -171,11 +169,11 @@ public class CustomerService {
         customers.forEach(customer -> customerDto.add(toCustomerDto(customer)));
         return customerDto;
     }
-    public CustomerDto getCustomerByEmail(String email) {
-        Customer customer = customerRepository.findByEmail(email);
-        CustomerDto customerDto = toCustomerDto(customer);
-        return customerDto;
-    }
+//    public CustomerDto getCustomerByEmail(String email) {
+//        Customer customer = customerRepository.findByEmail(email);
+//        CustomerDto customerDto = toCustomerDto(customer);
+//        return customerDto;
+//    }
 
     public CustomerViewProfileDto toCustomerViewProfile(Customer customer) {
         CustomerViewProfileDto customerViewProfileDto = modelMapper.map(customer, CustomerViewProfileDto.class);
