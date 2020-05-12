@@ -3,6 +3,7 @@ package com.ecommerceApp.ecommerceApp.services;
 import com.ecommerceApp.ecommerceApp.Repositories.CategoryRepository;
 import com.ecommerceApp.ecommerceApp.dtos.CategoryDto;
 import com.ecommerceApp.ecommerceApp.entities.Category;
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.exceptions.CategoryAlreadyRegistered;
 import com.ecommerceApp.ecommerceApp.exceptions.InvalidCategoryOrFieldIdException;
 import com.ecommerceApp.ecommerceApp.exceptions.InvalidDetailException;
@@ -48,7 +49,7 @@ public class CategoryService {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    public String addCategory(Category category,Locale locale) {
+    public ReturnJson addCategory(Category category, Locale locale) {
         Category category1 = categoryRepository.findByName(category.getName());
         if(category1!=null){
             throw new InvalidDetailException(messageSource.getMessage("category.alreadyPresent.message",null,locale));
@@ -68,11 +69,11 @@ public class CategoryService {
         } catch (Exception ex) {
             throw new CategoryAlreadyRegistered(messageSource.getMessage("category.alreadyRegisterd.message",null,locale));
         }
-        return messageSource.getMessage("category.added.message",null,locale);
+        return new ReturnJson( messageSource.getMessage("category.added.message",null,locale));
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    public String updateCategory(Long id, Category name,Locale locale) {
+    public ReturnJson updateCategory(Long id, Category name,Locale locale) {
         Optional<Category> productCategory = categoryRepository.findById(id);
         try {
             Category category = productCategory.get();
@@ -81,7 +82,7 @@ public class CategoryService {
         } catch (Exception ex) {
             throw new ProductNotFoundException(messageSource.getMessage("category.invalidId.message",null,locale));
         }
-        return messageSource.getMessage("category.update.message",null,locale);
+        return new ReturnJson( messageSource.getMessage("category.update.message",null,locale));
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////
 }

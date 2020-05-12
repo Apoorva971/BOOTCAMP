@@ -12,9 +12,7 @@ import com.ecommerceApp.ecommerceApp.exceptions.ValidationException;
 import com.ecommerceApp.ecommerceApp.security.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -68,7 +66,7 @@ public class ProductVariationService {
     }
 
     ////////////////////to add a new product variation
-    public String addProductVariation(ProductVariationDto productVariationDto, Locale locale) {
+    public ReturnJson addProductVariation(ProductVariationDto productVariationDto, Locale locale) {
         if (!productRepository.findById(productVariationDto.getProductId()).isPresent()) {
             throw new ProductNotFoundException("product with this id does not present");
         }
@@ -104,11 +102,11 @@ public class ProductVariationService {
         productVariation.setPrimaryImageName(productVariationDto.getPrimaryImageName());
         productVariation.setActive(productVariationDto.getActive());
         productVariationRepository.save(productVariation);
-        return messageSource.getMessage("productVariation.added.message", null, locale);
+        return new ReturnJson(messageSource.getMessage("productVariation.added.message", null, locale));
     }
 
     //////////////////////////////////to update existing product variation
-    public String updateProductVariation(Long productVariationId,
+    public ReturnJson updateProductVariation(Long productVariationId,
                                          ProductVariationDto productVariationDto, Locale locale
     ) throws IOException {
         ProductVariation saveProductVariation = productVariationRepository.findById(productVariationId).get();
@@ -121,7 +119,7 @@ public class ProductVariationService {
         if (productVariationDto.getMetadata() != null)
             saveProductVariation.setMetadata(productVariationDto.getMetadata());
         productVariationRepository.save(saveProductVariation);
-        return (messageSource.getMessage
+        return new ReturnJson(messageSource.getMessage
                 ("productVariation.Updated.message", null, locale));
     }
 

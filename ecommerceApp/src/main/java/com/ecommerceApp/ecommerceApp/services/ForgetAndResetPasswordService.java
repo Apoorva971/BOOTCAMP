@@ -3,6 +3,7 @@ package com.ecommerceApp.ecommerceApp.services;
 import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.VerificationTokenRepository;
 import com.ecommerceApp.ecommerceApp.dtos.PasswordDto;
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.entities.Users;
 import com.ecommerceApp.ecommerceApp.entities.VerificationToken;
 import com.ecommerceApp.ecommerceApp.exceptions.PasswordNotMatchedException;
@@ -30,7 +31,7 @@ public class ForgetAndResetPasswordService {
     @Autowired
     MessageSource messageSource;
 
-    public String forgot_password(String email,Locale locale) {
+    public ReturnJson forgot_password(String email, Locale locale) {
 
         System.out.println(email);
 
@@ -57,15 +58,15 @@ public class ForgetAndResetPasswordService {
                     "\n http://localhost:8080/resetPassword/" + verificationToken.getToken());
             emailSenderService.sendEmail(simpleMailMessage);
         }
-        return messageSource.getMessage("password.resetPassword.message",null,locale);
+        return new ReturnJson(messageSource.getMessage("password.resetPassword.message",null,locale));
     }
 
-    public String resetPassword(PasswordDto passwordDto, String Token, Locale locale) {
+    public ReturnJson resetPassword(PasswordDto passwordDto, String Token, Locale locale) {
         VerificationToken verificationToken = verificationTokenRepository.findByToken(Token);
         String password = passwordDto.getPassword();
         String confirmPassword = passwordDto.getConfirmPassword();
         if (verificationToken.getEmail() == null) {
-            return "http://localhost:8080/resetPassword?token=" + verificationToken.getToken()+ "expired";
+            return new ReturnJson("http://localhost:8080/resetPassword?token=" + verificationToken.getToken()+ "expired");
         } else {
             if (!password.equals(confirmPassword)) {
                 throw new PasswordNotMatchedException("password and confirm password doesn't matched");
@@ -89,11 +90,11 @@ public class ForgetAndResetPasswordService {
                         userRepository.updatePassword(encodePassword, users.getEmail());
                         verificationTokenRepository.deleteById(verificationToken.getId());
                     } catch (Exception ex) {
-                        return " click the reset password link again";
+                        return new ReturnJson( " click the reset password link again");
                     }
                 }
             }
-            return messageSource.getMessage("password.changed.message",null,locale);
+            return new ReturnJson(messageSource.getMessage("password.changed.message",null,locale));
         }
     }
 }

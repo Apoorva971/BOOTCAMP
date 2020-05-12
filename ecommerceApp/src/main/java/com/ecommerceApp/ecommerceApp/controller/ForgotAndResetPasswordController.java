@@ -1,6 +1,7 @@
 package com.ecommerceApp.ecommerceApp.controller;
 
 import com.ecommerceApp.ecommerceApp.dtos.PasswordDto;
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.entities.Users;
 import com.ecommerceApp.ecommerceApp.services.ForgetAndResetPasswordService;
 import io.swagger.annotations.ApiOperation;
@@ -19,14 +20,14 @@ public class ForgotAndResetPasswordController {
 //////////done
 @ApiOperation(value = "Api to hit the ForgetPassword",authorizations = {@Authorization(value = "Bearer")})
 @PostMapping(path="/forgotPassword",produces = "application/json")
-    public String forgotPassword(@RequestBody Users users, Locale locale){
+    public ReturnJson forgotPassword(@RequestBody Users users, Locale locale){
        return   forgetAndResetPasswordService.forgot_password(users.getEmail(),locale);
 
     }
     ////done
     @ApiOperation(value = "Api to Reset Password",authorizations = {@Authorization(value = "Bearer")})
     @PostMapping(path="/resetPassword/{token}")
-    public String resetPassword(@Valid @RequestBody PasswordDto passwordDto, @PathVariable("token") String token,Locale locale){
+    public ReturnJson resetPassword(@Valid @RequestBody PasswordDto passwordDto, @PathVariable("token") String token,Locale locale){
         return forgetAndResetPasswordService.resetPassword(passwordDto,token,locale);
     }
 }

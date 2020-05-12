@@ -3,14 +3,13 @@ package com.ecommerceApp.ecommerceApp.controller;
 import com.ecommerceApp.ecommerceApp.dtos.AddressDto;
 import com.ecommerceApp.ecommerceApp.dtos.CustomerViewProfileDto;
 import com.ecommerceApp.ecommerceApp.dtos.PasswordDto;
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.services.CustomerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +45,7 @@ public class CustomerController {
     //////////done
     @ApiOperation(value = "Api to add new address for the customer", authorizations = {@Authorization(value = "Bearer")})
     @PostMapping(value = "/customer/addresses", produces = "application/json")
-    public ResponseEntity addNewAddress(@Valid @RequestBody AddressDto addressDto, HttpServletRequest request, Locale locale) {
+    public ReturnJson addNewAddress(@Valid @RequestBody AddressDto addressDto, HttpServletRequest request, Locale locale) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return customerService.addNewAddress(username, addressDto, locale);
@@ -65,7 +64,7 @@ public class CustomerController {
     ////////////////dalabase mai persist nai ho rha
     @ApiOperation(value = "Api to delete address of customer", authorizations = {@Authorization(value = "Bearer")})
     @DeleteMapping(value = "/customer/address/{id}", produces = "application/json")
-    public ResponseEntity<String> deleteAddressById(@PathVariable Long id, HttpServletRequest request, Locale locale) {
+    public ReturnJson deleteAddressById(@PathVariable Long id, HttpServletRequest request, Locale locale) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return customerService.deleteAddress(username, id, locale);
@@ -74,7 +73,7 @@ public class CustomerController {
     ///////////////////dekha ha
     @ApiOperation(value = "Api to Update the address of customer", authorizations = {@Authorization(value = "Bearer")})
     @PatchMapping(value = "/customer/address/{id}", produces = "application/json")
-    public ResponseEntity<String> updateCustomerAddress(@Valid @RequestBody AddressDto addressDto,
+    public ReturnJson updateCustomerAddress(@Valid @RequestBody AddressDto addressDto,
                                                         @PathVariable Long id, HttpServletRequest httpServletRequest, Locale locale) {
         Principal principal = httpServletRequest.getUserPrincipal();
         String username = principal.getName();

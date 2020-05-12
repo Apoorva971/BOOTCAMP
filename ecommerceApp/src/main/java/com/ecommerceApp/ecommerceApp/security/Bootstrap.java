@@ -65,7 +65,7 @@ if(userRepository.count()<1) {
     admin1.setRoles(roleSet);
     adminRepository.save(admin1);
 
-    Customer customer1 = new Customer("apoorva.garg@tothenew.com", "Daljit", "",
+    Customer customer1 = new Customer("apoorva@tothenew.com", "Daljit", "",
             "kalsi", "9837564567");
 
     customer1.setPassword(passwordEncoder.encode("daljitkalsi"));

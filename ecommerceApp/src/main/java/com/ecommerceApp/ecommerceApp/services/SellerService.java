@@ -6,6 +6,7 @@ import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
 import com.ecommerceApp.ecommerceApp.Util.PagingAndSortingUtil;
 import com.ecommerceApp.ecommerceApp.dtos.*;
 import com.ecommerceApp.ecommerceApp.entities.Address;
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.entities.Seller;
 import com.ecommerceApp.ecommerceApp.entities.Users;
 import com.ecommerceApp.ecommerceApp.exceptions.PasswordNotMatchedException;
@@ -91,15 +92,15 @@ public class SellerService {
         return sellerViewProfileDto;
     }
 
-    public String registerSeller(SellerRegistrationDto sellerRegistrationDto, Locale locale) {
+    public ReturnJson registerSeller(SellerRegistrationDto sellerRegistrationDto, Locale locale) {
         if (!(checkIfAllDetailsUnique(sellerRegistrationDto) == "unique")) {
-            return "Invalid data";
+            return new ReturnJson( "Invalid data");
         }
         Seller seller = toSeller(sellerRegistrationDto);
         seller.setPassword(passwordEncoder.encode(seller.getPassword()));
         sellerRepository.save(seller);
         acknowledgementEmail(seller.getEmail());
-        return messageSource.getMessage("account.created.message", null, locale);
+        return new ReturnJson(messageSource.getMessage("account.created.message", null, locale));
 
     }
 
@@ -142,7 +143,7 @@ public class SellerService {
     public void acknowledgementEmail(String email) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setSubject("Registration confirmation");
-        simpleMailMessage.setText("Your account is awaited for confirmation");
+        simpleMailMessage.setText("Your account is awaited for activation");
         simpleMailMessage.setTo(email);
         emailSenderService.sendEmail(simpleMailMessage);
     }
@@ -161,7 +162,7 @@ public class SellerService {
         return sellerViewProfileDto;
     }
 
-    public ResponseEntity<String> updateSellerProfile(String email, SellerViewProfileDto sellerviewProfileDto, Locale locale) {
+    public ReturnJson updateSellerProfile(String email, SellerViewProfileDto sellerviewProfileDto, Locale locale) {
         Seller savedSeller = sellerRepository.findByEmail(email);
 
         if (sellerviewProfileDto.getFirstName() != null)
@@ -183,20 +184,20 @@ public class SellerService {
             savedSeller.setCompanyName(sellerviewProfileDto.getCompanyName());
 
         sellerRepository.save(savedSeller);
-        String message = messageSource.getMessage("seller.update.message", null, locale);
-        return new ResponseEntity(message, HttpStatus.OK);
+        return new ReturnJson
+                (messageSource.getMessage("seller.update.message", null, locale));
     }
 
-    public ResponseEntity<String> updateSellerAddress(String email, Long addressId, AddressDto addressDto, Locale locale) {
+    public ReturnJson updateSellerAddress(String email, Long addressId, AddressDto addressDto, Locale locale) {
         Optional<Address> address = addressRepository.findById(addressId);
         Users user = userRepository.findByEmail(email);
 
         if (!address.isPresent()) {
-            return new ResponseEntity<>("No address found with the given id;", HttpStatus.NOT_FOUND);
+            return new ReturnJson("No address found with the given id;");
         }
         Address savedAddress = address.get();
         if (!savedAddress.getUser().getEmail().equals(email)) {
-            return new ResponseEntity<>("Invalid Operation", HttpStatus.CONFLICT);
+            return new ReturnJson("Invalid Operation");
         }
 
         if (addressDto.getAddressLine() != null)
@@ -217,8 +218,8 @@ public class SellerService {
         if (addressDto.getLabel() != null)
             savedAddress.setLabel(addressDto.getLabel());
         addressRepository.save(savedAddress);
-        String message = messageSource.getMessage("address.updated.message", null, locale);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        return new ReturnJson( messageSource.getMessage("address.updated.message", null, locale));
+
     }
 
     public Seller getLoggedInSeller() {

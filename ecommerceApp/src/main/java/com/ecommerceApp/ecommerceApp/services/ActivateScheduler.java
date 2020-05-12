@@ -2,7 +2,6 @@ package com.ecommerceApp.ecommerceApp.services;
 
 import com.ecommerceApp.ecommerceApp.Repositories.CustomerRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.ProductVariationRepository;
-import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
 import com.ecommerceApp.ecommerceApp.entities.Customer;
 import com.ecommerceApp.ecommerceApp.entities.ProductVariation;
 import org.slf4j.Logger;
@@ -34,8 +33,8 @@ public class ActivateScheduler {
 //            users1.setActive(true);
 //            userRepository.save(users1);
 //        }
-    @Scheduled(cron = "0 30 20 * * ? ")
-//    @Scheduled(fixedRate = 50000)
+//    @Scheduled(cron = "0 30 20 * * ? ")
+    @Scheduled(fixedRate = 100000)
     public void productSchedular() {
         List<Customer> customerList = customerRepository.findAll();
         if (!customerList.isEmpty()) {
@@ -49,7 +48,7 @@ public class ActivateScheduler {
                         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
                         simpleMailMessage.setSubject("Regarding Product Offer");
                         simpleMailMessage.setFrom("apoorvagarg30@gmail.com");
-                        simpleMailMessage.setText("hii we have a offer for you on product" + productVariation.getProduct().getName() + " its price is" + productVariation.getPrice() + " only");
+                        simpleMailMessage.setText("hii we have an offer for you on " + productVariation.getProduct().getName() + " its price is" + productVariation.getPrice() + " only.Get it today");
                         simpleMailMessage.setTo(customer.getEmail());
                         emailSenderService.sendEmail(simpleMailMessage);
                     } else {

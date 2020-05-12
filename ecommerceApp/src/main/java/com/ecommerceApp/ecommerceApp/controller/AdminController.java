@@ -3,6 +3,7 @@ package com.ecommerceApp.ecommerceApp.controller;
 import com.ecommerceApp.ecommerceApp.dtos.CustomerDto;
 import com.ecommerceApp.ecommerceApp.dtos.PagingAndSortingDto;
 import com.ecommerceApp.ecommerceApp.dtos.SellerDto;
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.services.ActivationDeactivationService;
 import com.ecommerceApp.ecommerceApp.services.CustomerService;
 import com.ecommerceApp.ecommerceApp.services.SellerService;
@@ -42,13 +43,13 @@ public class AdminController {
 
     @ApiOperation(value = "Api is used to Activated the user", authorizations = {@Authorization(value = "Bearer")})
     @PutMapping(value = "/admin/activate/{id}", produces = "application/json")
-    public String activateUser(@PathVariable Long id, WebRequest webRequest, Locale locale) {
+    public ReturnJson activateUser(@PathVariable Long id, WebRequest webRequest, Locale locale) {
         return activationDeactivationService.ActivateUser(id, webRequest, locale);
     }
 
     @ApiOperation(value = "This Api is used to De-Activated the user",authorizations = {@Authorization(value = "Bearer")})
     @PutMapping("/admin/deactivate/{id}")
-    public String deActivateUser(@PathVariable Long id, WebRequest webRequest, Locale locale) {
+    public ReturnJson deActivateUser(@PathVariable Long id, WebRequest webRequest, Locale locale) {
         return activationDeactivationService.DeactivateUser(id, webRequest, locale);
     }
 }

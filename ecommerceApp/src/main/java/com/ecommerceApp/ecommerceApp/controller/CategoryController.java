@@ -2,6 +2,7 @@ package com.ecommerceApp.ecommerceApp.controller;
 
 import com.ecommerceApp.ecommerceApp.dtos.CategoryDto;
 import com.ecommerceApp.ecommerceApp.entities.Category;
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.services.CategoryService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -30,13 +31,13 @@ public class CategoryController {
 
     @ApiOperation(value = "Add a new category", authorizations = {@Authorization("Bearer")})
     @PostMapping(value = "/admin/category", produces = "application/json")
-    public String addCategory(@RequestBody Category category, Locale locale) {
+    public ReturnJson addCategory(@RequestBody Category category, Locale locale) {
         return categoryService.addCategory(category, locale);
     }
 
     @ApiOperation(value = "update the category", authorizations = {@Authorization("Bearer")})
-    @PutMapping(value = "/category/update/{id}", produces = "application/json")
-    public String updateCategory(@PathVariable Long id, @RequestBody Category name, Locale locale) {
+    @PutMapping(value = "/admin/category/update/{id}", produces = "application/json")
+    public ReturnJson updateCategory(@PathVariable Long id, @RequestBody Category name, Locale locale) {
         return categoryService.updateCategory(id, name, locale);
     }
 }

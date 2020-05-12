@@ -4,10 +4,7 @@ import com.ecommerceApp.ecommerceApp.Repositories.CategoryMetaDataFieldRepositor
 import com.ecommerceApp.ecommerceApp.Repositories.CategoryMetaDataFieldValuesRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.CategoryRepository;
 import com.ecommerceApp.ecommerceApp.dtos.CategoryMetadataFieldDto;
-import com.ecommerceApp.ecommerceApp.entities.Category;
-import com.ecommerceApp.ecommerceApp.entities.CategoryMetaDataField;
-import com.ecommerceApp.ecommerceApp.entities.CategoryMetadataFieldValues;
-import com.ecommerceApp.ecommerceApp.entities.MetadataFieldValueId;
+import com.ecommerceApp.ecommerceApp.entities.*;
 import com.ecommerceApp.ecommerceApp.exceptions.InvalidCategoryOrFieldIdException;
 import com.ecommerceApp.ecommerceApp.exceptions.InvalidDetailException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +32,7 @@ public class MetaDataFieldService {
     MessageSource messageSource;
 
     //////////////////////this function add a new field in the metadata
-    public String addField(CategoryMetaDataField categoryMetaDataField, Locale locale) {
+    public ReturnJson addField(CategoryMetaDataField categoryMetaDataField, Locale locale) {
         if (categoryMetaDataFieldRepository.findByName(categoryMetaDataField.getName()) != null) {
             throw new InvalidDetailException("MetaDataField Already Exists so enter Unique Name");
         }
@@ -45,11 +42,11 @@ public class MetaDataFieldService {
         } catch (Exception ex) {
             throw new InvalidCategoryOrFieldIdException("Field name already exists");
         }
-        return messageSource.getMessage("field.added.message",null,locale);
+        return new ReturnJson( messageSource.getMessage("field.added.message",null,locale));
     }
 
     ///////////////////////////////////////////done/////////////////////////////////////////////////
-    public String addValues(CategoryMetadataFieldValues values, Long categoryId, Long fieldId,Locale locale) {
+    public ReturnJson addValues(CategoryMetadataFieldValues values, Long categoryId, Long fieldId,Locale locale) {
         if (!categoryRepository.findById(categoryId).isPresent()) {
             throw new InvalidDetailException("Invalid Category Id, Does Not Exists In Database");
         }
@@ -66,7 +63,7 @@ public class MetaDataFieldService {
         } catch (Exception ex) {
             throw new InvalidCategoryOrFieldIdException("Invalid Product Category Id or Metadata Field Id");
         }
-        return messageSource.getMessage("values.added.message",null,locale);
+        return new ReturnJson(messageSource.getMessage("values.added.message",null,locale));
     }
 
     //////////////////////////////////////////////done///////////////////////////////////////////////////////////
@@ -84,7 +81,7 @@ public class MetaDataFieldService {
     }
 
     //////////////////////////////////////////////////done/////////////////////////////////////////////////////////
-    public String updateValues(CategoryMetadataFieldValues values, Long categoryId, Long fieldId,Locale locale) {
+    public ReturnJson updateValues(CategoryMetadataFieldValues values, Long categoryId, Long fieldId,Locale locale) {
         if (!categoryRepository.findById(categoryId).isPresent()) {
             throw new InvalidDetailException("Invalid Category Id, Does Not Exists In Database");
         }
@@ -103,6 +100,6 @@ public class MetaDataFieldService {
         } catch (Exception ex) {
             throw new InvalidCategoryOrFieldIdException("Invalid Product Category Id or Metadata Field Id");
         }
-        return messageSource.getMessage("value.updated.message",null,locale);
+        return new ReturnJson(messageSource.getMessage("value.updated.message",null,locale));
     }
 }

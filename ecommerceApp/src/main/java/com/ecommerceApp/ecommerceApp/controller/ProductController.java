@@ -3,6 +3,7 @@ package com.ecommerceApp.ecommerceApp.controller;
 import com.ecommerceApp.ecommerceApp.dtos.PagingAndSortingDto;
 import com.ecommerceApp.ecommerceApp.dtos.ProductDto;
 import com.ecommerceApp.ecommerceApp.entities.Product;
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.services.ProductService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -23,9 +24,8 @@ public class ProductController {
     @ApiOperation(value = "Api to add a new Product", authorizations = {@Authorization(value = "Bearer")})
 
     @PostMapping(value = "/seller/product", produces = "application/json")
-    public String addProduct(@RequestBody Product product) {
-        productService.addProduct(product);
-        return "product added successfully";
+    public ReturnJson addProduct(@RequestBody Product product,Locale locale) {
+        return productService.addProduct(product,locale);
     }
 
     //////////done
@@ -49,25 +49,24 @@ public class ProductController {
     @ApiOperation(value = "Api to delete the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @DeleteMapping(value = "/seller/product/{productId}", produces = "application/json")
-    public String deleteProductAsSeller(@PathVariable Long productId, Locale locale) {
-        productService.deleteProduct(productId, locale);
-        return "product deleted successfully";
+    public ReturnJson deleteProductAsSeller(@PathVariable Long productId, Locale locale) {
+       return productService.deleteProduct(productId, locale);
     }
 
     /////////done
     @ApiOperation(value = "Api to Update the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @PostMapping(value = "/seller/product/{productId}", produces = "application/json")
-    public String updateProductAsSeller(@PathVariable Long productId, @RequestBody ProductDto productDto, Locale locale) {
-        productService.updateProduct(productId, productDto, locale);
-        return "product updated successfully";
+    public ReturnJson updateProductAsSeller(@PathVariable Long productId, @RequestBody ProductDto productDto, Locale locale) {
+       return productService.updateProduct(productId, productDto, locale);
+
     }
 
     ///////////////////done
     @ApiOperation(value = "Api to Activate the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping(value = "/admin/product/activate/{productId}", produces = "application/json")
-    public String activateProduct(@PathVariable Long productId, Locale locale) {
+    public ReturnJson activateProduct(@PathVariable Long productId, Locale locale) {
         return productService.activateProduct(productId, locale);
     }
 
@@ -75,7 +74,7 @@ public class ProductController {
     @ApiOperation(value = "Api to De-Activate the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping("/admin/product/deactivate/{productId}")
-    public String deactivateProduct(@PathVariable Long productId, Locale locale) {
+    public ReturnJson deactivateProduct(@PathVariable Long productId, Locale locale) {
         return productService.deactivateProduct(productId, locale);
     }
 

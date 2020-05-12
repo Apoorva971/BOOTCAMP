@@ -1,6 +1,7 @@
 package com.ecommerceApp.ecommerceApp.services;
 import com.ecommerceApp.ecommerceApp.Repositories.UserAttemptRepository;
 import com.ecommerceApp.ecommerceApp.Repositories.UserRepository;
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.entities.UserAttempts;
 import com.ecommerceApp.ecommerceApp.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,14 @@ public class ActivationDeactivationService {
     @Autowired
     MessageSource messageSource;
 
-    public String ActivateUser(Long id, WebRequest request,Locale locale) {
+    public ReturnJson ActivateUser(Long id, WebRequest request, Locale locale) {
         Optional<Users> user = userRepository.findById(id);
         if (!user.isPresent()) {
-            return messageSource.getMessage("user.Invalid.message",null,locale);
+            return new ReturnJson(messageSource.getMessage("user.Invalid.message",null,locale));
         } else {
             Users saveUser = user.get();
             if (saveUser.isActive()) {
-                return messageSource.getMessage("account.alreadyactivated.message",null,locale);
+                return new ReturnJson(messageSource.getMessage("account.alreadyactivated.message",null,locale));
             } else {
                 saveUser.setActive(true);
                 saveUser.setAccountNonLocked(true);
@@ -46,12 +47,12 @@ public class ActivationDeactivationService {
                 simpleMailMessage.setText("your account is activated successfully");
                 simpleMailMessage.setTo(saveUser.getEmail());
                 emailSenderService.sendEmail(simpleMailMessage);
-                return messageSource.getMessage("account.activated.message",null,locale);
+                return new ReturnJson( messageSource.getMessage("account.activated.message",null,locale));
             }
 
         }
     }
-    public String DeactivateUser(Long id, WebRequest request, Locale locale) {
+    public ReturnJson DeactivateUser(Long id, WebRequest request, Locale locale) {
         Optional<Users> user = userRepository.findById(id);
         System.out.println(user.get().getId());
 
@@ -60,7 +61,7 @@ public class ActivationDeactivationService {
         } else {
             Users saveUser = user.get();
             if (saveUser.isActive()==false) {
-                return messageSource.getMessage("account.alreadydeactivated.message",null,locale);
+                return new ReturnJson(messageSource.getMessage("account.alreadydeactivated.message",null,locale));
             } else {
                 saveUser.setActive(false);
                 userRepository.save(saveUser);
@@ -69,7 +70,7 @@ public class ActivationDeactivationService {
                 simpleMailMessage.setText("your account is de-activated successfully");
                 simpleMailMessage.setTo(saveUser.getEmail());
                 emailSenderService.sendEmail(simpleMailMessage);
-               return messageSource.getMessage("account.deactivated.message",null,locale);
+               return new ReturnJson(messageSource.getMessage("account.deactivated.message",null,locale));
             }
         }
     }

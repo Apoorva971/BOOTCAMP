@@ -7,6 +7,7 @@ import com.ecommerceApp.ecommerceApp.Util.PagingAndSortingUtil;
 import com.ecommerceApp.ecommerceApp.dtos.PagingAndSortingDto;
 import com.ecommerceApp.ecommerceApp.dtos.ProductDto;
 import com.ecommerceApp.ecommerceApp.entities.Product;
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.entities.Seller;
 import com.ecommerceApp.ecommerceApp.exceptions.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class ProductService {
     PagingAndSortingUtil pagingAndSortingUtil = new PagingAndSortingUtil();
 
     ///////////////////////////when user logged in a seller
-    public String addProduct(Product product) {
+    public ReturnJson addProduct(Product product,Locale locale) {
         Seller seller = sellerService.getLoggedInSeller();
         product.setSeller(seller);
         try {
@@ -54,9 +55,9 @@ public class ProductService {
             emailSenderService.sendEmail(simpleMailMessage);
             productRepository.save(product);
         } catch (Exception ex) {
-            return "mail sending failed";
+            return new ReturnJson("mail sending failed");
         }
-        return "product added successfully";
+        return new ReturnJson(messageSource.getMessage("product.added.message",null,locale));
     }
 
     public Optional<Product> viewProduct(Long productId) {
@@ -78,7 +79,7 @@ public class ProductService {
     }
 
     @Transactional
-    public String deleteProduct(Long productId, Locale locale) {
+    public ReturnJson deleteProduct(Long productId, Locale locale) {
         Seller seller = sellerService.getLoggedInSeller();
         try {
             Optional<Product> product = productRepository.findByIdAndSellerId(seller.getId(),
@@ -86,14 +87,14 @@ public class ProductService {
             if (product.get().getId() != null) {
                 productRepository.deleteByIdAndSellerId(productId, seller.getId());
             }
-            return messageSource.getMessage("product.deleted.message", null, locale);
+            return new ReturnJson( messageSource.getMessage("product.deleted.message", null, locale));
         } catch (Exception ex) {
             throw new ProductNotFoundException("Product does not exist");
         }
     }
 
     @Transactional
-    public String updateProduct(Long productId, ProductDto productDto, Locale locale) {
+    public ReturnJson updateProduct(Long productId, ProductDto productDto, Locale locale) {
         Seller seller = sellerService.getLoggedInSeller();
         Optional<Product> product = productRepository.findByIdAndSellerId(seller.getId(), productId);
         if (!product.isPresent())
@@ -111,7 +112,7 @@ public class ProductService {
                 product.get().setReturnable(productDto.isReturnable());
             productRepository.save(product.get());
         }
-        return messageSource.getMessage("product.updated.message", null, locale);
+        return new ReturnJson( messageSource.getMessage("product.updated.message", null, locale));
 
     }
 
@@ -157,7 +158,7 @@ public class ProductService {
         return products;
     }
 
-    public String activateProduct(Long productId, Locale locale) {
+    public ReturnJson activateProduct(Long productId, Locale locale) {
         Optional<Product> product = productRepository.findById(productId);
         if (!product.get().isActive()) {
             try {
@@ -168,14 +169,14 @@ public class ProductService {
                 emailSenderService.sendEmail(simpleMailMessage);
                 productRepository.activateProduct(product.get().getId(), true);
             } catch (Exception ex) {
-                return "Mail sending Failed... Product is not activated yet... please try again...";
+                return new ReturnJson( "Mail sending Failed... Product is not activated yet... please try again...");
             }
-            return messageSource.getMessage("product.activated.message", null, locale);
+            return new ReturnJson(messageSource.getMessage("product.activated.message", null, locale));
         } else
-            return messageSource.getMessage("product.alreadyactivated.message", null, locale);
+            return new ReturnJson(messageSource.getMessage("product.alreadyactivated.message", null, locale));
     }
 
-    public String deactivateProduct(Long productId, Locale locale) {
+    public ReturnJson deactivateProduct(Long productId, Locale locale) {
         Optional<Product> product = productRepository.findById(productId);
         if (product.get().isActive()) {
             try {
@@ -186,10 +187,10 @@ public class ProductService {
                 emailSenderService.sendEmail(simpleMailMessage);
                 productRepository.deActivateProduct(product.get().getId(), false);
             } catch (Exception ex) {
-                return "Mail sending Failed... Product is activated yet... please try again...";
+                return new ReturnJson("Mail sending Failed... Product is activated yet... please try again...");
             }
-            return messageSource.getMessage("product.de-activated.message", null, locale);
+            return new ReturnJson( messageSource.getMessage("product.de-activated.message", null, locale));
         } else
-            return messageSource.getMessage("product.alreadydeactivated.message", null, locale);
+            return new ReturnJson( messageSource.getMessage("product.alreadydeactivated.message", null, locale));
     }
 }
