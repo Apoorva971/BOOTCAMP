@@ -10,6 +10,7 @@ import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.Locale;
@@ -26,7 +27,7 @@ public class RegistrationController {
     @ApiOperation(value = "Api to Register a new customer", authorizations = {@Authorization(value = "Bearer")})
 
     @PostMapping(value = "/register/customer", produces = "application/json")
-    ReturnJson registerCustomer(@Valid @RequestBody CustomerRegistrationDto customerRegistrationDto, Locale locale) {
+    ReturnJson registerCustomer(@Valid @RequestBody CustomerRegistrationDto customerRegistrationDto, @ApiIgnore Locale locale) {
         return customerService.createNewCustomer(customerRegistrationDto, locale);
     }
 
@@ -34,7 +35,7 @@ public class RegistrationController {
     @ApiOperation(value = "Api to Activate the new registered customer", authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping(value = "register/activate", produces = "application/json")
-    public ReturnJson activateCustomer(@RequestParam("token") String token, Locale locale) {
+    public ReturnJson activateCustomer(@RequestParam("token") String token, @ApiIgnore Locale locale) {
         return customerService.activateCustomer(token,locale);
     }
 

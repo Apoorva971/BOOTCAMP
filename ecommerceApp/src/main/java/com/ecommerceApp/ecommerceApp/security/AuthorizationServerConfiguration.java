@@ -1,8 +1,10 @@
 package com.ecommerceApp.ecommerceApp.security;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,13 +60,40 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     }
 
+//    @Value("${spring.datasource.url}")
+//    private String datasourceUrl;
+//
+//    @Value("${spring.datasource.driver-class-name}")
+//    private String dbDriverClassName;
+//
+//    @Value("${spring.datasource.username}")
+//    private String dbUsername;
+//
+//    @Value("${spring.datasource.password}")
+//    private String dbPassword;
+//    @Bean
+//    public DataSource dataSource() {
+//        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(dbDriverClassName);
+//        dataSource.setUrl(datasourceUrl);
+//        dataSource.setUsername(dbUsername);
+//        dataSource.setPassword(dbPassword);
+//        return dataSource;
+//    }
+//
+//    @Bean
+//    public TokenStore tokenStore() {
+//        return new JdbcTokenStore(dataSource());
+//    }
+
+
 //    @Bean
 //    JwtAccessTokenConverter accessTokenConverter(){
 //        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
 //        jwtAccessTokenConverter.setSigningKey("1234");
 //        return jwtAccessTokenConverter;
 //    }
-
+//
     @Bean
     public TokenStore tokenStore() {
        return new InMemoryTokenStore();

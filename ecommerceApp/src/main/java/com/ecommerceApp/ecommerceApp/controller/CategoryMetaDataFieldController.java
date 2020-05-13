@@ -10,6 +10,7 @@ import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,13 +23,13 @@ public class CategoryMetaDataFieldController {
     ////////////////working
     @ApiOperation(value = "Api to add the CategoryMetaDataFeild ", authorizations = {@Authorization("Bearer")})
     @PostMapping(value = "/admin/metadatafields",produces = "application/json")
-    public ReturnJson addMetadataField(@Valid @RequestBody CategoryMetaDataField categoryMetaDataField, Locale locale){
+    public ReturnJson addMetadataField(@Valid @RequestBody CategoryMetaDataField categoryMetaDataField, @ApiIgnore Locale locale){
         return metaDataFieldService.addField(categoryMetaDataField,locale);
     }
     ///////////////working
     @ApiOperation(value = "Api to add the CategoryMetaDataFeilld Values", authorizations = {@Authorization("Bearer")})
     @PostMapping(value = "/admin/metadatavalues/{categoryId}/{fieldId}",produces = "application/json")
-    public ReturnJson addMetadataWithValues(@Valid @RequestBody CategoryMetadataFieldValues values, @PathVariable Long categoryId, @PathVariable Long fieldId,Locale locale){
+    public ReturnJson addMetadataWithValues(@Valid @RequestBody CategoryMetadataFieldValues values, @PathVariable Long categoryId, @PathVariable Long fieldId,@ApiIgnore Locale locale){
         return metaDataFieldService.addValues(values,categoryId,fieldId,locale);
     }
     ////////////working
@@ -41,7 +42,7 @@ public class CategoryMetaDataFieldController {
     /////////////////////working
     @ApiOperation(value = "Api to update the CategoryMetaDataFeild Value", authorizations = {@Authorization("Bearer")})
     @PutMapping("/admin/metadatavalues/{categoryId}/{fieldId}")
-    public ReturnJson updateMetadataWithValues(@RequestBody CategoryMetadataFieldValues values, @PathVariable Long categoryId, @PathVariable Long fieldId,Locale locale){
+    public ReturnJson updateMetadataWithValues(@RequestBody CategoryMetadataFieldValues values, @PathVariable Long categoryId, @PathVariable Long fieldId,@ApiIgnore Locale locale){
         return metaDataFieldService.updateValues(values,categoryId,fieldId,locale);
     }
 }

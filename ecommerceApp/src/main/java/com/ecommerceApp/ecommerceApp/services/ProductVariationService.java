@@ -125,11 +125,7 @@ public class ProductVariationService {
 
     /////////////////////////////////////to get all product variation
     public List<ProductVariationDto> getAllProductVariationOfSeller(PagingAndSortingDto pagingAndSortingDto) {
-
         Pageable pageable = pagingAndSortingUtil.getPageable(pagingAndSortingDto);
-
-        String primaryImageName = "image";
-
         Long sellerId = getLoggedInSeller().getId();
         Seller seller = sellerRepository.findById(sellerId).get();
 
@@ -148,7 +144,7 @@ public class ProductVariationService {
             }
             productVariationSet.forEach(productVariation -> productVariationDtoList.add(new ProductVariationDto(
                     productVariation.getProduct().getId(), productVariation.getProduct(), productVariation.getMetadata(), productVariation.getPrice(),
-                    productVariation.getQuantityAvailable(), productVariation.getActive(), primaryImageName)));
+                    productVariation.getQuantityAvailable(), productVariation.getActive(), productVariation.getPrimaryImageName())));
         }
         return productVariationDtoList;
 

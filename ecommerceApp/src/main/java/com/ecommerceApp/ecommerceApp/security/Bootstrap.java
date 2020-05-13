@@ -65,7 +65,7 @@ if(userRepository.count()<1) {
     admin1.setRoles(roleSet);
     adminRepository.save(admin1);
 
-    Customer customer1 = new Customer("apoorva@tothenew.com", "Daljit", "",
+    Customer customer1 = new Customer("apoorva.garg@tothenew.com", "Daljit", "",
             "kalsi", "9837564567");
 
     customer1.setPassword(passwordEncoder.encode("daljitkalsi"));
@@ -168,6 +168,7 @@ if(userRepository.count()<1) {
             Product vivoV5 = productRepository.findByName("Vivo V5 Plus");
             ProductVariation vivov5variant = new ProductVariation(25l, 2500l);
             vivov5variant.setProduct(vivoV5);
+            vivov5variant.setPrimaryImageName("/home/apoorva/Desktop/image/vivo.jpg");
             Map<String,String> metadata = new HashMap<>();
             metadata.put("Ram","32GB");
             metadata.put("Internal Memory","128GB");
@@ -181,6 +182,7 @@ if(userRepository.count()<1) {
             metadata1.put("Ram","64GB");
             metadata1.put("Internal Memory","256GB");
             oneplus7variant.setMetadata(metadata1);
+            oneplus7variant.setPrimaryImageName("/home/ayush/Desktop/image/oppo.jpg");
             oneplus7variant.setActive(true);
             productVariationRepository.save(oneplus7variant);
         }

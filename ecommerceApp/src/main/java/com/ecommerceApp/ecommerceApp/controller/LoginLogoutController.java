@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
@@ -22,7 +23,7 @@ public class LoginLogoutController {
 @ApiOperation(value = "Api to logout ",authorizations = {@Authorization(value = "Bearer")})
 
 @GetMapping(value = "/doLogout",produces = "application/json")
-    public String logout(HttpServletRequest request, Locale locale){
+    public String logout(HttpServletRequest request,@ApiIgnore Locale locale){
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null) {
             String tokenValue = authHeader.replace("Bearer ", "").trim();

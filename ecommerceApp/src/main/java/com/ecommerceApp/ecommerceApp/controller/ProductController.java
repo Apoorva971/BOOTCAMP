@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.Locale;
@@ -24,7 +25,7 @@ public class ProductController {
     @ApiOperation(value = "Api to add a new Product", authorizations = {@Authorization(value = "Bearer")})
 
     @PostMapping(value = "/seller/product", produces = "application/json")
-    public ReturnJson addProduct(@RequestBody Product product,Locale locale) {
+    public ReturnJson addProduct(@RequestBody Product product,@ApiIgnore Locale locale) {
         return productService.addProduct(product,locale);
     }
 
@@ -49,7 +50,7 @@ public class ProductController {
     @ApiOperation(value = "Api to delete the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @DeleteMapping(value = "/seller/product/{productId}", produces = "application/json")
-    public ReturnJson deleteProductAsSeller(@PathVariable Long productId, Locale locale) {
+    public ReturnJson deleteProductAsSeller(@PathVariable Long productId, @ApiIgnore Locale locale) {
        return productService.deleteProduct(productId, locale);
     }
 
@@ -57,7 +58,7 @@ public class ProductController {
     @ApiOperation(value = "Api to Update the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @PostMapping(value = "/seller/product/{productId}", produces = "application/json")
-    public ReturnJson updateProductAsSeller(@PathVariable Long productId, @RequestBody ProductDto productDto, Locale locale) {
+    public ReturnJson updateProductAsSeller(@PathVariable Long productId, @RequestBody ProductDto productDto,@ApiIgnore Locale locale) {
        return productService.updateProduct(productId, productDto, locale);
 
     }
@@ -66,7 +67,7 @@ public class ProductController {
     @ApiOperation(value = "Api to Activate the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping(value = "/admin/product/activate/{productId}", produces = "application/json")
-    public ReturnJson activateProduct(@PathVariable Long productId, Locale locale) {
+    public ReturnJson activateProduct(@PathVariable Long productId, @ApiIgnore Locale locale) {
         return productService.activateProduct(productId, locale);
     }
 
@@ -74,7 +75,7 @@ public class ProductController {
     @ApiOperation(value = "Api to De-Activate the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping("/admin/product/deactivate/{productId}")
-    public ReturnJson deactivateProduct(@PathVariable Long productId, Locale locale) {
+    public ReturnJson deactivateProduct(@PathVariable Long productId, @ApiIgnore Locale locale) {
         return productService.deactivateProduct(productId, locale);
     }
 
