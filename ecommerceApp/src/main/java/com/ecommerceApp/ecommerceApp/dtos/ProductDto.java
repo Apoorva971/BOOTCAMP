@@ -20,7 +20,7 @@ public class ProductDto {
     private boolean isDeleted;
     private Seller seller;//new
 
-    public ProductDto(Long id, String name, String description, String brand, boolean isReturnable, boolean isCancelleable) {
+    public ProductDto(Long id, String name, String description, String brand) {
         this.id = id;
         this.name = name;
         this.description = description;

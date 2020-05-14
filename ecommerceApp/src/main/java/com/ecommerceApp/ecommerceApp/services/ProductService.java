@@ -17,6 +17,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -58,24 +59,13 @@ public class ProductService {
         return new ReturnJson(messageSource.getMessage("product.added.message",null,locale));
     }
 
-    public Optional<Product> viewProduct(Long productId) {
-        Seller seller = sellerService.getLoggedInSeller();
-        Optional<Product> product = productRepository.findByIdAndSellerId(seller.getId(), productId);
-        if (product.get().getId() != null)
-            if (!product.get().isDeleted())
-                return product;
-            else
-                throw new ProductNotFoundException("Product has been deleted from the database");
-        else
-            throw new ProductNotFoundException("Product does not exist");
-    }
-
-    public List<Product> viewAllProductAsSeller(PagingAndSortingDto pagingAndSortingDto) {
+    public List<ProductDto> viewAllProduct(PagingAndSortingDto pagingAndSortingDto) {
         Pageable pageable = pagingAndSortingUtil.getPageable(pagingAndSortingDto);
-        Seller seller = sellerService.getLoggedInSeller();
-        return productRepository.findAllBySeller(seller.getId(), pageable);
+        List<Product>productList =  productRepository.findAll(pageable);
+        List<ProductDto >productDtos = new ArrayList<>();
+        productList.forEach(product -> productDtos.add(new ProductDto(product.getId(),product.getName(),product.getDescription(),product.getBrand())));
+        return productDtos;
     }
-
     @Transactional
     public ReturnJson deleteProduct(Long productId, Locale locale) {
         Seller seller = sellerService.getLoggedInSeller();
@@ -115,7 +105,7 @@ public class ProductService {
     }
 
     ///////////////////////////when user logged in as Customer
-    public Optional<Product> viewProductAsCustomer(Long productId) {
+    public Optional<Product> viewAProduct(Long productId) {
         Optional<Product> product = productRepository.findById(productId);
         try {
             Product product1 = product.get();
@@ -136,26 +126,6 @@ public class ProductService {
     }
 
     ///////////////////////////when user logged in as an admin
-    public Optional<Product> viewAProductAsAdmin(Long productId) {
-        Optional<Product> product = productRepository.findById(productId);
-        try {
-            Product product1 = product.get();
-        } catch (Exception ex) {
-            throw new ProductNotFoundException("Product Not Found");
-        }
-        return product;
-    }
-
-    public List<Product> viewAllProductsAsAdmin(Long categoryId) {
-        List<Product> products = productRepository.findAllByCategoryId(categoryId);
-        try {
-            products.get(0).getId();
-        } catch (Exception ex) {
-            throw new ProductNotFoundException("Invalid Category Id");
-        }
-        return products;
-    }
-
     public ReturnJson activateProduct(Long productId, Locale locale) {
         Optional<Product> product = productRepository.findById(productId);
         if (!product.get().isActive()) {

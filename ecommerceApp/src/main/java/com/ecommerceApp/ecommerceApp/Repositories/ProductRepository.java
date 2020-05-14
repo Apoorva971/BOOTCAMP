@@ -44,4 +44,5 @@ public interface ProductRepository extends CrudRepository<Product,Long> {
     @Query(value = "select * from Product where categoryid=:categoryId and isDeleted = false and isActive =true", nativeQuery = true)
     List<Product> findAllByCategoryIdForCustomer(@Param("categoryId")Long id, Pageable pageable);
 
+    List<Product> findAll(Pageable pageable);
 }

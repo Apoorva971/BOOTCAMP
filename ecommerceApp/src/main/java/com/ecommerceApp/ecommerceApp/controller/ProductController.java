@@ -29,21 +29,12 @@ public class ProductController {
         return productService.addProduct(product, locale);
     }
 
-    //////////done
-    @ApiOperation(value = "Api to view the Product", authorizations = {@Authorization(value = "Bearer")})
-
-    @GetMapping(value = "/seller/product/{productId}", produces = "application/json")
-    public Optional<Product> viewProductAsSeller(@PathVariable Long productId) {
-        Optional<Product> product = productService.viewProduct(productId);
-        return product;
-    }
-
     /////////////////done
     @ApiOperation(value = "Api to view all the Product", authorizations = {@Authorization(value = "Bearer")})
 
-    @GetMapping(value = "/seller/Products", produces = "application/json")
-    public List<Product> viewAllProductAsSeller(@RequestParam(required = false) PagingAndSortingDto pagingAndSortingDto) {
-        return productService.viewAllProductAsSeller(pagingAndSortingDto);
+    @GetMapping(value = "/Products", produces = "application/json")
+    public List<ProductDto> viewAllProductAsSeller(@RequestParam(required = false) PagingAndSortingDto pagingAndSortingDto) {
+        return productService.viewAllProduct(pagingAndSortingDto);
     }
 
     /////////////done
@@ -82,9 +73,9 @@ public class ProductController {
     ///////////done
     @ApiOperation(value = "Api to view the Product Aa a Customer", authorizations = {@Authorization(value = "Bearer")})
 
-    @GetMapping(value = "/customer/product/{productId}", produces = "application/json")
+    @GetMapping(value = "/Product/{productId}", produces = "application/json")
     public Optional<Product> viewProduct(@PathVariable Long productId) {
-        return productService.viewProductAsCustomer(productId);
+        return productService.viewAProduct(productId);
     }
 
     ////////////////done
@@ -93,21 +84,5 @@ public class ProductController {
     @GetMapping(value = "/customer/products/{categoryId}", produces = "application/json")
     public List<Product> viewAllProduct(@PathVariable Long categoryId) {
         return productService.viewAllProductAsCustomer(categoryId);
-    }
-
-    //////////////done
-    @ApiOperation(value = "Api to view the Product As an Admin", authorizations = {@Authorization(value = "Bearer")})
-
-    @GetMapping(value = "/admin/product/{productId}", produces = "application/json")
-    public Optional<Product> viewProductAsAdmin(@PathVariable Long productId) {
-        return productService.viewAProductAsAdmin(productId);
-    }
-
-    //////////////////doen
-    @ApiOperation(value = "Api to view all the Category As an Admin", authorizations = {@Authorization(value = "Bearer")})
-
-    @GetMapping(value = "/admin/products/{categoryId}", produces = "application/json")
-    public List<Product> viewAllProductAsAdmin(@PathVariable Long categoryId) {
-        return productService.viewAllProductsAsAdmin(categoryId);
     }
 }
