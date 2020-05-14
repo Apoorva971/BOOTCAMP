@@ -34,13 +34,13 @@ public class CategoryController {
 
     @ApiOperation(value = "Add a new category", authorizations = {@Authorization("Bearer")})
     @PostMapping(value = "/admin/category", produces = "application/json")
-    public ReturnJson addCategory(@RequestBody Category category,@ApiIgnore Locale locale) {
-        return categoryService.addCategory(category, locale);
+    public ReturnJson addCategory(@RequestBody String category,Long id,@ApiIgnore Locale locale) {
+        return categoryService.addCategory(category,id, locale);
     }
 
     @ApiOperation(value = "update the category", authorizations = {@Authorization("Bearer")})
     @PutMapping(value = "/admin/category/update/{id}", produces = "application/json")
-    public ReturnJson updateCategory(@PathVariable Long id, @RequestBody Category name, @ApiIgnore Locale locale) {
+    public ReturnJson updateCategory(@PathVariable Long id, @RequestBody String name, @ApiIgnore Locale locale) {
         return categoryService.updateCategory(id, name, locale);
     }
     ///////////////////////////////

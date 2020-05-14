@@ -33,16 +33,16 @@ public class CategoryDto {
     private Long id;
     @NotEmpty
     private String name;
-    private Long parentId;
+//    private Long parentId;
 
-    public CategoryDto(Long id, String name, Long parentId) {
-        this.id =id;
-        this.name =name;
-        this.parentId=parentId;
-    }
+    //    public CategoryDto(Long id, String name) {
+//        this.id =id;
+//        this.name =name;
+////        this.parentId=parentId;
+//    }
     public CategoryDto(Long id, String name) {
-        this.id =id;
-        this.name =name;
+        this.id = id;
+        this.name = name;
 
     }
 
@@ -63,11 +63,12 @@ public class CategoryDto {
         this.name = name;
     }
 
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
+//    public Long getParentId() {
+//        return parentId;
+//    }
+//
+//    public void setParentId(Long parentId) {
+//        this.parentId = parentId;
+//    }
+//}
 }

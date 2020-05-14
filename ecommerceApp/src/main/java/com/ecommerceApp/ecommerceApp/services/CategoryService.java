@@ -9,8 +9,11 @@ import com.ecommerceApp.ecommerceApp.exceptions.InvalidDetailException;
 import com.ecommerceApp.ecommerceApp.exceptions.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -48,21 +51,21 @@ public class CategoryService {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    public ReturnJson addCategory(Category category, Locale locale) {
-        Category category1 = categoryRepository.findByName(category.getName());
+    public ReturnJson addCategory(String categoryname,Long id, Locale locale) {
+        Category category1 = categoryRepository.findByName(categoryname);
         if (category1 != null) {
             throw new InvalidDetailException(messageSource.getMessage("category.alreadyPresent.message", null, locale));
         }
         try {
-            if (category.getId() != null) {
-                Category parentCategory = categoryRepository.findById(category.getId()).get();
+            if (id != null) {
+                Category parentCategory = categoryRepository.findById(id).get();
                 Category newCategory = new Category();
-                newCategory.setName(category.getName());
+                newCategory.setName(categoryname);
                 newCategory.setParentCategory(parentCategory.getParentCategory());
                 categoryRepository.save(newCategory);
             } else {
                 Category newCategory = new Category();
-                newCategory.setName(category.getName());
+                newCategory.setName(categoryname);
                 categoryRepository.save(newCategory);
             }
         } catch (Exception ex) {
@@ -71,12 +74,13 @@ public class CategoryService {
         return new ReturnJson(messageSource.getMessage("category.added.message", null, locale));
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    public ReturnJson updateCategory(Long id, Category name, Locale locale) {
+//    ///////////////////////////////////////////////////////////////////////////////////////////////
+    public ReturnJson updateCategory(Long id, String name, Locale locale) {
         Optional<Category> productCategory = categoryRepository.findById(id);
         try {
             Category category = productCategory.get();
-            category.setName(name.getName());
+//            category.setName(name.getName());
+            category.setName(name);
             categoryRepository.save(category);
         } catch (Exception ex) {
             throw new ProductNotFoundException(messageSource.getMessage("category.invalidId.message", null, locale));

@@ -3,13 +3,13 @@ package com.ecommerceApp.ecommerceApp.entities;
 import com.ecommerceApp.ecommerceApp.security.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @EntityListeners(AuditingEntityListener.class)
-public class Users  {
+public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

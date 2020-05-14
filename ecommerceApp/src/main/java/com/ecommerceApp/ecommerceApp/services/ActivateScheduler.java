@@ -33,8 +33,8 @@ public class ActivateScheduler {
 //            users1.setActive(true);
 //            userRepository.save(users1);
 //        }
-//    @Scheduled(cron = "0 30 20 * * ? ")
-    @Scheduled(fixedRate = 20000)
+    @Scheduled(cron = "0 30 13 * * ? ")
+//    @Scheduled(fixedRate = 20000)
     public void productSchedular() {
         List<Customer> customerList = customerRepository.findAll();
         if (!customerList.isEmpty()) {
