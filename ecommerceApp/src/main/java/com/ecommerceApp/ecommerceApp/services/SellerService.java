@@ -16,8 +16,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -94,7 +92,7 @@ public class SellerService {
 
     public ReturnJson registerSeller(SellerRegistrationDto sellerRegistrationDto, Locale locale) {
         if (!(checkIfAllDetailsUnique(sellerRegistrationDto) == "unique")) {
-            return new ReturnJson( "Invalid data");
+            return new ReturnJson("Invalid data");
         }
         Seller seller = toSeller(sellerRegistrationDto);
         seller.setPassword(passwordEncoder.encode(seller.getPassword()));
@@ -218,7 +216,7 @@ public class SellerService {
         if (addressDto.getLabel() != null)
             savedAddress.setLabel(addressDto.getLabel());
         addressRepository.save(savedAddress);
-        return new ReturnJson( messageSource.getMessage("address.updated.message", null, locale));
+        return new ReturnJson(messageSource.getMessage("address.updated.message", null, locale));
 
     }
 

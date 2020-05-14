@@ -56,7 +56,7 @@ public class CustomerController {
     /////////////////////done
     @ApiOperation(value = "Api to Update the profile of the customer", authorizations = {@Authorization(value = "Bearer")})
     @PutMapping(value = "/customer", produces = "application/json")
-    public ResponseEntity updateProfile(@Valid @RequestBody CustomerViewProfileDto customerViewProfileDto,
+    public ReturnJson updateProfile(@Valid @RequestBody CustomerViewProfileDto customerViewProfileDto,
                                         @ApiIgnore HttpServletRequest httpServletRequest, @ApiIgnore Locale locale) {
         Principal principal = httpServletRequest.getUserPrincipal();
         String username = principal.getName();

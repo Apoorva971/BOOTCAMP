@@ -24,7 +24,8 @@ public class ActivateScheduler {
     CustomerRepository customerRepository;
     private static final Logger logger = LoggerFactory.getLogger(ActivateScheduler.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-//    @Scheduled(fixedRate = 50000)
+
+//        @Scheduled(fixedRate = 50000)
 ////    @Scheduled(cron = "0 55 17 * * ?")
 ////    <second> <minute> <hour> <day-of-month> <month> <day-of-week> <year> <command>
 //    public void ActivateAccount() {
@@ -61,4 +62,4 @@ public class ActivateScheduler {
             System.out.println("customerList");
         }
     }
-    }
+}

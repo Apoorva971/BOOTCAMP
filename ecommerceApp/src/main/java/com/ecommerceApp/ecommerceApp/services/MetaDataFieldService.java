@@ -9,16 +9,11 @@ import com.ecommerceApp.ecommerceApp.exceptions.InvalidCategoryOrFieldIdExceptio
 import com.ecommerceApp.ecommerceApp.exceptions.InvalidDetailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 @Component
 public class MetaDataFieldService {
@@ -42,11 +37,11 @@ public class MetaDataFieldService {
         } catch (Exception ex) {
             throw new InvalidCategoryOrFieldIdException("Field name already exists");
         }
-        return new ReturnJson( messageSource.getMessage("field.added.message",null,locale));
+        return new ReturnJson(messageSource.getMessage("field.added.message", null, locale));
     }
 
     ///////////////////////////////////////////done/////////////////////////////////////////////////
-    public ReturnJson addValues(CategoryMetadataFieldValues values, Long categoryId, Long fieldId,Locale locale) {
+    public ReturnJson addValues(CategoryMetadataFieldValues values, Long categoryId, Long fieldId, Locale locale) {
         if (!categoryRepository.findById(categoryId).isPresent()) {
             throw new InvalidDetailException("Invalid Category Id, Does Not Exists In Database");
         }
@@ -63,7 +58,7 @@ public class MetaDataFieldService {
         } catch (Exception ex) {
             throw new InvalidCategoryOrFieldIdException("Invalid Product Category Id or Metadata Field Id");
         }
-        return new ReturnJson(messageSource.getMessage("values.added.message",null,locale));
+        return new ReturnJson(messageSource.getMessage("values.added.message", null, locale));
     }
 
     //////////////////////////////////////////////done///////////////////////////////////////////////////////////
@@ -81,7 +76,7 @@ public class MetaDataFieldService {
     }
 
     //////////////////////////////////////////////////done/////////////////////////////////////////////////////////
-    public ReturnJson updateValues(CategoryMetadataFieldValues values, Long categoryId, Long fieldId,Locale locale) {
+    public ReturnJson updateValues(CategoryMetadataFieldValues values, Long categoryId, Long fieldId, Locale locale) {
         if (!categoryRepository.findById(categoryId).isPresent()) {
             throw new InvalidDetailException("Invalid Category Id, Does Not Exists In Database");
         }
@@ -100,6 +95,6 @@ public class MetaDataFieldService {
         } catch (Exception ex) {
             throw new InvalidCategoryOrFieldIdException("Invalid Product Category Id or Metadata Field Id");
         }
-        return new ReturnJson(messageSource.getMessage("value.updated.message",null,locale));
+        return new ReturnJson(messageSource.getMessage("value.updated.message", null, locale));
     }
 }

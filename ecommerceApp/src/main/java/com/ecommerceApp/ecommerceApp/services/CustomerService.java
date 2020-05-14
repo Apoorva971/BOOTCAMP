@@ -11,12 +11,9 @@ import com.ecommerceApp.ecommerceApp.exceptions.UserNotFoundException;
 import com.ecommerceApp.ecommerceApp.security.AppUser;
 import com.ecommerceApp.ecommerceApp.security.Role;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -111,7 +108,7 @@ public class CustomerService {
             customerRepository.save(customer);
             return new ReturnJson("account verified");
         }
-        return new ReturnJson( "something went wrong!");
+        return new ReturnJson("something went wrong!");
     }
 
     public ReturnJson activateCustomer(String userToken, Locale locale) {
@@ -171,11 +168,6 @@ public class CustomerService {
         customers.forEach(customer -> customerDto.add(toCustomerDto(customer)));
         return customerDto;
     }
-//    public CustomerDto getCustomerByEmail(String email) {
-//        Customer customer = customerRepository.findByEmail(email);
-//        CustomerDto customerDto = toCustomerDto(customer);
-//        return customerDto;
-//    }
 
     public CustomerViewProfileDto toCustomerViewProfile(Customer customer) {
         CustomerViewProfileDto customerViewProfileDto = modelMapper.map(customer, CustomerViewProfileDto.class);
@@ -194,7 +186,7 @@ public class CustomerService {
         return customerViewProfileDto;
     }
 
-    public ResponseEntity<String> updateCustomerProfile(String email, CustomerViewProfileDto customerViewProfileDto, Locale locale) {
+    public ReturnJson updateCustomerProfile(String email, CustomerViewProfileDto customerViewProfileDto, Locale locale) {
         Customer customer = getLoggedInCustomer();
         if (customerViewProfileDto.getFirstName() != null)
             customer.setFirstName(customerViewProfileDto.getFirstName());
@@ -205,21 +197,8 @@ public class CustomerService {
         if (customerViewProfileDto.getContact() != null)
             customer.setContact(customerViewProfileDto.getContact());
         customerRepository.save(customer);
-        return new ResponseEntity<>(messageSource.getMessage("customer.update.message", null, locale), HttpStatus.OK);
+        return new ReturnJson(messageSource.getMessage("customer.update.message", null, locale));
     }
-//public ReturnJson updateCustomerProfile(String email, CustomerViewProfileDto customerViewProfileDto, Locale locale) {
-//        Customer customer = getLoggedInCustomer();
-//        if (customerViewProfileDto.getFirstName() != null)
-//            customer.setFirstName(customerViewProfileDto.getFirstName());
-//        if (customerViewProfileDto.getMiddleName() != null)
-//            customer.setMiddleName(customerViewProfileDto.getMiddleName());
-//        if (customerViewProfileDto.getLastName() != null)
-//            customer.setLastName(customerViewProfileDto.getLastName());
-//        if (customerViewProfileDto.getContact() != null)
-//            customer.setContact(customerViewProfileDto.getContact());
-//        customerRepository.save(customer);
-//message =  messageSource.getMessage("",null,locale);
-//    }
 
     public Set getCustomerAllAdress(String email) {
         Customer customer = customerRepository.findByEmail(email);
@@ -234,7 +213,7 @@ public class CustomerService {
         Address newAddress = addressService.toAddress(addressDto);
         customer.addAddress(newAddress);
         customerRepository.save(customer);
-        return new ReturnJson( messageSource.getMessage("address.added.message", null, locale));
+        return new ReturnJson(messageSource.getMessage("address.added.message", null, locale));
 
     }
 
@@ -242,25 +221,25 @@ public class CustomerService {
     public ReturnJson deleteAddress(String email, Long id, Locale locale) {
         Optional<Address> addressOptional = addressRepository.findById(id);
         if (!addressOptional.isPresent()) {
-            return new ReturnJson(messageSource.getMessage("",null,locale));
+            return new ReturnJson(messageSource.getMessage("address.invalidId.message", null, locale));
         }
         Address savedAddress = addressOptional.get();
         if (savedAddress.getUser().getEmail().equals(email)) {
             addressRepository.deleteById(id);
-            return new ReturnJson( messageSource.getMessage("address.deleted.message", null, locale));
+            return new ReturnJson(messageSource.getMessage("address.deleted.message", null, locale));
 
-                 }
-        return new ReturnJson(messageSource.getMessage("",null,locale));
+        }
+        return new ReturnJson(messageSource.getMessage("address.deleted.message", null, locale));
     }
 
     public ReturnJson updateCustomerAddress(String username, AddressDto addressDto, Long id, Locale locale) {
         Optional<Address> address = addressRepository.findById(id);
         if (!address.isPresent())
-            return new ReturnJson(messageSource.getMessage("",null,locale));
+            return new ReturnJson(messageSource.getMessage("address.invalidId.message", null, locale));
         Address savedAddress = address.get();
         Users users = userRepository.findByEmail(username);
         if (!savedAddress.getUser().getEmail().equals(username))
-            return new ReturnJson(messageSource.getMessage("",null,locale));
+            return new ReturnJson(messageSource.getMessage("address.notPresent.message", null, locale));
         if (addressDto.getCity() != null)
             savedAddress.setCity(addressDto.getCity());
         if (addressDto.getState() != null)
@@ -274,7 +253,7 @@ public class CustomerService {
         if (addressDto.getAddressLine() != null)
             savedAddress.setLabel(addressDto.getAddressLine());
         addressRepository.save(savedAddress);
-        return new ReturnJson (messageSource.getMessage("address.updated.message", null, locale));
+        return new ReturnJson(messageSource.getMessage("address.updated.message", null, locale));
     }
 
     public Customer getLoggedInCustomer() {

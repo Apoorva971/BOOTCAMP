@@ -58,7 +58,7 @@ public class ForgetAndResetPasswordService {
                     "\n http://localhost:8080/resetPassword/" + verificationToken.getToken());
             emailSenderService.sendEmail(simpleMailMessage);
         }
-        return new ReturnJson(messageSource.getMessage("password.resetPassword.message",null,locale));
+        return new ReturnJson(messageSource.getMessage("password.resetPassword.message", null, locale));
     }
 
     public ReturnJson resetPassword(PasswordDto passwordDto, String Token, Locale locale) {
@@ -66,7 +66,7 @@ public class ForgetAndResetPasswordService {
         String password = passwordDto.getPassword();
         String confirmPassword = passwordDto.getConfirmPassword();
         if (verificationToken.getEmail() == null) {
-            return new ReturnJson("http://localhost:8080/resetPassword?token=" + verificationToken.getToken()+ "expired");
+            return new ReturnJson("http://localhost:8080/resetPassword?token=" + verificationToken.getToken() + "expired");
         } else {
             if (!password.equals(confirmPassword)) {
                 throw new PasswordNotMatchedException("password and confirm password doesn't matched");
@@ -90,11 +90,11 @@ public class ForgetAndResetPasswordService {
                         userRepository.updatePassword(encodePassword, users.getEmail());
                         verificationTokenRepository.deleteById(verificationToken.getId());
                     } catch (Exception ex) {
-                        return new ReturnJson( " click the reset password link again");
+                        return new ReturnJson(" click the reset password link again");
                     }
                 }
             }
-            return new ReturnJson(messageSource.getMessage("password.changed.message",null,locale));
+            return new ReturnJson(messageSource.getMessage("password.changed.message", null, locale));
         }
     }
 }
