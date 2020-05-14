@@ -35,7 +35,7 @@ public class SellerController {
     ////////////////donedone
     @ApiOperation(value = "Api to Update the profile of the Seller", authorizations = {@Authorization(value = "Bearer")})
     @PostMapping(value = "/seller/profile", produces = "application/json")
-    public ReturnJson updateProfileDetails(@RequestBody SellerViewProfileDto profileDto,@ApiIgnore HttpServletRequest request, @ApiIgnore Locale locale) {
+    public ReturnJson updateProfileDetails(@RequestBody SellerViewProfileDto profileDto, @ApiIgnore HttpServletRequest request, @ApiIgnore Locale locale) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return sellerService.updateSellerProfile(username, profileDto, locale);

@@ -19,17 +19,18 @@ public class LoginLogoutController {
     private TokenStore tokenStore;
     @Autowired
     MessageSource messageSource;
-////////////done
-@ApiOperation(value = "Api to logout ",authorizations = {@Authorization(value = "Bearer")})
 
-@GetMapping(value = "/doLogout",produces = "application/json")
-    public String logout(HttpServletRequest request,@ApiIgnore Locale locale){
+    ////////////done
+    @ApiOperation(value = "Api to logout ", authorizations = {@Authorization(value = "Bearer")})
+
+    @GetMapping(value = "/doLogout", produces = "application/json")
+    public String logout(HttpServletRequest request, @ApiIgnore Locale locale) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null) {
             String tokenValue = authHeader.replace("Bearer ", "").trim();
             OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
             tokenStore.removeAccessToken(accessToken);
         }
-        return messageSource.getMessage("user.logout.message",null,locale);
+        return messageSource.getMessage("user.logout.message", null, locale);
     }
 }

@@ -25,8 +25,8 @@ public class ProductController {
     @ApiOperation(value = "Api to add a new Product", authorizations = {@Authorization(value = "Bearer")})
 
     @PostMapping(value = "/seller/product", produces = "application/json")
-    public ReturnJson addProduct(@RequestBody Product product,@ApiIgnore Locale locale) {
-        return productService.addProduct(product,locale);
+    public ReturnJson addProduct(@RequestBody Product product, @ApiIgnore Locale locale) {
+        return productService.addProduct(product, locale);
     }
 
     //////////done
@@ -42,7 +42,7 @@ public class ProductController {
     @ApiOperation(value = "Api to view all the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping(value = "/seller/Products", produces = "application/json")
-    public List<Product> viewAllProductAsSeller(@RequestParam(required = false)PagingAndSortingDto pagingAndSortingDto) {
+    public List<Product> viewAllProductAsSeller(@RequestParam(required = false) PagingAndSortingDto pagingAndSortingDto) {
         return productService.viewAllProductAsSeller(pagingAndSortingDto);
     }
 
@@ -51,15 +51,15 @@ public class ProductController {
 
     @DeleteMapping(value = "/seller/product/{productId}", produces = "application/json")
     public ReturnJson deleteProductAsSeller(@PathVariable Long productId, @ApiIgnore Locale locale) {
-       return productService.deleteProduct(productId, locale);
+        return productService.deleteProduct(productId, locale);
     }
 
     /////////done
     @ApiOperation(value = "Api to Update the Product", authorizations = {@Authorization(value = "Bearer")})
 
     @PostMapping(value = "/seller/product/{productId}", produces = "application/json")
-    public ReturnJson updateProductAsSeller(@PathVariable Long productId, @RequestBody ProductDto productDto,@ApiIgnore Locale locale) {
-       return productService.updateProduct(productId, productDto, locale);
+    public ReturnJson updateProductAsSeller(@PathVariable Long productId, @RequestBody ProductDto productDto, @ApiIgnore Locale locale) {
+        return productService.updateProduct(productId, productDto, locale);
 
     }
 

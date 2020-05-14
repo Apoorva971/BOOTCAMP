@@ -36,7 +36,7 @@ public class RegistrationController {
 
     @GetMapping(value = "register/activate", produces = "application/json")
     public ReturnJson activateCustomer(@RequestParam("token") String token, @ApiIgnore Locale locale) {
-        return customerService.activateCustomer(token,locale);
+        return customerService.activateCustomer(token, locale);
     }
 
     @ApiOperation(value = "Api to get the Re-sent link", authorizations = {@Authorization(value = "Bearer")})

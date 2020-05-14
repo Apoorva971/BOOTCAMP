@@ -18,17 +18,19 @@ public class ForgotAndResetPasswordController {
 
     @Autowired
     ForgetAndResetPasswordService forgetAndResetPasswordService;
-//////////done
-@ApiOperation(value = "Api to hit the ForgetPassword",authorizations = {@Authorization(value = "Bearer")})
-@PostMapping(path="/forgotPassword",produces = "application/json")
-    public ReturnJson forgotPassword(@RequestBody Users users,@ApiIgnore Locale locale){
-       return   forgetAndResetPasswordService.forgot_password(users.getEmail(),locale);
+
+    //////////done
+    @ApiOperation(value = "Api to hit the ForgetPassword", authorizations = {@Authorization(value = "Bearer")})
+    @PostMapping(path = "/forgotPassword", produces = "application/json")
+    public ReturnJson forgotPassword(@RequestBody Users users, @ApiIgnore Locale locale) {
+        return forgetAndResetPasswordService.forgot_password(users.getEmail(), locale);
 
     }
+
     ////done
-    @ApiOperation(value = "Api to Reset Password",authorizations = {@Authorization(value = "Bearer")})
-    @PostMapping(path="/resetPassword/{token}")
-    public ReturnJson resetPassword(@Valid @RequestBody PasswordDto passwordDto, @PathVariable("token") String token,@ApiIgnore Locale locale){
-        return forgetAndResetPasswordService.resetPassword(passwordDto,token,locale);
+    @ApiOperation(value = "Api to Reset Password", authorizations = {@Authorization(value = "Bearer")})
+    @PostMapping(path = "/resetPassword/{token}")
+    public ReturnJson resetPassword(@Valid @RequestBody PasswordDto passwordDto, @PathVariable("token") String token, @ApiIgnore Locale locale) {
+        return forgetAndResetPasswordService.resetPassword(passwordDto, token, locale);
     }
 }

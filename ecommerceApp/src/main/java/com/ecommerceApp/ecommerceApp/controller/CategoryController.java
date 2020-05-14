@@ -34,8 +34,8 @@ public class CategoryController {
 
     @ApiOperation(value = "Add a new category", authorizations = {@Authorization("Bearer")})
     @PostMapping(value = "/admin/category", produces = "application/json")
-    public ReturnJson addCategory(@RequestBody String category,Long id,@ApiIgnore Locale locale) {
-        return categoryService.addCategory(category,id, locale);
+    public ReturnJson addCategory(@RequestBody String category, Long id, @ApiIgnore Locale locale) {
+        return categoryService.addCategory(category, id, locale);
     }
 
     @ApiOperation(value = "update the category", authorizations = {@Authorization("Bearer")})
@@ -43,10 +43,11 @@ public class CategoryController {
     public ReturnJson updateCategory(@PathVariable Long id, @RequestBody String name, @ApiIgnore Locale locale) {
         return categoryService.updateCategory(id, name, locale);
     }
+
     ///////////////////////////////
-    @ApiOperation(value = "View filter category values",authorizations = {@Authorization("Bearer")})
+    @ApiOperation(value = "View filter category values", authorizations = {@Authorization("Bearer")})
     @GetMapping("/customer/category/filter/{id}")
-    public FilterCategoryDto filterCategoryByIdByCustomer(@Valid @PathVariable Long id,@ApiIgnore Locale locale ){
+    public FilterCategoryDto filterCategoryByIdByCustomer(@Valid @PathVariable Long id, @ApiIgnore Locale locale) {
         return categoryService.filterCategoryByCustomer(id, locale);
     }
 }

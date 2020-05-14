@@ -25,7 +25,8 @@ public class CustomerController {
     CustomerService customerService;
     @Autowired
     MessageSource messageSource;
-///////////////done
+
+    ///////////////done
     @ApiOperation(value = "Api to view the profile of customer", authorizations = {@Authorization(value = "Bearer")})
     @GetMapping(value = "/customer", produces = "application/json")
     public CustomerViewProfileDto getprofile(@ApiIgnore HttpServletRequest request) {
@@ -46,7 +47,7 @@ public class CustomerController {
     //////////done
     @ApiOperation(value = "Api to add new address for the customer", authorizations = {@Authorization(value = "Bearer")})
     @PostMapping(value = "/customer/addresses", produces = "application/json")
-    public ReturnJson addNewAddress(@Valid @RequestBody AddressDto addressDto,@ApiIgnore HttpServletRequest request, @ApiIgnore Locale locale) {
+    public ReturnJson addNewAddress(@Valid @RequestBody AddressDto addressDto, @ApiIgnore HttpServletRequest request, @ApiIgnore Locale locale) {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         return customerService.addNewAddress(username, addressDto, locale);
@@ -56,7 +57,7 @@ public class CustomerController {
     @ApiOperation(value = "Api to Update the profile of the customer", authorizations = {@Authorization(value = "Bearer")})
     @PutMapping(value = "/customer", produces = "application/json")
     public ResponseEntity updateProfile(@Valid @RequestBody CustomerViewProfileDto customerViewProfileDto,
-                                       @ApiIgnore HttpServletRequest httpServletRequest, @ApiIgnore Locale locale) {
+                                        @ApiIgnore HttpServletRequest httpServletRequest, @ApiIgnore Locale locale) {
         Principal principal = httpServletRequest.getUserPrincipal();
         String username = principal.getName();
         return customerService.updateCustomerProfile(username, customerViewProfileDto, locale);
@@ -75,7 +76,7 @@ public class CustomerController {
     @ApiOperation(value = "Api to Update the address of customer", authorizations = {@Authorization(value = "Bearer")})
     @PatchMapping(value = "/customer/address/{id}", produces = "application/json")
     public ReturnJson updateCustomerAddress(@Valid @RequestBody AddressDto addressDto,
-                                                        @PathVariable Long id, HttpServletRequest httpServletRequest,@ApiIgnore Locale locale) {
+                                            @PathVariable Long id, HttpServletRequest httpServletRequest, @ApiIgnore Locale locale) {
         Principal principal = httpServletRequest.getUserPrincipal();
         String username = principal.getName();
         return customerService.updateCustomerAddress(username, addressDto, id, locale);

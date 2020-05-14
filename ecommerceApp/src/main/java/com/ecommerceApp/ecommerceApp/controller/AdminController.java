@@ -44,13 +44,13 @@ public class AdminController {
 
     @ApiOperation(value = "Api is used to Activated the user", authorizations = {@Authorization(value = "Bearer")})
     @PutMapping(value = "/admin/activate/{id}", produces = "application/json")
-    public ReturnJson activateUser(@PathVariable Long id,@ApiIgnore WebRequest webRequest, @ApiIgnore Locale locale) {
+    public ReturnJson activateUser(@PathVariable Long id, @ApiIgnore WebRequest webRequest, @ApiIgnore Locale locale) {
         return activationDeactivationService.ActivateUser(id, webRequest, locale);
     }
 
-    @ApiOperation(value = "This Api is used to De-Activated the user",authorizations = {@Authorization(value = "Bearer")})
+    @ApiOperation(value = "This Api is used to De-Activated the user", authorizations = {@Authorization(value = "Bearer")})
     @PutMapping("/admin/deactivate/{id}")
-    public ReturnJson deActivateUser(@PathVariable Long id,@ApiIgnore WebRequest webRequest, @ApiIgnore Locale locale) {
+    public ReturnJson deActivateUser(@PathVariable Long id, @ApiIgnore WebRequest webRequest, @ApiIgnore Locale locale) {
         return activationDeactivationService.DeactivateUser(id, webRequest, locale);
     }
 }

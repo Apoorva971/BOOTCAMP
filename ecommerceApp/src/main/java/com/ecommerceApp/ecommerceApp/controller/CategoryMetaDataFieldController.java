@@ -8,7 +8,6 @@ import com.ecommerceApp.ecommerceApp.services.MetaDataFieldService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
