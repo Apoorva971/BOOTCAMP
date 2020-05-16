@@ -28,22 +28,6 @@ public class AppUser implements UserDetails {
     public AppUser() {
     }
 
-//    public AppUser(Users user){
-//        this.id = user.getId();
-//        this.username = user.getEmail();
-//        this.firstName = user.getFirstName();
-//        this.middleName = user.getMiddleName();
-//        this.lastName = user.getLastName();
-//        this.password = user.getPassword();
-//        this.isActive = user.isActive();
-//        this.isDeleted = user.isDeleted();
-//        this.isExpired = user.isExpired();
-//        this.isLocked = user.isLocked();
-//        this.isAccountNonExpired = user.isAccountNonExpired();
-//        this.isAccountNonLocked = user.isAccountNonLocked();
-//        this.isCredentialsNonExpired = user.isCredentialsNonExpired();
-//        this.isEnabled = user.isEnabled();
-//    }
     public AppUser(String username, String password, Set<Role> grantAuthorities,boolean isActive) {
         this.username = username;
         this.password = password;

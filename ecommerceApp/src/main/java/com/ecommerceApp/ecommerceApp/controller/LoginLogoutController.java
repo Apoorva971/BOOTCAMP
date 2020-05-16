@@ -1,5 +1,6 @@
 package com.ecommerceApp.ecommerceApp.controller;
 
+import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,13 @@ public class LoginLogoutController {
     @ApiOperation(value = "Api to logout ", authorizations = {@Authorization(value = "Bearer")})
 
     @GetMapping(value = "/doLogout", produces = "application/json")
-    public String logout(HttpServletRequest request, @ApiIgnore Locale locale) {
+    public ReturnJson logout(HttpServletRequest request, @ApiIgnore Locale locale) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null) {
             String tokenValue = authHeader.replace("Bearer ", "").trim();
             OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
             tokenStore.removeAccessToken(accessToken);
         }
-        return messageSource.getMessage("user.logout.message", null, locale);
+        return new ReturnJson( messageSource.getMessage("user.logout.message", null, locale));
     }
 }

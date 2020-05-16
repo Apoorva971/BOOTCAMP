@@ -53,15 +53,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());
         defaultTokenServices.setSupportRefreshToken(true);
-        defaultTokenServices.setTokenEnhancer(jwtTokenEnhancer());//
+        defaultTokenServices.setTokenEnhancer(customTokenEnhancer());
         return defaultTokenServices;
     }
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
-//        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-//        enhancerChain.setTokenEnhancers(Arrays.asList(customTokenEnhancer(),accessTokenConverter()));
-
         endpoints.tokenStore(tokenStore()).userDetailsService(userDetailsService)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
@@ -73,24 +70,19 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return new JdbcTokenStore(dataSource);
     }
 
-    ////////////////////////////////////////////////////////////
-@Component
-public class CustomTokenConverter extends JwtAccessTokenConverter {
+public class CustomTokenEnhancer implements TokenEnhancer {
+
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-
+        AppUser user = (AppUser) authentication.getPrincipal();
         final Map<String, Object> additionalInfo = new HashMap<>();
-
-        Users user = (Users) authentication.getPrincipal();
-        additionalInfo.put("UserName", user.getFirstName());
-        additionalInfo.put("role", user.getRoles().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        additionalInfo.put("UserName", user.getUsername());
+        additionalInfo.put("role", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
-        return super.enhance(accessToken, authentication);
+        return accessToken;
     }
 }
-
-///////////////////////////////////////////////////////////////////
-    @Override
+ @Override
     public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("live-test")
@@ -108,27 +100,9 @@ public class CustomTokenConverter extends JwtAccessTokenConverter {
             throws Exception {
         authorizationServerSecurityConfigurer.allowFormAuthenticationForClients();
     }
-/////////////////////////////////////////////////////////////////////////////
-    @Bean
-    protected JwtAccessTokenConverter jwtTokenEnhancer() {
-        JwtAccessTokenConverter converter=  new JwtAccessTokenConverter();
-        converter.setSigningKey("my_signing_key");
 
-        return converter;
+    @Bean public TokenEnhancer customTokenEnhancer() {
+        return new CustomTokenEnhancer();
     }
-
-    @Bean
-    public CustomTokenConverter customTokenEnhancer() {
-        return new CustomTokenConverter();
-    }
-//////////////////////////////////////////////////////////////////////////////////////
-//    @Bean
-//    public TokenStore tokenStore() {
-//        return new JdbcTokenStore(dataSource);
-//    }
-//
-//    @Bean public TokenEnhancer customTokenEnhancer() {
-//        return new CustomTokenEnhancer();
-//    }
 
 }
