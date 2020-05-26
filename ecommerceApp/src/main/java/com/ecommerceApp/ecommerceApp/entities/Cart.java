@@ -1,39 +1,46 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
-import javax.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.*;
+//@Entity
+@Document(collection = "Cart")
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @OneToOne
-    @JoinColumn(name = "CUSTOMER_USER_ID")
-    private Users users;
-    @Column(name = "QUANTITY")
+//        @OneToOne
+//    @JoinColumn(name = "CUSTOMER_USER_ID")
+//    private Customer customer;
+    private Long customerId;
+    private Long productVariationId;
+
+    @Column(name = "Quantity")
     private Integer quantity;
     @Column(name = "IS_WISHLIST_ITEM")
-    private Boolean is_wishlist_item;
+    private boolean is_wishlist_item;
+//
+//    @OneToOne
+//    @JoinColumn(name = "PRODUCT_VARIATION_ID")
+//    private ProductVariation productVariation;
 
-    @OneToOne
-    @JoinColumn(name = "PRODUCT_VARIATION_ID")
-    private ProductVariation productVariation;
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Users getUser() {
-        return users;
-    }
 
-    public void setUser(Users user) {
-        this.users = users;
-    }
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
 
     public Integer getQuantity() {
         return quantity;
@@ -43,19 +50,37 @@ public class Cart {
         this.quantity = quantity;
     }
 
-    public Boolean getIs_wishlist_item() {
+    public boolean isIs_wishlist_item() {
         return is_wishlist_item;
     }
 
-    public void setIs_wishlist_item(Boolean is_wishlist_item) {
-        this.is_wishlist_item = is_wishlist_item;
+    public void setIs_wishlist_item(boolean is_wishlist_item) {
+        is_wishlist_item = is_wishlist_item;
     }
 
-    public ProductVariation getProductVariation() {
-        return productVariation;
+//    public ProductVariation getProductVariation() {
+//        return productVariation;
+//    }
+//
+//    public void setProductVariation(ProductVariation productVariation) {
+//        this.productVariation = productVariation;
+//    }
+
+
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setProductVariation(ProductVariation productVariation) {
-        this.productVariation = productVariation;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public Long getProductVariationId() {
+        return productVariationId;
+    }
+
+    public void setProductVariationId(Long productVariationId) {
+        this.productVariationId = productVariationId;
     }
 }
+

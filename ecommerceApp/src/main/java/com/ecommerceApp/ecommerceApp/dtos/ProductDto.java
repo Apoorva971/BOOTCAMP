@@ -13,7 +13,8 @@ public class ProductDto {
     private String name;
     private String description;
     private String brand;
-
+    private  String categoryName;
+    private Long categoryId;
     private boolean isReturnable;
     private boolean isCancelleable;
     private boolean isActive;
@@ -28,6 +29,21 @@ public class ProductDto {
         this.isReturnable = isReturnable;
         this.isCancelleable = isCancelleable;
     }
+
+
+    public ProductDto(Long productId, String productName, Long categoryId, String categoryName, String description,
+                      boolean cancellable, boolean returnable, String brand,boolean isActive) {
+        this.id=productId;
+        this.name=productName;
+        this.categoryId=categoryId;
+        this.categoryName=categoryName;
+        this.description=description;
+        this.isCancelleable=cancellable;
+        this.isReturnable=returnable;
+        this.brand=brand;
+        this.isActive=isActive;
+    }
+
 
     public Long getId() {
         return id;
@@ -100,5 +116,21 @@ public class ProductDto {
 
     public void setSeller(Seller seller) {
         this.seller = seller;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }
