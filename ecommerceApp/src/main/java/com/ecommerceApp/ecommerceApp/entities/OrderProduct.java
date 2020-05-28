@@ -11,9 +11,9 @@ public class OrderProduct {
     private Integer quantity;
     @Column(name = "PRICE")
     private Double price;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ORDER_ID")
-    private Orders orders;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "ORDER_ID")
+//    private Orders orders;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PRODUCT_VARIATION_ID")
     private ProductVariation productVariation;
@@ -44,13 +44,13 @@ public class OrderProduct {
         this.price = price;
     }
 
-    public Orders getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Orders orders) {
-        this.orders = orders;
-    }
+//    public Orders getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(Orders orders) {
+//        this.orders = orders;
+//    }
 
     public ProductVariation getProductVariation() {
         return productVariation;

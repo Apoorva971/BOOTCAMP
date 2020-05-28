@@ -1,56 +1,63 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-@Entity
+@Document(collection = "Orders")
 public class Orders {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column(name = "AMOUNT_PAID")
-    private Integer amount_paid;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
+    private Integer amountPaid;
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_CREATED")
     private Date date_created;
-    @Column(name ="PAYMENT_METHOD" )
-    private String payment_method;
-    @Column(name = "CUSTOMER_ADDRESS_CITY")
-    private String customer_address_city;
-    @Column(name = "CUSTOMER_ADDRESS_STATE")
-    private String customer_address_state;
-    @Column(name = "CUSTOMER_ADDRESS_COUNTRY")
-    private String customer_address_country;
-    @Column(name = "CUSTOMER_ADDRESS_ADDRESS_LINE")
-    private String customer_address_address_line;
-    @Column(name = "CUSTOMER_ADDRESS_ZIP_CODE")
-    private Integer customer_address_zip_code;
-    @Column(name = "CUSTOMER_ADDRESS_LABEL")
-    private String customer_address_label;
+
+    private String paymentMethod;
+    private String customerAddressCity;
+    private String customerAddressState;
+    private String customerAddressCountry;
+    private String customerAddressAddressLine;
+    private Integer customerAddressZipCode;
+    private String customerAddressLabel;
 
 
-    @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)
-    private List<OrderProduct> orderProductsList;
+//    @OneToMany(mappedBy = "orders",cascade = CascadeType.ALL)
+//    private List<OrderProduct> orderProductsList;
+//
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "customer_user_id")
+//    private Customer customer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_user_id")
-    private Customer customer;
+    public Orders(String id, Integer amountPaid, Date date_created, String paymentMethod, String customerAddressCity,
+                  String customerAddressState, String customerAddressCountry,
+                  String customerAddressAddressLine, Integer customerAddressZipCode, String customerAddressLabel) {
+        this.id = id;
+        this.amountPaid = amountPaid;
+        this.date_created = date_created;
+        this.paymentMethod = paymentMethod;
+        this.customerAddressCity = customerAddressCity;
+        this.customerAddressState = customerAddressState;
+        this.customerAddressCountry = customerAddressCountry;
+        this.customerAddressAddressLine = customerAddressAddressLine;
+        this.customerAddressZipCode = customerAddressZipCode;
+        this.customerAddressLabel = customerAddressLabel;
+    }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getAmount_paid() {
-        return amount_paid;
+    public Integer getAmountPaid() {
+        return amountPaid;
     }
 
-    public void setAmount_paid(Integer amount_paid) {
-        this.amount_paid = amount_paid;
+    public void setAmountPaid(Integer amountPaid) {
+        this.amountPaid = amountPaid;
     }
 
     public Date getDate_created() {
@@ -61,75 +68,75 @@ public class Orders {
         this.date_created = date_created;
     }
 
-    public String getPayment_method() {
-        return payment_method;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPayment_method(String payment_method) {
-        this.payment_method = payment_method;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
-    public String getCustomer_address_city() {
-        return customer_address_city;
+    public String getCustomerAddressCity() {
+        return customerAddressCity;
     }
 
-    public void setCustomer_address_city(String customer_address_city) {
-        this.customer_address_city = customer_address_city;
+    public void setCustomerAddressCity(String customerAddressCity) {
+        this.customerAddressCity = customerAddressCity;
     }
 
-    public String getCustomer_address_state() {
-        return customer_address_state;
+    public String getCustomerAddressState() {
+        return customerAddressState;
     }
 
-    public void setCustomer_address_state(String customer_address_state) {
-        this.customer_address_state = customer_address_state;
+    public void setCustomerAddressState(String customerAddressState) {
+        this.customerAddressState = customerAddressState;
     }
 
-    public String getCustomer_address_country() {
-        return customer_address_country;
+    public String getCustomerAddressCountry() {
+        return customerAddressCountry;
     }
 
-    public void setCustomer_address_country(String customer_address_country) {
-        this.customer_address_country = customer_address_country;
+    public void setCustomerAddressCountry(String customerAddressCountry) {
+        this.customerAddressCountry = customerAddressCountry;
     }
 
-    public String getCustomer_address_address_line() {
-        return customer_address_address_line;
+    public String getCustomerAddressAddressLine() {
+        return customerAddressAddressLine;
     }
 
-    public void setCustomer_address_address_line(String customer_address_address_line) {
-        this.customer_address_address_line = customer_address_address_line;
+    public void setCustomerAddressAddressLine(String customerAddressAddressLine) {
+        this.customerAddressAddressLine = customerAddressAddressLine;
     }
 
-    public Integer getCustomer_address_zip_code() {
-        return customer_address_zip_code;
+    public Integer getCustomerAddressZipCode() {
+        return customerAddressZipCode;
     }
 
-    public void setCustomer_address_zip_code(Integer customer_address_zip_code) {
-        this.customer_address_zip_code = customer_address_zip_code;
+    public void setCustomerAddressZipCode(Integer customerAddressZipCode) {
+        this.customerAddressZipCode = customerAddressZipCode;
     }
 
-    public String getCustomer_address_label() {
-        return customer_address_label;
+    public String getCustomerAddressLabel() {
+        return customerAddressLabel;
     }
 
-    public void setCustomer_address_label(String customer_address_label) {
-        this.customer_address_label = customer_address_label;
+    public void setCustomerAddressLabel(String customerAddressLabel) {
+        this.customerAddressLabel = customerAddressLabel;
     }
 
-    public List<OrderProduct> getOrderProductsList() {
-        return orderProductsList;
-    }
+//    public List<OrderProduct> getOrderProductsList() {
+//        return orderProductsList;
+//    }
+//
+//    public void setOrderProductsList(List<OrderProduct> orderProductsList) {
+//        this.orderProductsList = orderProductsList;
+//    }
 
-    public void setOrderProductsList(List<OrderProduct> orderProductsList) {
-        this.orderProductsList = orderProductsList;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
 }

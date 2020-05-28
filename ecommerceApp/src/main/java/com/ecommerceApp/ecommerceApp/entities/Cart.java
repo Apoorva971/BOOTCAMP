@@ -1,13 +1,14 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.repository.Query;
 
 import javax.persistence.*;
 //@Entity
 @Document(collection = "Cart")
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
 //        @OneToOne
@@ -15,7 +16,6 @@ public class Cart {
 //    private Customer customer;
     private Long customerId;
     private Long productVariationId;
-
     @Column(name = "Quantity")
     private Integer quantity;
     @Column(name = "IS_WISHLIST_ITEM")
@@ -50,13 +50,22 @@ public class Cart {
         this.quantity = quantity;
     }
 
+//    public boolean isIs_wishlist_item() {
+//        return is_wishlist_item;
+//    }
+//
+//    public void setIs_wishlist_item(boolean is_wishlist_item) {
+//        is_wishlist_item = is_wishlist_item;
+//    }
+
     public boolean isIs_wishlist_item() {
         return is_wishlist_item;
     }
 
     public void setIs_wishlist_item(boolean is_wishlist_item) {
-        is_wishlist_item = is_wishlist_item;
+        this.is_wishlist_item = is_wishlist_item;
     }
+
 
 //    public ProductVariation getProductVariation() {
 //        return productVariation;

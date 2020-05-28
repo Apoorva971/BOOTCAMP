@@ -3,6 +3,7 @@ package com.ecommerceApp.ecommerceApp.controller;
 import com.ecommerceApp.ecommerceApp.dtos.CartDto;
 import com.ecommerceApp.ecommerceApp.dtos.ProductDto;
 import com.ecommerceApp.ecommerceApp.entities.Cart;
+import com.ecommerceApp.ecommerceApp.entities.Product;
 import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.services.CartService;
 import io.swagger.annotations.ApiOperation;

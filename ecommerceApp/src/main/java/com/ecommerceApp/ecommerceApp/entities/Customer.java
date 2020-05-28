@@ -16,8 +16,8 @@ public class Customer extends Users {
     private List<ProductReview> reviews;
 
 
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-    private Set<Orders> orders;
+//    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+//    private Set<Orders> orders;
 
     public Customer() {
         this.addRole(new Role( 3l,"ROLE_CUSTOMER"));
