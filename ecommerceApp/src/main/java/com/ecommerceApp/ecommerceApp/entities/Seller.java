@@ -20,12 +20,12 @@ public class Seller extends Users{
     private String companyName;
     private String companyContact;
 
-    @Column(name = "createdDate",nullable = false,updatable =false)
-    @CreatedDate
-    private Date createdDate;
-    @Column(name = "modifiedDate")
-    @LastModifiedDate
-    private Date modifiedDate;
+//    @Column(name = "createdDate",nullable = false,updatable =false)
+//    @CreatedDate
+//    private Date createdDate;
+//    @Column(name = "modifiedDate")
+//    @LastModifiedDate
+//    private Date modifiedDate;
 
 
     @JsonIgnore
@@ -46,25 +46,25 @@ public class Seller extends Users{
         this.addRole(new Role( 2l,"ROLE_SELLER"));
     }
 
-    @Override
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    @Override
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    @Override
-    public Date getModifiedDate() {
-        return modifiedDate;
-    }
-
-    @Override
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
+//    @Override
+//    public Date getCreatedDate() {
+//        return createdDate;
+//    }
+//
+//    @Override
+//    public void setCreatedDate(Date createdDate) {
+//        this.createdDate = createdDate;
+//    }
+//
+//    @Override
+//    public Date getModifiedDate() {
+//        return modifiedDate;
+//    }
+//
+//    @Override
+//    public void setModifiedDate(Date modifiedDate) {
+//        this.modifiedDate = modifiedDate;
+//    }
 
     public Set<Product> getProducts() {
         return products;

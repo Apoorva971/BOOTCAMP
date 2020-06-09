@@ -23,8 +23,8 @@ public class LoginLogoutController {
 
     ////////////done
     @ApiOperation(value = "Api to logout ", authorizations = {@Authorization(value = "Bearer")})
-
     @GetMapping(value = "/doLogout", produces = "application/json")
+
     public ReturnJson logout(HttpServletRequest request, @ApiIgnore Locale locale) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null) {

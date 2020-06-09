@@ -1,29 +1,27 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.repository.Query;
 
 import javax.persistence.*;
-//@Entity
+import java.util.List;
 @Document(collection = "Cart")
 public class Cart {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-//        @OneToOne
-//    @JoinColumn(name = "CUSTOMER_USER_ID")
-//    private Customer customer;
     private Long customerId;
-    private Long productVariationId;
-    @Column(name = "Quantity")
-    private Integer quantity;
-    @Column(name = "IS_WISHLIST_ITEM")
+    private Integer ordered_quantity;
     private boolean is_wishlist_item;
-//
-//    @OneToOne
-//    @JoinColumn(name = "PRODUCT_VARIATION_ID")
-//    private ProductVariation productVariation;
+    List<ProductVariation> productVariationList;
+//    List<Customer>customers;
+    public List<ProductVariation> getProductVariationList() {
+        return productVariationList;
+    }
+
+    public void setProductVariationList(List<ProductVariation> productVariationList) {
+        this.productVariationList = productVariationList;
+    }
 
     public String getId() {
         return id;
@@ -33,30 +31,13 @@ public class Cart {
         this.id = id;
     }
 
-
-//    public Customer getCustomer() {
-//        return customer;
-//    }
-//
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
-
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getOrdered_quantity() {
+        return ordered_quantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setOrdered_quantity(Integer ordered_quantity) {
+        this.ordered_quantity = ordered_quantity;
     }
-
-//    public boolean isIs_wishlist_item() {
-//        return is_wishlist_item;
-//    }
-//
-//    public void setIs_wishlist_item(boolean is_wishlist_item) {
-//        is_wishlist_item = is_wishlist_item;
-//    }
 
     public boolean isIs_wishlist_item() {
         return is_wishlist_item;
@@ -66,16 +47,6 @@ public class Cart {
         this.is_wishlist_item = is_wishlist_item;
     }
 
-
-//    public ProductVariation getProductVariation() {
-//        return productVariation;
-//    }
-//
-//    public void setProductVariation(ProductVariation productVariation) {
-//        this.productVariation = productVariation;
-//    }
-
-
     public Long getCustomerId() {
         return customerId;
     }
@@ -84,12 +55,12 @@ public class Cart {
         this.customerId = customerId;
     }
 
-    public Long getProductVariationId() {
-        return productVariationId;
-    }
-
-    public void setProductVariationId(Long productVariationId) {
-        this.productVariationId = productVariationId;
-    }
+//    public List<Customer> getCustomers() {
+//        return customers;
+//    }
+//
+//    public void setCustomers(List<Customer> customers) {
+//        this.customers = customers;
+//    }
 }
 

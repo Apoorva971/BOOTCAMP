@@ -1,27 +1,28 @@
 package com.ecommerceApp.ecommerceApp.dtos;
+import com.ecommerceApp.ecommerceApp.entities.ProductVariation;
+
+import java.util.List;
 public class CartDto {
     private String cartProductId;
     private Long customerId;
-    private Integer quantity;
+    private Integer ordered_quantity;
     private boolean is_wishlist_item;
-    private Long productVariationId;
-
+    List<ProductVariation>productVariations;
     public CartDto(){
     }
-    public CartDto(String cartProductId, Integer quantity, boolean isWishList, Long customerId, Long productVariationId) {
-        this.cartProductId=cartProductId;
-        this.quantity=quantity;
-        this.is_wishlist_item =isWishList;
+    public CartDto(String id, Integer ordered_quantity, boolean is_wishlist_item, Long customerId, List<ProductVariation> productVariationList) {
+        this.cartProductId = id;
+        this.ordered_quantity = ordered_quantity;
+        this.is_wishlist_item = is_wishlist_item;
         this.customerId=customerId;
-        this.productVariationId=productVariationId;
+        this.productVariations = productVariationList;
     }
-
-    public CartDto(String id, Integer quantity, boolean is_wishlist_item) {
-        this.cartProductId=cartProductId;
-        this.quantity=quantity;
-        this.is_wishlist_item =is_wishlist_item;
+    public List<ProductVariation> getProductVariations() {
+        return productVariations;
     }
-
+    public void setProductVariations(List<ProductVariation> productVariations) {
+        this.productVariations = productVariations;
+    }
     public String getCartProductId() {
         return cartProductId;
     }
@@ -33,21 +34,15 @@ public class CartDto {
     public Long getCustomerId() {
         return customerId;
     }
-
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
-
-    public void setProductVariationId(Long productVariationId) {
-        this.productVariationId = productVariationId;
+    public Integer getOrdered_quantity() {
+        return ordered_quantity;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setOrdered_quantity(Integer ordered_quantity) {
+        this.ordered_quantity = ordered_quantity;
     }
 
     public boolean isIs_wishlist_item() {
@@ -58,7 +53,4 @@ public class CartDto {
         this.is_wishlist_item = is_wishlist_item;
     }
 
-    public Long getProductVariationId() {
-        return productVariationId;
-    }
 }

@@ -4,17 +4,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
 @Document(collection = "Orders")
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private Integer amountPaid;
-    @Temporal(TemporalType.DATE)
-    private Date date_created;
-
+    private Date order_placed_date;
+    private String customerName;
+    List<Cart> cartList;
     private String paymentMethod;
-    private String customerAddressCity;
+     private String customerAddressCity;
     private String customerAddressState;
     private String customerAddressCountry;
     private String customerAddressAddressLine;
@@ -29,12 +32,32 @@ public class Orders {
 //    @JoinColumn(name = "customer_user_id")
 //    private Customer customer;
 
-    public Orders(String id, Integer amountPaid, Date date_created, String paymentMethod, String customerAddressCity,
-                  String customerAddressState, String customerAddressCountry,
-                  String customerAddressAddressLine, Integer customerAddressZipCode, String customerAddressLabel) {
+//    public Orders(String id, Integer amountPaid, Date order_placed_date, String paymentMethod, String customerAddressCity,
+//                  String customerAddressState, String customerAddressCountry,
+//                  String customerAddressAddressLine, Integer customerAddressZipCode, String customerAddressLabel) {
+//        this.id = id;
+//        this.amountPaid = amountPaid;
+//        this.order_placed_date = order_placed_date;
+//        this.paymentMethod = paymentMethod;
+//        this.customerAddressCity = customerAddressCity;
+//        this.customerAddressState = customerAddressState;
+//        this.customerAddressCountry = customerAddressCountry;
+//        this.customerAddressAddressLine = customerAddressAddressLine;
+//        this.customerAddressZipCode = customerAddressZipCode;
+//        this.customerAddressLabel = customerAddressLabel;
+//    }
+
+    public Orders() {
+
+    }
+
+    public Orders(String id, Integer amountPaid, Date order_placed_date, String paymentMethod,
+                  String customerAddressCity, String customerAddressState,
+                  String customerAddressCountry, String customerAddressAddressLine,
+                  Integer customerAddressZipCode, String customerAddressLabel) {
         this.id = id;
         this.amountPaid = amountPaid;
-        this.date_created = date_created;
+        this.order_placed_date = order_placed_date;
         this.paymentMethod = paymentMethod;
         this.customerAddressCity = customerAddressCity;
         this.customerAddressState = customerAddressState;
@@ -42,6 +65,21 @@ public class Orders {
         this.customerAddressAddressLine = customerAddressAddressLine;
         this.customerAddressZipCode = customerAddressZipCode;
         this.customerAddressLabel = customerAddressLabel;
+    }
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public List<Cart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
     }
 
     public String getId() {
@@ -60,12 +98,12 @@ public class Orders {
         this.amountPaid = amountPaid;
     }
 
-    public Date getDate_created() {
-        return date_created;
+    public Date getOrder_placed_date() {
+        return order_placed_date;
     }
 
-    public void setDate_created(Date date_created) {
-        this.date_created = date_created;
+    public void setOrder_placed_date(Date order_placed_date) {
+        this.order_placed_date = order_placed_date;
     }
 
     public String getPaymentMethod() {
@@ -75,7 +113,6 @@ public class Orders {
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
-
     public String getCustomerAddressCity() {
         return customerAddressCity;
     }
@@ -124,7 +161,8 @@ public class Orders {
         this.customerAddressLabel = customerAddressLabel;
     }
 
-//    public List<OrderProduct> getOrderProductsList() {
+
+    //    public List<OrderProduct> getOrderProductsList() {
 //        return orderProductsList;
 //    }
 //

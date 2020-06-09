@@ -1,9 +1,6 @@
 package com.ecommerceApp.ecommerceApp.controller;
 
 import com.ecommerceApp.ecommerceApp.dtos.CartDto;
-import com.ecommerceApp.ecommerceApp.dtos.ProductDto;
-import com.ecommerceApp.ecommerceApp.entities.Cart;
-import com.ecommerceApp.ecommerceApp.entities.Product;
 import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.services.CartService;
 import io.swagger.annotations.ApiOperation;
@@ -33,8 +30,8 @@ public class CartController {
 
         @ApiOperation(value = "Api to add the product to the cart", authorizations = {@Authorization(value = "Bearer")})
         @PostMapping(value = "/cart", produces = "application/json")
-        public ProductDto addToCart(@RequestBody CartDto cartDto,@ApiIgnore WebRequest webRequest){
-                return cartService.addProductToCart(cartDto);
+        public ReturnJson addToCart(@RequestBody CartDto cartDto,@ApiIgnore WebRequest webRequest,@ApiIgnore Locale locale){
+                return cartService.addProductToCart(cartDto,locale);
         }
         //============Api To View All Product Of Cart============//
 

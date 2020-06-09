@@ -7,17 +7,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 @RestController
 public class OrderController {
     @Autowired
     OrderService orderService;
+
 
     @ApiOperation(value = "Api to get Order By Id", authorizations = {@Authorization(value = "Bearer")})
     @GetMapping("/Order/{id}")
@@ -46,5 +45,10 @@ public class OrderController {
     @DeleteMapping("/Order/{id}")
     public ReturnJson deleteOrder(@PathVariable String id,@ApiIgnore Locale locale){
         return  orderService.removeOrder(id,locale);
+    }
+    @ApiOperation(value = "to get number of orders", authorizations = {@Authorization(value = "Bearer")})
+    @GetMapping("/Order/getNUmber")
+    public void getNUmberOfOrder(){
+        orderService.AggregationExample();
     }
 }
