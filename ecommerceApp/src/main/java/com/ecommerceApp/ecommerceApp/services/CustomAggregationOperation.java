@@ -11,6 +11,10 @@ public class CustomAggregationOperation implements AggregationOperation {
         this.jsonOperation = jsonOperation;
     }
 
+    public CustomAggregationOperation() {
+
+    }
+
     @Override
     public org.bson.Document toDocument(AggregationOperationContext aggregationOperationContext) {
         return aggregationOperationContext.getMappedObject(org.bson.Document.parse(jsonOperation));

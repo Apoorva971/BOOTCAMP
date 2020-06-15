@@ -13,14 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 
 @Service
 public class OrderService {
@@ -118,20 +120,20 @@ public class OrderService {
         }
     }
 
-public void AggregationExample() {
+public List<Orders> AggregationExample() {
 
-    AggregationOperation unwind = Aggregation.unwind("customerName");
-
-    String query1 = "{$lookup: {from: 'Orders', let: { id: { $toObjectId: 'customerName' },"
-            +"pipeline:[{ $group : { _id : $customerName ,total_number_of_order_placed : { $sum:1} } }]";
-
-    TypedAggregation<Orders> aggregation = Aggregation.newAggregation(
-            Orders.class,
-            unwind,
-            new CustomAggregationOperation(query1)
+        //String query1 = "[ { $group : {_id : $customerName ,count : { $sum:1} } } ] ";
+//    TypedAggregation<Orders> aggregation = Aggregation.newAggregation(
+         Aggregation agg = newAggregation(
+            Aggregation.match(Criteria.where("_id").lt(10)),
+            Aggregation.group("customerName").count().as("sum"),
+            Aggregation.project("sum").and("customerName").previousOperation()
     );
     AggregationResults<Orders> results =
-            mongoTemplate.aggregate(aggregation, Orders.class);
-    System.out.println(results.getMappedResults());
+
+           mongoTemplate.aggregate((TypedAggregation<?>) agg, Orders.class);
+//    System.out.println(results.getMappedResults());
+    List<Orders> result = results.getMappedResults();
+    return result;
 }
 }
