@@ -1,5 +1,7 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 
 enum FROM_STATUS
@@ -35,16 +37,13 @@ enum TO_STATUS
 
     REFUND_COMPLETED,
 
-}@Entity
-@Table(name = "ORDER_STATUS")
+}
+@Document(collection = "ORDER_STATUS")
 public class OrderStatus  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "TRANSITION_NOTES_COMMENTS")
     private String transition_notes_comments;
-    @OneToOne
-    @JoinColumn(name = "ORDER_PRODUCT_ID")
     private OrderProduct orderProduct;
 
     public Long getId() {

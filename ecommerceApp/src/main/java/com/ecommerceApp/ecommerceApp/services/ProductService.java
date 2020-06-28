@@ -11,6 +11,7 @@ import com.ecommerceApp.ecommerceApp.entities.ReturnJson;
 import com.ecommerceApp.ecommerceApp.entities.Seller;
 import com.ecommerceApp.ecommerceApp.exceptions.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
@@ -58,7 +59,7 @@ public class ProductService {
         }
         return new ReturnJson(messageSource.getMessage("product.added.message",null,locale));
     }
-
+    @Cacheable(value = "productCacheSeller")
     public List<ProductDto> viewAllProduct(PagingAndSortingDto pagingAndSortingDto) {
         Pageable pageable = pagingAndSortingUtil.getPageable(pagingAndSortingDto);
         List<Product>productList =  productRepository.findAll(pageable);

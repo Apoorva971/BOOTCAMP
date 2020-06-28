@@ -40,8 +40,13 @@ dependencies {
 	compile 'org.modelmapper:modelmapper:2.3.7'
 	// https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb
 //	compile group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.0.0.RELEASE'
-
 	compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	//Rabbit Mq
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+	//Redis
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.2.6.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.2.6.RELEASE'
 }
 
 test {

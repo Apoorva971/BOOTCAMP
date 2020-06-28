@@ -1,23 +1,23 @@
 package com.ecommerceApp.ecommerceApp.entities;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 
-@Entity
+@Document(collection = "OrderProduct")
 public class OrderProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "QUANTITY")
+//    @Column(name = "QUANTITY")
     private Integer quantity;
-    @Column(name = "PRICE")
+//    @Column(name = "PRICE")
     private Double price;
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "ORDER_ID")
 //    private Orders orders;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PRODUCT_VARIATION_ID")
+    private Orders orders;
     private ProductVariation productVariation;
-    @OneToOne(mappedBy = "orderProduct")
     private OrderStatus orderStatus;
 
     public Long getId() {
@@ -44,13 +44,21 @@ public class OrderProduct {
         this.price = price;
     }
 
-//    public Orders getOrders() {
-//        return orders;
-//    }
-//
-//    public void setOrders(Orders orders) {
-//        this.orders = orders;
-//    }
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     public ProductVariation getProductVariation() {
         return productVariation;

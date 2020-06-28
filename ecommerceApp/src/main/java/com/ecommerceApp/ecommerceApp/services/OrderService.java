@@ -125,13 +125,10 @@ public List<Orders> AggregationExample() {
         //String query1 = "[ { $group : {_id : $customerName ,count : { $sum:1} } } ] ";
 //    TypedAggregation<Orders> aggregation = Aggregation.newAggregation(
          Aggregation agg = newAggregation(
-            Aggregation.match(Criteria.where("_id").lt(10)),
-            Aggregation.group("customerName").count().as("sum"),
-            Aggregation.project("sum").and("customerName").previousOperation()
+                 Aggregation.match(Criteria.where("paymentMethod").is("card")),
+            Aggregation.group("customerName").count().as("sum")
     );
-    AggregationResults<Orders> results =
-
-           mongoTemplate.aggregate((TypedAggregation<?>) agg, Orders.class);
+    AggregationResults<Orders> results = mongoTemplate.aggregate((TypedAggregation<?>) agg, Orders.class);
 //    System.out.println(results.getMappedResults());
     List<Orders> result = results.getMappedResults();
     return result;

@@ -21,15 +21,15 @@ public class ForgotAndResetPasswordController {
 
     //////////done
     @ApiOperation(value = "Api to hit the ForgetPassword", authorizations = {@Authorization(value = "Bearer")})
-    @PostMapping(path = "/forgotPassword", produces = "application/json")
+    @PostMapping(path = "/forgotPassword",produces = "application/json")
     public ReturnJson forgotPassword(@RequestBody Users users, @ApiIgnore Locale locale) {
-        return forgetAndResetPasswordService.forgot_password(users.getEmail(), locale);
+        return forgetAndResetPasswordService.forgot_password(users, locale);
 
     }
 
     ////done
     @ApiOperation(value = "Api to Reset Password", authorizations = {@Authorization(value = "Bearer")})
-    @PostMapping(path = "/resetPassword/{token}")
+    @PostMapping(path = "/resetPassword/{token}",produces = "application/json")
     public ReturnJson resetPassword(@Valid @RequestBody PasswordDto passwordDto, @PathVariable("token") String token, @ApiIgnore Locale locale) {
         return forgetAndResetPasswordService.resetPassword(passwordDto, token, locale);
     }

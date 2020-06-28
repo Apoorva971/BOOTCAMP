@@ -1,6 +1,5 @@
 package com.ecommerceApp.ecommerceApp.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+
 @Configuration
 @EnableResourceServer
 @EnableWebSecurity
@@ -46,7 +46,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configureGlobal(final AuthenticationManagerBuilder authenticationManagerBuilder) {
         authenticationManagerBuilder.authenticationProvider(authenticationProvider());
     }
-    private static final String[] AUTH_WHITELIST={
+
+    private static final String[] AUTH_WHITELIST = {
             "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
@@ -67,18 +68,17 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers("/productvariation").hasAnyRole("SELLER")
                 .antMatchers("/forgotPassword").anonymous()
                 .antMatchers("/resetPassword/{token}").anonymous()
-               .antMatchers("/admin/*").hasAnyRole("ADMIN")
+                .antMatchers("/admin/*").hasAnyRole("ADMIN")
                 .antMatchers("/seller/*").hasAnyRole("SELLER")
-                .antMatchers("/category").hasAnyRole("ADMIN","SELLER","CUSTOMER")
-                .antMatchers("/category/{id}").hasAnyRole("ADMIN","SELLER","CUSTOMER")
-                .antMatchers("/Product/{id}").hasAnyRole("ADMIN","SELLER","CUSTOMER")
-                .antMatchers("/Products").hasAnyRole("ADMIN","SELLER")
+                .antMatchers("/category").hasAnyRole("ADMIN", "SELLER", "CUSTOMER")
+                .antMatchers("/category/{id}").hasAnyRole("ADMIN", "SELLER", "CUSTOMER")
+                .antMatchers("/Product/{id}").hasAnyRole("ADMIN", "SELLER", "CUSTOMER")
+                .antMatchers("/Products").hasAnyRole("ADMIN", "SELLER")
                 .antMatchers("/cart").hasAnyRole("CUSTOMER")
                 .antMatchers("/Order").hasAnyRole("CUSTOMER")
 
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/re-sent-link/*").anonymous()
-
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

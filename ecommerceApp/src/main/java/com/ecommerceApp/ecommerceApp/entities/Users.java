@@ -38,6 +38,7 @@ public class Users implements Serializable {
     @Email
     private String email;
     private String password;
+    private Boolean passwordExpired=false;
     private Boolean isDeleted = false;
     private Boolean isActive = false;
     private Boolean isExpired = false;
@@ -73,6 +74,14 @@ public class Users implements Serializable {
         this.email = username;
         this.password = password;
         this.roles = grantAuthorities;
+    }
+
+    public Boolean getPasswordExpired() {
+        return passwordExpired;
+    }
+
+    public void setPasswordExpired(Boolean passwordExpired) {
+        this.passwordExpired = passwordExpired;
     }
 
     public Date getCreatedDate() {
@@ -143,7 +152,7 @@ public class Users implements Serializable {
         return email;
     }
 
-    public void setemail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

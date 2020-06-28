@@ -5,8 +5,9 @@ import com.ecommerceApp.ecommerceApp.entities.Seller;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-public class ProductDto {
+import java.io.Serializable;
+//changes .............................................................................................
+public class ProductDto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

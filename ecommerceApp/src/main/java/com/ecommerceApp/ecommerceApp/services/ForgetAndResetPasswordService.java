@@ -31,21 +31,16 @@ public class ForgetAndResetPasswordService {
     @Autowired
     MessageSource messageSource;
 
-    public ReturnJson forgot_password(String email, Locale locale) {
-
-        System.out.println(email);
-
-        Users users = userRepository.findByEmail(email);
-
-        System.out.println(users.getEmail());
-
+    public ReturnJson forgot_password(Users users, Locale locale) {
+        userRepository.findByEmail(users.getEmail());
+       System.out.println(users.getEmail());
         if (users.getEmail() != null) {
             String token = UUID.randomUUID().toString();
             VerificationToken verificationToken = new VerificationToken();
             verificationToken.setCreatedDate(new Date());
             verificationToken.setExpiryDate(new Date());
             verificationToken.setToken(token);
-            verificationToken.setEmail(email);
+            verificationToken.setEmail(users.getEmail());
 
 
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
