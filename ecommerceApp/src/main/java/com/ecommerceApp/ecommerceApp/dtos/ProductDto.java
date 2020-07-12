@@ -45,6 +45,18 @@ public class ProductDto implements Serializable {
         this.isActive=isActive;
     }
 
+    public ProductDto(Long id, String name, String description, String brand,  Long id1, String name1) {
+        this.id=id;
+        this.name=name;
+        this.categoryId=id1;
+        this.categoryName=name1;
+        this.description=description;
+//        this.isCancelleable=cancellable;
+//        this.isReturnable=returnable;
+        this.brand=brand;
+        this.isActive=isActive;
+
+    }
 
     public Long getId() {
         return id;

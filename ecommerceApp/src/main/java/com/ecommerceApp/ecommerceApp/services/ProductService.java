@@ -59,12 +59,12 @@ public class ProductService {
         }
         return new ReturnJson(messageSource.getMessage("product.added.message",null,locale));
     }
-    @Cacheable(value = "productCacheSeller")
+    @Cacheable(value = "productCacheSeller",key ="#new")
     public List<ProductDto> viewAllProduct(PagingAndSortingDto pagingAndSortingDto) {
         Pageable pageable = pagingAndSortingUtil.getPageable(pagingAndSortingDto);
         List<Product>productList =  productRepository.findAll(pageable);
         List<ProductDto >productDtos = new ArrayList<>();
-        productList.forEach(product -> productDtos.add(new ProductDto(product.getId(),product.getName(),product.getDescription(),product.getBrand())));
+        productList.forEach(product -> productDtos.add(new ProductDto(product.getId(),product.getName(),product.getDescription(),product.getBrand(),product.getCategory().getId(),product.getCategory().getName())));
         return productDtos;
     }
     @Transactional

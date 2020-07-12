@@ -1,3 +1,16 @@
+package com.ecommerceApp.ecommerceApp.services;
+
+import com.ecommerceApp.ecommerceApp.entities.Users;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 //package com.ecommerceApp.ecommerceApp.services;
 //
 //import ch.qos.logback.core.status.Status;
@@ -13,8 +26,34 @@
 //import javax.management.Notification;
 //import java.util.Optional;
 //
-//@Service
-//public class newclass {
+@Service
+public class newclass {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+//    public CriteriaImpl(EntityManager entityManager) {
+//        this.entityManager = entityManager;
+//    }
+
+
+    //    @Override
+    public Users findById(Long id) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Users> criteriaQuery = criteriaBuilder.createQuery(Users.class);
+
+        Root<Users> userRoot = criteriaQuery.from(Users.class);
+        Predicate idPredicate = criteriaBuilder.equal(userRoot.get("id"), id);
+        System.out.println("id ......." + id);
+        criteriaQuery.where(idPredicate);
+
+        TypedQuery<Users> query = entityManager.createQuery(criteriaQuery);
+        System.out.println(query.getSingleResult().getId());
+
+        return query.getSingleResult();
+//        return Optional.empty();
+    }
+}
 //@Autowired
 //RabbitTemplate rabbitTemplate;
 //@Autowired
